@@ -9,18 +9,16 @@ import doLogin from "../utils/auth";
 import screenStyles from "../theme/screens_styles";
 
 
-export default function Login({ onLogin }) {
+export default function Login() {
 
     const [login, setLogin] = useState("");
     const [password, setPwd] = useState("");
 
     const onChangeLogin = (string) => {
-        console.log(string);
         setLogin(string);
     }
 
     const onChangePwd = (string) => {
-        console.log(string);
         setPwd(string);
     }
 
@@ -34,17 +32,9 @@ export default function Login({ onLogin }) {
         setLoginFail(false);
     }
 
-    const validateLogin = () => {
-        if( doLogin({ log: login, pwd: password } ) ){
-            console.log("returning to home ...");
-            onLoginSuccess(true);
-            onLogin({logged: true, login: login });
-        } else {
-            onLoginFail();
-        }
-        onChangeLogin("");
-        onChangePwd("");
-    };
+    const validateLogin = async () => {
+        
+    }
 
     return (
         <View style={ screenStyles.loginScreen }>

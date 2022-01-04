@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, StatusBar } from "react-native";
-import Login from "./Login";
-import Home from './Home';
+import { StyleSheet, View, Text } from "react-native";
+import { Login } from "./Login";
+import { Tabs } from './Tabs';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 export default function Main() {
 
-    const [login, setLogin] = useState(false);
-
-    const [user, setUser] = useState("");
-
-    const onChangeLogin = ({logged, login}) => {
-        setLogin(logged);
-        if( logged ) {
-            setUser(login);
-            console.log("user " + user + " logged in...");
-        } else 
-            setUser("");
-    }
 
 
     return (
-        <View style={styles.container}>
-            { !login && <Login onLogin={ onChangeLogin } /> }
-            { login && <Home user={user} onLogout={ onChangeLogin } /> }
-        </View>
+        <NavigationContainer>
+            <Stack.Navigator
+                screenOptions= {{
+                    headerShown: false
+                }}
+            >
+                <Stack.Screen name="Login" options={{headerShown: false}} component={Login} />
+                <Stack.Screen name="Tabs"  options={{headerShown: false}} component={Tabs} />
+            </Stack.Navigator>
+        </NavigationContainer>
+        //<View style={styles.container}>
+        //    { !login && <Login onLogin={ onChangeLogin } /> }
+        //    { login && <Home user={user} onLogout={ onChangeLogin } /> }
+        //</View>
     );
 }
 

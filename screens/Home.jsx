@@ -5,16 +5,14 @@ import WideButton from '../components/buttons/WideButton';
 
 import screenStyles from '../theme/screens_styles';
 
-export default function Home({ user, onLogout }) {
+export default function Home() {
 
     const logout = () => {
-        console.log("logging out...")
-        onLogout({ logged: false, login: ""});
     }
 
     return (
         <View style={ screenStyles.home }>
-            <Text style={ screenStyles.homeTitle }> Hello { user } ! </Text>
+            <Text style={ screenStyles.homeTitle }> Hello ! </Text>
             <View style={ screenStyles.homeLogout }>
                 <WideButton onPressButton={ () => { logout(); }} text="Logout" styleName="Close" />
             </View>
