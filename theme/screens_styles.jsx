@@ -65,6 +65,12 @@ const screenStyles = StyleSheet.create({
         marginRight: "10%",
         marginLeft: "10%",
         marginTop: "10%"
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor:'#ffffff',
     }
 });
 
