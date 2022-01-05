@@ -1,29 +1,48 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, StatusBar } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Text } from "react-native";
 import Login from "./Login";
-import Home from './Home';
+import { Tabs } from '../navigation/Tabs';
+
+import { getToken } from '../api/token';
+
+import { NavigationContainer, useNavigation, useNavigationContainerRef } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
 
 export default function Main() {
 
-    const [login, setLogin] = useState(false);
+    const navigationRef = useNavigationContainerRef();
 
-    const [user, setUser] = useState("");
+    const [initRoute, setInitRoute] = useState('');
 
-    const onChangeLogin = ({logged, login}) => {
-        setLogin(logged);
-        if( logged ) {
-            setUser(login);
-            console.log("user " + user + " logged in...");
-        } else 
-            setUser("");
-    }
-
+    useEffect(() => {
+        getToken().then((value) => {
+            if( value ){
+                navigationRef.navigate('Tabs');
+            }
+        })
+        .catch((e) => {
+            console.error(e);
+        });
+    });
 
     return (
-        <View style={styles.container}>
-            { !login && <Login onLogin={ onChangeLogin } /> }
-            { login && <Home user={user} onLogout={ onChangeLogin } /> }
-        </View>
+        <NavigationContainer ref={navigationRef}>
+            <Stack.Navigator
+                initialRouteName={initRoute}
+                screenOptions= {{
+                    headerShown: false
+                }}
+            >
+                <Stack.Screen name="Login" options={{headerShown: false}} component={Login} />
+                <Stack.Screen name="Tabs"  options={{headerShown: false}} component={Tabs} />
+            </Stack.Navigator>
+        </NavigationContainer>
+        //<View style={styles.container}>
+        //    { !login && <Login onLogin={ onChangeLogin } /> }
+        //    { login && <Home user={user} onLogout={ onChangeLogin } /> }
+        //</View>
     );
 }
 

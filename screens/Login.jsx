@@ -1,26 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 
 import InputSection from '../containers/InputSection';
 import WideButton from '../components/buttons/WideButton';
 
-import doLogin from "../utils/auth";
+import { doLogin } from "../utils/auth";
  
 import screenStyles from "../theme/screens_styles";
+import { useNavigation } from '@react-navigation/native';
+import { getToken } from '../api/token';
 
+export default function Login() {
 
-export default function Login({ onLogin }) {
+    const navigation = useNavigation();
+
+    //useEffect(() => {
+    //    getToken().then((value) => {
+    //        if( value ){
+    //            navigation.navigate('Tabs');
+    //        }
+    //    })
+    //    .catch((e) => {
+    //        console.error(e);
+    //    });
+    //});
 
     const [login, setLogin] = useState("");
     const [password, setPwd] = useState("");
 
     const onChangeLogin = (string) => {
-        console.log(string);
         setLogin(string);
     }
 
     const onChangePwd = (string) => {
-        console.log(string);
         setPwd(string);
     }
 
@@ -34,17 +46,20 @@ export default function Login({ onLogin }) {
         setLoginFail(false);
     }
 
-    const validateLogin = () => {
-        if( doLogin({ log: login, pwd: password } ) ){
-            console.log("returning to home ...");
-            onLoginSuccess(true);
-            onLogin({logged: true, login: login });
-        } else {
-            onLoginFail();
-        }
-        onChangeLogin("");
-        onChangePwd("");
-    };
+    const validateLogin = async () => {
+        doLogin({log:login, pwd: password})
+            .then((result) => {
+                if(result){
+                    onLoginSuccess();
+                    navigation.navigate('Tabs');
+                } else {
+                    onLoginFail();
+                }
+            })
+            .catch((e) => {
+                console.error(e);
+            })
+    }
 
     return (
         <View style={ screenStyles.loginScreen }>
