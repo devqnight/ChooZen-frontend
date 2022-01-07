@@ -1,59 +1,68 @@
-import { NavigationRouteContext, useNavigation } from '@react-navigation/native';
-import React, { useEffect,useState } from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
 import { Text, View } from "react-native";
 
 import screenStyles from '../theme/screens_styles';
 
-import { getUser, logOut } from '../utils/auth';
 import MovieListHeading from "../components/MovieListHeading";
 import SearchBox from "../components/SearchBox";
 import {ScrollView} from "react-native-gesture-handler";
 import MovieListe from "../components/MovieListe";
 
-
 export default function Home() {
-
-    const navigation = useNavigation();
-
-    const [login, setLogin] = useState('');
-
     const [movies, setMovies] = useState([]);
-    const [searchValue, setSearchValue] = useState('');
+    const [searchTimeout, setSearchTimeout] = useState();
 
-    const getMovieRequest = async (searchValue) => {
-        const url = `http://www.omdbapi.com/?s=${searchValue}&apikey=ba857656`;
+    useNavigation();
 
-        const response = await fetch(url);
-        const responseJson = await response.json();
+    const initialSearchXhr = new XMLHttpRequest();
 
-        if (responseJson.Search) {
-            setMovies(responseJson.Search);
+    initialSearchXhr.onload = () => {
+        const searchResult = JSON.parse(initialSearchXhr.response);
+        const newMovies = [];
+
+        for(const movie of searchResult.results) {
+            newMovies.push({
+                title: movie.title,
+                imageUrl: movie.image
+            });
         }
-    };
 
-    useEffect(() => {
-        getMovieRequest(searchValue);
-    }, [searchValue]);
+        setMovies(newMovies);
+    }
 
+    const [searchXhr, setSearchXhr] = useState(initialSearchXhr);
 
-    getUser().
-        then((result) => {
-            setLogin(result);
-        })
-        .catch((e) => {
-            console.error(e);
-        });
+    const onSearchValueChange = searchValue => {
+        clearTimeout(searchTimeout);
+        searchXhr.abort();
+
+        if(searchValue == "") {
+            setMovies([]);
+            return;
+        }
+
+        const timeout = setTimeout(sendSearchRequest, 500, searchValue);
+        setSearchTimeout(timeout);
+    }
+
+    const sendSearchRequest = searchValue => {
+        searchXhr.open("POST",
+                "https://bique.familyds.com:8001/api-choozen/search/", true);
+
+        const formData = new FormData();
+        formData.append("movie-title", searchValue);
+        searchXhr.send(formData);
+    }
 
     return (
         <View style={screenStyles.container}>
             <View style={screenStyles.homeTitle}>
                 <MovieListHeading heading='Movies' />
-                <SearchBox searchValue={searchValue} setSearchValue={setSearchValue} />
+                <SearchBox setSearchValue={onSearchValueChange} />
             </View>
             <ScrollView>
-                <MovieListe
-                    movies={movies}
-                />
+                <MovieListe movies={movies}/>
             </ScrollView>
         </View>
     );

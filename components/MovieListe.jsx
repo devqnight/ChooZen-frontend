@@ -7,10 +7,10 @@ const MovieListe = (props) => {
     return (
         <>
             {props.movies.map((movie, index) => (
-                <View style={styles.container}>
-                    <img src={movie.Poster} alt='movie'/>
+                <View key={index} style={styles.container}>
+                    <img src={movie.imageUrl} alt='movie'/>
                     <Text style={styles.title}>
-                        {movie.Title}
+                        {movie.title}
                     </Text>
 
                 </View>
