@@ -14,17 +14,6 @@ export default function Login() {
 
     const navigation = useNavigation();
 
-    //useEffect(() => {
-    //    getToken().then((value) => {
-    //        if( value ){
-    //            navigation.navigate('Tabs');
-    //        }
-    //    })
-    //    .catch((e) => {
-    //        console.error(e);
-    //    });
-    //});
-
     const [login, setLogin] = useState("");
     const [password, setPwd] = useState("");
 

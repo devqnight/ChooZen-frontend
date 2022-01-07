@@ -39,10 +39,6 @@ export default function Main() {
                 <Stack.Screen name="Tabs"  options={{headerShown: false}} component={Tabs} />
             </Stack.Navigator>
         </NavigationContainer>
-        //<View style={styles.container}>
-        //    { !login && <Login onLogin={ onChangeLogin } /> }
-        //    { login && <Home user={user} onLogout={ onChangeLogin } /> }
-        //</View>
     );
 }
 

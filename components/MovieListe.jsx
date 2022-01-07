@@ -5,8 +5,6 @@ import Text from "react-native-web/dist/vendor/react-native/Animated/components/
 
 const MovieListe = (props) => {
     return (
-        //<img src={movie.Poster} alt='movie'/>
-
         <>
             {props.movies.map((movie, index) => (
                 <View style={styles.container}>
