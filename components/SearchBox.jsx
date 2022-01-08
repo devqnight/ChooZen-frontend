@@ -1,16 +1,14 @@
 import React from 'react';
+import { TextInput, View } from 'react-native';
 
-const SearchBox = (props) => {
+export const SearchBox = (props) => {
     return (
-        <div className='col col-sm-4'>
-            <input
-                className='form-control'
+        <View>
+            <TextInput
                 value={props.value}
                 onChange={(event) => props.setSearchValue(event.target.value)}
                 placeholder='Type to search...'
             />
-        </div>
+        </View>
     );
 };
-
-export default SearchBox;

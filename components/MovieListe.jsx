@@ -1,25 +1,21 @@
 import React from 'react';
-import View from "react-native-web/dist/vendor/react-native/Animated/components/AnimatedView";
-import {StyleSheet} from "react-native";
-import Text from "react-native-web/dist/vendor/react-native/Animated/components/AnimatedText";
+import {StyleSheet, View, Text, ScrollView} from "react-native";
 
-const MovieListe = (props) => {
+export const MovieListe = (props) => {
     return (
-        <>
+        <ScrollView>
             {props.movies.map((movie, index) => (
                 <View key={index} style={styles.container}>
                     <img src={movie.imageUrl} alt='movie'/>
                     <Text style={styles.title}>
                         {movie.title}
                     </Text>
-
                 </View>
             ))}
-        </>
+        </ScrollView>
     );
 };
 
-export default MovieListe;
 
 const styles = StyleSheet.create({
     container: {

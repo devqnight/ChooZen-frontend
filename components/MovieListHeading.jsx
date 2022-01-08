@@ -1,11 +1,10 @@
 import React from 'react';
+import {View, Text} from 'react-native';
 
-const MovieListHeading = (props) => {
+export const MovieListHeading = (props) => {
     return (
-        <div className='col'>
-            <h1>{props.heading}</h1>
-        </div>
+        <View>
+            <Text>{props.heading}</Text>
+        </View>
     );
 };
-
-export default MovieListHeading;

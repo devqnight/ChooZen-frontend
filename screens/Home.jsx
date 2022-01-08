@@ -1,13 +1,13 @@
-import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import { Text, View } from "react-native";
 
+import {useNavigation} from '@react-navigation/native';
+
 import screenStyles from '../theme/screens_styles';
 
-import MovieListHeading from "../components/MovieListHeading";
-import SearchBox from "../components/SearchBox";
-import {ScrollView} from "react-native-gesture-handler";
-import MovieListe from "../components/MovieListe";
+import {MovieListHeading} from "../components/MovieListHeading";
+import {SearchBox} from "../components/SearchBox";
+import {MovieListe} from "../components/MovieListe";
 
 export default function Home() {
     const [movies, setMovies] = useState([]);
@@ -61,9 +61,7 @@ export default function Home() {
                 <MovieListHeading heading='Movies' />
                 <SearchBox setSearchValue={onSearchValueChange} />
             </View>
-            <ScrollView>
-                <MovieListe movies={movies}/>
-            </ScrollView>
+            <MovieListe movies={movies}/>
         </View>
     );
 }
