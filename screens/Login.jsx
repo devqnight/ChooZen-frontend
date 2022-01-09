@@ -50,6 +50,7 @@ export default function Login() {
             })
     }
 
+
     return (
         <View style={ screenStyles.loginScreen }>
             <View id="header" style={ screenStyles.loginHeader }>
@@ -61,9 +62,9 @@ export default function Login() {
             <View id="inputs" style={ screenStyles.loginInputs }>
                 <View id="textInputs" style={ screenStyles.loginInputsText }>
 
-                    <InputSection text={login} inputTitle="Login" placeHolder="login..." onChangeInput={ onChangeLogin } />
+                    <InputSection text={login} inputTitle="Login" placeHolder="login..." onChangeInput={ onChangeLogin } password={ false } />
                     
-                    <InputSection text={password} inputTitle="Password" placeHolder="password..." onChangeInput={ onChangePwd } />
+                    <InputSection text={password} inputTitle="Password" placeHolder="password..." onChangeInput={ onChangePwd } password={ true } />
 
                 </View>
 
@@ -74,6 +75,7 @@ export default function Login() {
                 </View>
                 { loginFailed && <Text> Error on login ... </Text> }
             </View>
+
         </View>
     );
 }

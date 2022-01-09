@@ -25,7 +25,7 @@ export const Tabs = () => {
                     } else if ( route.name === 'Profile' ){
                         iconName = focused ? "account-circle" : "account-circle-outline";
                     }
-                    return <Icons iconName={ iconName } color={ color } />
+                    return <Icons iconName={ iconName } color={ color } height={ 32 } />
                 },
                 tabBarActiveTintColor: "#FFF",
                 tabBarInactiveTintColor: "#f5c2ff",

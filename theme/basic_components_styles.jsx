@@ -41,6 +41,27 @@ const basicStyles = StyleSheet.create({
     textClose: {
         fontSize: 16,
         color: "white"
+    },
+    passwordInput: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        alignSelf: "stretch",
+        borderWidth: 1,
+        borderRadius: 4,
+        borderColor: "#e3e3e3",
+        justifyContent: "space-between",
+        marginBottom: "5%"
+    },
+    passwordInputIcon: {
+        //textAlign: 'center',
+        //textAlignVertical: 'center'
+    },
+    passwordInputTextInput: {
+        flex: 1,
+        alignSelf: 'stretch',
+        paddingHorizontal: (10),
+        marginRight: 10,
     }
 });
 
