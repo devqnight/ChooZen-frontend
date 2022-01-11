@@ -102,11 +102,6 @@ const screenStyles = StyleSheet.create({
         height: "100%",
         backgroundColor: "#fff",
     },
-    homeTitle: {
-        marginTop:150,
-        alignItems: "center",
-        textAlign: "center"
-    },
     homeLogout: {
         height:60,
         width: "80%",

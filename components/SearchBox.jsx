@@ -7,7 +7,7 @@ export const SearchBox = (props) => {
             <TextInput
                 value={props.value}
                 onChangeText={text => props.setSearchValue(text)}
-                placeholder='Type to search...'
+                placeholder='Movie Title…'
             />
         </View>
     );
