@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text } from "react-native";
-import Login from "./Login";
+import { StyleSheet } from "react-native";
 import { Tabs } from '../navigation/Tabs';
 
 import { getToken } from '../api/token';
 
 import { NavigationContainer, useNavigation, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AuthStack from '../navigation/AuthStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,7 +35,7 @@ export default function Main() {
                     headerShown: false
                 }}
             >
-                <Stack.Screen name="Login" options={{headerShown: false}} component={Login} />
+                <Stack.Screen name="AuthStack" options={{headerShown: false}} component={AuthStack} />
                 <Stack.Screen name="Tabs"  options={{headerShown: false}} component={Tabs} />
             </Stack.Navigator>
         </NavigationContainer>
