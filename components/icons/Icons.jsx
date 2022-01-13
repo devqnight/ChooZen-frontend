@@ -5,8 +5,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 const Icons = ({ iconName, color, height }) => {
 
     return (
-        <MaterialCommunityIcons 
-            //size={ 32 }
+        <MaterialCommunityIcons
             size={ height }
             name={ iconName }
             color={ color }

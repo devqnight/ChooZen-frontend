@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, ScrollView, Image} from "react-native";
 
 export const MovieListe = (props) => {
     return (
-        <ScrollView>
+        <ScrollView style={props.style}>
             {props.movies.map((movie, index) => (
                 <View key={index} style={styles.container}>
                     <Image style={styles.image} source={{uri: movie.imageUrl}} accessibilityLabel="movie"/>
@@ -19,9 +19,12 @@ export const MovieListe = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        width: 300,
+        width: "100%",
+        maxWidth: 300,
         padding: 50,
-        margin: 20,
+        margin: "auto",
+        marginTop: 10,
+        marginBottom: 10,
         borderRadius:10,
         backgroundColor:'white',
         borderWidth:2
@@ -30,7 +33,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        width: 200,
+        width: "100%",
         height: 300
     }
 });

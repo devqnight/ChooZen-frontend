@@ -70,10 +70,6 @@ const basicStyles = StyleSheet.create({
         justifyContent: "space-between",
         marginBottom: "5%"
     },
-    passwordInputIcon: {
-        //textAlign: 'center',
-        //textAlignVertical: 'center'
-    },
     passwordInputTextInput: {
         flex: 1,
         alignSelf: 'stretch',
