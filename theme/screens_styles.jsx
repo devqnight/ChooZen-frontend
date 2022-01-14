@@ -42,12 +42,13 @@ const screenStyles = StyleSheet.create({
     },
     loginInputsButtons: {
         display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-evenly",
+        flexDirection: "column",
+        justifyContent: "space-between",
         width: "90%",
         height: 50,
         marginLeft: "5%",
-        marginRight: "5%"
+        marginRight: "5%",
+        marginTop: 10
     },
     home: {
         width: "100%",

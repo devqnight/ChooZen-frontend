@@ -71,6 +71,7 @@ export default function Login() {
                 <View id="buttons" style={ screenStyles.loginInputsButtons }>
 
                     <WideButton onPressButton={ () => { validateLogin(); }} text="Login" styleName="Save" />
+                    <WideButton onPressButton={ () => { navigation.navigate('Registration'); }} text="Register" styleName="Cancel" />
 
                 </View>
                 { loginFailed && <Text> Error on login ... </Text> }
