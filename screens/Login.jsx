@@ -50,6 +50,9 @@ export default function Login() {
             })
     }
 
+    const goToRegister = () => {
+        navigation.navigate('Registration');
+    }
 
     return (
         <View style={ screenStyles.loginScreen }>
@@ -68,13 +71,17 @@ export default function Login() {
 
                 </View>
 
+                { loginFailed && <Text style={ screenStyles.loginErrorText }> Error on login ... </Text> }
+
                 <View id="buttons" style={ screenStyles.loginInputsButtons }>
-
-                    <WideButton onPressButton={ () => { validateLogin(); }} text="Login" styleName="Save" />
-                    <WideButton onPressButton={ () => { navigation.navigate('Registration'); }} text="Register" styleName="Cancel" />
-
+                    <View style={ screenStyles.loginInputsButton }>
+                        <WideButton onPressButton={ () => { validateLogin(); }} text="Login" styleName="Save" />
+                    </View>
+                    <View style={ screenStyles.loginInputsButton }>
+                        <WideButton onPressButton={ () => { goToRegister(); }} text="Register" styleName="" />
+                    </View>
+                    
                 </View>
-                { loginFailed && <Text> Error on login ... </Text> }
             </View>
 
         </View>

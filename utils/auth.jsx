@@ -16,6 +16,10 @@ export const doLogin = async ({ log, pwd }) => {
     return false;
 }
 
+export const createAcc = async (props) => {
+    //if(props)
+}
+
 export const getUser = async () => {
     try {
         const user = await AsyncStorage.getItem("@user");

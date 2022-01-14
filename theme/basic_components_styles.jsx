@@ -20,7 +20,6 @@ const basicStyles = StyleSheet.create({
         alignContent: "center",
         borderWidth: 0,
         borderRadius: 10,
-        backgroundColor: "yellow",
         height: "100%",
         width: "100%",
     },
@@ -30,7 +29,7 @@ const basicStyles = StyleSheet.create({
     },
     buttonSave: {
         backgroundColor: "orchid"
-    },  
+    }, 
     buttonClose: {
         backgroundColor: "red"
     },

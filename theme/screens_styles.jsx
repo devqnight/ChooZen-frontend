@@ -45,10 +45,31 @@ const screenStyles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "space-between",
         width: "90%",
+        //height: 50,
+        marginLeft: "5%",
+        marginRight: "5%",
+        marginTop: 10
+    },
+    loginInputsButton: {
+        height: 50,
+        marginTop: 10
+    },
+    loginErrorText: {
+        marginLeft: "10%",
+        color: "red"
+    },
+    registerInputsButtons: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "90%",
         height: 50,
         marginLeft: "5%",
         marginRight: "5%",
         marginTop: 10
+    },
+    registerInputsButton: {
+        width: "45%"
     },
     home: {
         width: "100%",

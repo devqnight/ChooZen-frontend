@@ -4,6 +4,8 @@ import { View, Text } from 'react-native';
 
 import InputSection from '../containers/InputSection';
 import WideButton from '../components/buttons/WideButton';
+
+import screenStyles from '../theme/screens_styles';
  
 export const Registration = (props) => {
 
@@ -26,14 +28,23 @@ export const Registration = (props) => {
     const onChangeConfirmPassword = (string) => {
         setConfirmPwd(string);
     }
+
+    const createAccount = () => {
+        console.log("creating account");
+        returnLogin();
+    }
+
+    const returnLogin = () => {
+        navigation.navigate("Login");
+    }
  
     return (
         <View>
-            <View id="header">
+            <View id="header" style={ screenStyles.loginHeader }>
                 <Text>Registration</Text>
             </View>
-            <View id="registration">
-                <View id="textInputs">
+            <View id="registration" style={ screenStyles.loginInputs }>
+                <View id="textInputs" style={ screenStyles.loginInputsText }>
                     <InputSection 
                         text={ email } 
                         inputTitle="Email" 
@@ -66,22 +77,24 @@ export const Registration = (props) => {
                         password={ true } 
                     />
                 </View>
-                <View id="buttons">
-                    <WideButton 
-                        onPressButton={ () => { console.log("creating account") } }
-                        text="Create account"
-                        styleName="save"
-                    />
-
-                    <WideButton 
-                        onPressButton={ () => { console.log("creating account") } }
-                        text="Cancel"
-                        styleName="close"
-                    />
+                <View id="buttons" style={ screenStyles.registerInputsButtons }>
+                    <View style={ screenStyles.registerInputsButton }>
+                        <WideButton 
+                            onPressButton={ () => { createAccount() } }
+                            text="Create"
+                            styleName="Save"
+                        />
+                    </View>
+                    
+                    <View style={ screenStyles.registerInputsButton }>
+                        <WideButton 
+                            onPressButton={ () => { returnLogin(); } }
+                            text="Cancel"
+                            styleName=""
+                        />
+                    </View>
+                    
                 </View>
-
-            </View>
-            <View>
 
             </View>
         </View>
