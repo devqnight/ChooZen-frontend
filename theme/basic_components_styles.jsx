@@ -75,6 +75,15 @@ const basicStyles = StyleSheet.create({
         alignSelf: 'stretch',
         paddingHorizontal: (10),
         marginRight: 10,
+    },
+    modalTextInput: {
+        fontSize: 18,
+        padding: 10,
+        backgroundColor: "#eeeeee",
+        borderRadius: 10,
+        maxWidth: 400,
+        width: "100%",
+        alignSelf: "center"
     }
 });
 

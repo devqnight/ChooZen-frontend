@@ -1,104 +1,54 @@
 import React, {useState} from 'react';
-import { Text, View, Modal, StyleSheet, Pressable, Image } from "react-native";
-
+import {Text, View, StyleSheet, Pressable, Image} from "react-native";
 import {useNavigation} from '@react-navigation/native';
 
-import {SearchBox} from "../components/SearchBox";
-import {MovieListe} from "../components/MovieListe";
+import MovieModal from "../components/MovieModal";
+import GroupModal from "../components/GroupModal";
 
 export default function Home() {
-    const [movies, setMovies] = useState([]);
-    const [searchTimeout, setSearchTimeout] = useState();
-    const [modalVisible, setModalVisible] = useState(false);
+    const [movieSearchModalVisible, setMovieSearchModalVisible] = useState(false);
+    const [groupSelectionModalVisible, setGroupSelectionModalVisible] = useState(false);
+    const [groupCreationModalVisible, setGroupCreationModalVisible] = useState(false);
 
     useNavigation();
 
-    const initialSearchXhr = new XMLHttpRequest();
-
-    initialSearchXhr.onload = () => {
-        const searchResult = JSON.parse(initialSearchXhr.response);
-        const newMovies = [];
-
-        for(const movie of searchResult.results) {
-            newMovies.push({
-                title: movie.title,
-                imageUrl: movie.image
-            });
-        }
-
-        setMovies(newMovies);
-    }
-
-    const [searchXhr, setSearchXhr] = useState(initialSearchXhr);
-
-    const onSearchValueChange = searchValue => {
-        clearTimeout(searchTimeout);
-        searchXhr.abort();
-
-        if(searchValue == "") {
-            setMovies([]);
-            return;
-        }
-
-        const timeout = setTimeout(sendSearchRequest, 500, searchValue);
-        setSearchTimeout(timeout);
-    }
-
-    const sendSearchRequest = searchValue => {
-        searchXhr.open("POST",
-                "https://bique.familyds.com:8001/api-choozen/search/", true);
-
-        const formData = new FormData();
-        formData.append("movie-title", searchValue);
-        searchXhr.send(formData);
-    }
-
     return (
         <View style={styles.mainView}>
-            <Pressable
-                style={[styles.floatingButton]}
-                onPress={() => setModalVisible(true)}
-            >
-                <Image
-                    style={styles.floatingButtonIcon}
+            <Text style={styles.firstGroupInvitation}>
+                You're not yet in a group?
+            </Text>
+            <Pressable style={styles.firstGroupInvitationButton} onPress={() => setGroupSelectionModalVisible(true)}>
+                <Text style={styles.firstGroupInvitationButtonText}>Join a group</Text>
+            </Pressable>
+            <Pressable style={styles.firstGroupInvitationButton} onPress={() => setGroupCreationModalVisible(true)}>
+                <Text style={styles.firstGroupInvitationButtonText}>Create a group</Text>
+            </Pressable>
+            <Pressable style={[styles.floatingButton]}
+                onPress={() => setMovieSearchModalVisible(true)}>
+
+                <Image style={styles.floatingButtonIcon}
                     source={require('../assets/plus.png')}/>
             </Pressable>
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(false);
-                }}
-            >
-                <View style={styles.modalView}>
-                    <SearchBox setSearchValue={onSearchValueChange} />
-                    <MovieListe style={styles.movieList} movies={movies}/>
-                    <View style={styles.modalButtons}>
-                        <Pressable
-                            style={[styles.modalButton, styles.modalLeftButton]}
-                            onPress={() => setModalVisible(false)}
-                        >
-                            <Text style={styles.modalButtonText}>Cancel</Text>
-                        </Pressable>
-                        <Pressable
-                            style={styles.modalButton}
-                            disabled
-                            onPress={() => setModalVisible(false)}
-                        >
-                            <Text style={styles.modalButtonText}>Add Movie</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </Modal>
+            <MovieModal visible={movieSearchModalVisible}
+                onRequestClose={() => setMovieSearchModalVisible(false)}/>
+            <GroupModal visible={groupSelectionModalVisible}
+                onRequestClose={() => setGroupSelectionModalVisible(false)}>
+
+                What's the group you want to join?
+            </GroupModal>
+            <GroupModal visible={groupCreationModalVisible}
+                onRequestClose={() => setGroupCreationModalVisible(false)}>
+
+                Give a name to your new group!
+            </GroupModal>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     mainView: {
-        width: "100%",
-        height: "100%"
+        flex: 1,
+        padding: 10
     },
     floatingButton: {
         width: 55,
@@ -115,35 +65,27 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30
     },
-    modalView: {
-        width: "100%",
-        height: "100%",
-        backgroundColor: "white",
-        padding: 10
-    },
-    movieList: {
-        flex: 1,
-        marginTop: 10
-    },
-    modalButtons: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 10
-    },
-    modalButton: {
-        borderRadius: 20,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "orchid",
-        flex: 1,
-        padding: 10
-    },
-    modalLeftButton: {
-        marginRight: 10
-    },
-    modalButtonText: {
-        color: "white",
+    firstGroupInvitation: {
         fontWeight: "bold",
-        textAlign: "center"
+        fontSize: 24,
+        textAlign: "center",
+        marginTop: 100,
+        marginLeft: 20,
+        marginRight: 20,
+        marginBottom: 20
+    },
+    firstGroupInvitationButton: {
+        padding: 10,
+        width: "100%",
+        maxWidth: 200,
+        marginTop: 20,
+        backgroundColor: "orchid",
+        borderRadius: 10,
+        alignSelf: "center"
+    },
+    firstGroupInvitationButtonText: {
+        textAlign: "center",
+        color: "white",
+        fontSize: 16
     }
 });
