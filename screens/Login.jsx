@@ -4,13 +4,20 @@ import { View, Text } from 'react-native';
 import InputSection from '../containers/InputSection';
 import WideButton from '../components/buttons/WideButton';
 
-import { doLogin } from "../utils/auth";
- 
+import { doLogin } from "../utils/deprecated/auth";
+import { signIn } from '../api/Authentication';
+
 import screenStyles from "../theme/screens_styles";
 import { useNavigation } from '@react-navigation/native';
-import { getToken } from '../api/token';
+import { getToken } from '../utils/deprecated/token';
+
+import { useContext } from "react"
+import { AuthContext } from "../api/AuthContext"
+
 
 export default function Login() {
+
+    const { auth, setAuth } = useContext(AuthContext);
 
     const navigation = useNavigation();
 
@@ -36,18 +43,36 @@ export default function Login() {
     }
 
     const validateLogin = async () => {
-        doLogin({log:login, pwd: password})
+        //doLogin({log:login, pwd: password})
+        //    .then((result) => {
+        //        if(result){
+        //            onLoginSuccess();
+//
+        //        } else {
+        //            onLoginFail();
+        //        }
+        //    })
+        //    .catch((e) => {
+        //        console.error(e);
+        //    })
+        signIn({email: login, password: password})
             .then((result) => {
-                if(result){
-                    onLoginSuccess();
-                    navigation.navigate('Tabs');
-                } else {
+                if(result) {
+                    const token = login;
+                    setAuth({
+                        token: token,
+                        user: login,
+                        isLoading: false
+                    });
+                }
+                if(!result){
                     onLoginFail();
                 }
             })
             .catch((e) => {
                 console.error(e);
-            })
+            });
+
     }
 
     const goToRegister = () => {
@@ -73,7 +98,9 @@ export default function Login() {
 
                 { loginFailed && <Text style={ screenStyles.loginErrorText }> Error on login ... </Text> }
 
-                <View id="buttons" style={ screenStyles.loginInputsButtons }>
+                
+            </View>
+            <View id="buttons" style={ screenStyles.loginInputsButtons }>
                     <View style={ screenStyles.loginInputsButton }>
                         <WideButton onPressButton={ () => { validateLogin(); }} text="Login" styleName="Save" />
                     </View>
@@ -81,9 +108,7 @@ export default function Login() {
                         <WideButton onPressButton={ () => { goToRegister(); }} text="Register" styleName="" />
                     </View>
                     
-                </View>
             </View>
-
         </View>
     );
 }

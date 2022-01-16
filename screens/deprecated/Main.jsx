@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from "react-native";
-import { Tabs } from '../navigation/Tabs';
+import { Tabs } from '../../navigation/Tabs';
 
 import { getToken } from '../api/token';
 
-import { NavigationContainer, useNavigation, useNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AuthStack from '../navigation/AuthStack';
+import AuthStack from '../../navigation/AuthStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,19 +26,21 @@ export default function Main() {
         });
     });
 
-    return (
-        <NavigationContainer ref={navigationRef}>
-            <Stack.Navigator
-                initialRouteName={initRoute}
-                screenOptions= {{
-                    headerShown: false
-                }}
-            >
-                <Stack.Screen name="AuthStack" options={{headerShown: false}} component={AuthStack} />
-                <Stack.Screen name="Tabs"  options={{headerShown: false}} component={Tabs} />
-            </Stack.Navigator>
-        </NavigationContainer>
-    );
+    
+
+
+
+    //return (
+    //    <Stack.Navigator
+    //        initialRouteName={initRoute}
+    //        screenOptions= {{
+    //            headerShown: false
+    //        }}
+    //    >
+    //        <Stack.Screen name="AuthStack" options={{headerShown: false}} component={AuthStack} />
+    //        <Stack.Screen name="Tabs"  options={{headerShown: false}} component={Tabs} />
+    //    </Stack.Navigator>
+    //);
 }
 
 const styles = StyleSheet.create({

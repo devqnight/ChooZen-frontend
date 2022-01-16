@@ -1,38 +1,24 @@
-import { NavigationRouteContext, useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import React, { useContext, useState } from 'react';
 import { Text, View } from "react-native";
+import { AuthContext } from '../api/AuthContext';
 
 import WideButton from '../components/buttons/WideButton';
 
 import screenStyles from '../theme/screens_styles';
 
-import { getUser, logOut } from '../utils/auth';
-
 export default function Profile() {
 
-    const navigation = useNavigation();
+    const { auth, setAuth } = useContext(AuthContext);
 
-    const [login, setLogin] = useState('');
-
-
-    getUser().
-        then((result) => {
-            setLogin(result);
-        })
-        .catch((e) => {
-            console.error(e);
-        });
+    const [login, setLogin] = useState(auth.user);
 
     const logout = () => {
-        logOut().
-            then((result) => {
-                if(result){
-                    navigation.navigate('Login');
-                }
-            })
-            .catch((e) => {
-                console.error(e);
-            });
+        setAuth({
+            token: null,
+            user: null,
+            isLoading: false
+        });
     }
 
     return (

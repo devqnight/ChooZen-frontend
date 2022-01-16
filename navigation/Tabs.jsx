@@ -11,10 +11,9 @@ export const Tabs = () => {
 
     return (
         <Tab.Navigator
-            tabBarOptions={{showLabel: false}}
+            //tabBarOptions={{showLabel: false}}
             screenOptions={{
                 tabBarStyle: tabBarStyles.bar,
-                tabBarShowLabel: false,
             },
             ({ route }) => ({
                 tabBarIcon: ({focused, color}) => {
@@ -30,7 +29,8 @@ export const Tabs = () => {
                 tabBarActiveTintColor: "#FFF",
                 tabBarInactiveTintColor: "#f5c2ff",
                 tabBarInactiveBackgroundColor: "orchid",
-                tabBarActiveBackgroundColor: "orchid"
+                tabBarActiveBackgroundColor: "orchid",
+                tabBarShowLabel: false
             })}
         >
             <Tab.Screen name="Home" options={{ headerShown: false }} component={Home} />

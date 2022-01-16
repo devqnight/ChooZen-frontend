@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { setToken, expireToken } from "../api/token";
+import { setToken, expireToken } from "./token";
 
 export const doLogin = async ({ log, pwd }) => {
     if (pwd === "password" && log === "admin" ){

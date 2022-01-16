@@ -4,8 +4,10 @@ import { View, Text } from 'react-native';
 
 import InputSection from '../containers/InputSection';
 import WideButton from '../components/buttons/WideButton';
+import DateSection from '../containers/DateSection';
 
 import screenStyles from '../theme/screens_styles';
+
  
 export const Registration = (props) => {
 
@@ -15,6 +17,7 @@ export const Registration = (props) => {
     const [password, setPwd] = useState("");
     const [confirmPassword, setConfirmPwd] = useState("");
     const [email, setEmail] = useState("");
+    const [birthdate, setBirthdate] = useState(new Date());
 
     const onChangeLogin = (string) => {
         setLogin(string);
@@ -29,6 +32,10 @@ export const Registration = (props) => {
         setConfirmPwd(string);
     }
 
+    const onChangeDate = (date) => {
+        setBirthdate(date);
+    }
+
     const createAccount = () => {
         console.log("creating account");
         returnLogin();
@@ -40,7 +47,7 @@ export const Registration = (props) => {
  
     return (
         <View>
-            <View id="header" style={ screenStyles.loginHeader }>
+            <View id="header" style={ screenStyles.registerHeader }>
                 <Text>Registration</Text>
             </View>
             <View id="registration" style={ screenStyles.loginInputs }>
@@ -76,8 +83,18 @@ export const Registration = (props) => {
                         onChangeInput={ onChangeConfirmPassword } 
                         password={ true } 
                     />
+
+                    <DateSection
+                        inputTitle="Birthdate" 
+                        date={birthdate} 
+                        onChangeDate={onChangeDate} 
+                    />
+                    
                 </View>
-                <View id="buttons" style={ screenStyles.registerInputsButtons }>
+                
+
+            </View>
+            <View id="buttons" style={ screenStyles.registerInputsButtons }>
                     <View style={ screenStyles.registerInputsButton }>
                         <WideButton 
                             onPressButton={ () => { createAccount() } }
@@ -95,8 +112,6 @@ export const Registration = (props) => {
                     </View>
                     
                 </View>
-
-            </View>
         </View>
     );
 };

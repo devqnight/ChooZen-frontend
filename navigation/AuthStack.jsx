@@ -6,7 +6,7 @@ import Login from '../screens/Login';
 
 const Stack = createNativeStackNavigator();
 
-export default function AuthStack(){
+export const AuthStack = () => {
 
     return (
         <Stack.Navigator>

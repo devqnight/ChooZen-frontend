@@ -58,6 +58,16 @@ const screenStyles = StyleSheet.create({
         marginLeft: "10%",
         color: "red"
     },
+    registerHeader: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-around",
+        flexDirection: "column",
+        textAlign: "center",
+        width: "100%",
+        height: 100,
+        marginTop: 50,
+    }, 
     registerInputsButtons: {
         display: "flex",
         flexDirection: "row",
