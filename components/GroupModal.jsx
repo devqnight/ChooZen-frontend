@@ -1,4 +1,4 @@
-import {Text, TextInput, StyleSheet} from "react-native";
+ import {Text, TextInput, StyleSheet} from "react-native";
 
 import FormModal from "./FormModal";
 import basicStyles from "../theme/basic_components_styles";

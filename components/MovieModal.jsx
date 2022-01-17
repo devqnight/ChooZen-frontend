@@ -1,15 +1,23 @@
-import {useState} from "react";
-import {View, Text, Image, ScrollView, TextInput, StyleSheet} from "react-native";
+import React, {useState} from "react";
+import {View, Text, Image, ScrollView, TextInput, StyleSheet, Pressable} from "react-native";
 
 import FormModal from "./FormModal";
 import basicStyles from "../theme/basic_components_styles";
+
+import MovieDetailModal from "../components/MovieDetailModal";
+import {useNavigation} from "@react-navigation/native";
 
 export default function(props) {
     const [movies, setMovies] = useState([]);
     const [searchTimeout, setSearchTimeout] = useState();
     const [wasVisible, setWasVisible] = useState(false);
+    const [movieDetailModalVisible, setMovieDetailModalVisible] = useState(false);
+
+    useNavigation();
 
     const initialSearchXhr = new XMLHttpRequest();
+
+    const { movie, displayDetailForFilm } = props
 
     initialSearchXhr.onload = () => {
         const searchResult = JSON.parse(initialSearchXhr.response);
@@ -17,8 +25,10 @@ export default function(props) {
 
         for(const movie of searchResult.results) {
             newMovies.push({
+                id: movie.id,
                 title: movie.title,
-                imageUrl: movie.image
+                imageUrl: movie.image,
+                description: movie.description
             });
         }
 
@@ -31,6 +41,7 @@ export default function(props) {
         clearTimeout(searchTimeout);
         searchXhr.abort();
     }
+
 
     const onSearchValueChange = searchValue => {
         abortSearch();
@@ -75,6 +86,7 @@ export default function(props) {
 
                 {movies.map((movie, index) => (
                     <View key={index} style={styles.movie}>
+                        <Pressable onPress={() => [setMovieDetailModalVisible(true),(movie.id)]}>
                         <Image style={styles.movieImage}
                             source={{uri: movie.imageUrl}}
                             accessibilityLabel="movie"/>
@@ -82,7 +94,18 @@ export default function(props) {
                         <Text style={styles.movieTitle}>
                             {movie.title}
                         </Text>
+                        <Text style={styles.movieTitle}>
+                            {movie.description}
+                        </Text>
+                        </Pressable>
+                        <MovieDetailModal visible={movieDetailModalVisible}
+                                          id={movie.id}
+                                          title={movie.title}
+                                          image={movie.imageUrl}
+                                          description={movie.description}
+                                    onRequestClose={() => setMovieDetailModalVisible(false)}/>
                     </View>
+
                 ))}
             </ScrollView>
         </FormModal>
