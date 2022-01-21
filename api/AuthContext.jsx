@@ -15,16 +15,6 @@ const AuthProvider = ({ children }) => {
         try {
             const authDataString = await AsyncStorage.getItem("auth");
             const authData = JSON.parse(authDataString || {});
-
-            //checkToken({ token: authData.token}).then((response) => {
-            //    console.log("---> token validated : "+ response);
-            //    setAuthState({
-            //        token: response,
-            //        user: authData.user,
-            //        isLoading: false
-            //    });
-            //    console.log(auth.isLoading);
-            //});
             
             const response = await checkToken({token: authData.token});
             if(response){

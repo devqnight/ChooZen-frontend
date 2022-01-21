@@ -4,12 +4,10 @@ import { View, Text } from 'react-native';
 import InputSection from '../containers/InputSection';
 import WideButton from '../components/buttons/WideButton';
 
-import { doLogin } from "../utils/deprecated/auth";
 import { signIn } from '../api/Authentication';
 
 import screenStyles from "../theme/screens_styles";
 import { useNavigation } from '@react-navigation/native';
-import { getToken } from '../utils/deprecated/token';
 
 import { useContext } from "react"
 import { AuthContext } from "../api/AuthContext"
@@ -43,36 +41,22 @@ export default function Login() {
     }
 
     const validateLogin = async () => {
-        //doLogin({log:login, pwd: password})
-        //    .then((result) => {
-        //        if(result){
-        //            onLoginSuccess();
-//
-        //        } else {
-        //            onLoginFail();
-        //        }
-        //    })
-        //    .catch((e) => {
-        //        console.error(e);
-        //    })
-        signIn({email: login, password: password})
-            .then((result) => {
-                if(result) {
-                    const token = login;
+        signIn({username: login, password: password})
+            .then(result => {
+                if(result !== undefined) {
+                    const token = result;
                     setAuth({
                         token: token,
                         user: login,
                         isLoading: false
                     });
-                }
-                if(!result){
+                } else {
                     onLoginFail();
                 }
             })
             .catch((e) => {
                 console.error(e);
             });
-
     }
 
     const goToRegister = () => {

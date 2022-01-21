@@ -30,7 +30,9 @@ const DateInput = (props) => {
 
     const changeDate = (event, date) => {
         closeDatePicker();
-        props.onChangeDate(date);
+        if(date){
+            props.onChangeDate(date);
+        }
     }
 
     return (

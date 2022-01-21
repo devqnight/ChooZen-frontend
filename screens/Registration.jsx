@@ -7,9 +7,15 @@ import WideButton from '../components/buttons/WideButton';
 import DateSection from '../containers/DateSection';
 
 import screenStyles from '../theme/screens_styles';
+import { signUp } from '../api/Authentication';
+import { formatDate } from '../utils/tools';
 
+import { useContext } from "react"
+import { AuthContext } from "../api/AuthContext"
  
 export const Registration = (props) => {
+
+    const { auth, setAuth } = useContext(AuthContext);
 
     const navigation = useNavigation();
 
@@ -36,9 +42,30 @@ export const Registration = (props) => {
         setBirthdate(date);
     }
 
-    const createAccount = () => {
+    const createAccount = async () => {
         console.log("creating account");
-        returnLogin();
+
+        await signUp({
+            email: email,
+            login: login,
+            password1: password,
+            password2: confirmPassword,
+            birthdate: formatDate(birthdate)
+        })
+        .then(result => {
+            if(result !== undefined) {
+                const token = result;
+                setAuth({
+                    token: token,
+                    user: login,
+                    isLoading: false
+                });
+            }
+            returnLogin();
+        })
+        .catch(e => {
+            console.error(e);
+        });
     }
 
     const returnLogin = () => {
