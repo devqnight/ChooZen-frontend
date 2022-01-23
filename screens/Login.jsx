@@ -11,11 +11,13 @@ import { useNavigation } from '@react-navigation/native';
 
 import { useContext } from "react"
 import { AuthContext } from "../api/AuthContext"
+import { NetworkContext } from '../api/NetworkContext';
 
 
 export default function Login() {
 
     const { auth, setAuth } = useContext(AuthContext);
+    const { network } = useContext(NetworkContext);
 
     const navigation = useNavigation();
 
@@ -41,10 +43,13 @@ export default function Login() {
     }
 
     const validateLogin = async () => {
+        //console.log("\n\nsigning in\n");
         signIn({username: login, password: password})
             .then(result => {
                 if(result !== undefined) {
+                    onLoginSuccess();
                     const token = result;
+                    //console.log("---> token : " + token + "\n");
                     setAuth({
                         token: token,
                         user: login,

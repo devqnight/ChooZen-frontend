@@ -12,10 +12,12 @@ import { formatDate } from '../utils/tools';
 
 import { useContext } from "react"
 import { AuthContext } from "../api/AuthContext"
+import { NetworkContext } from '../api/NetworkContext';
  
 export const Registration = (props) => {
 
     const { auth, setAuth } = useContext(AuthContext);
+    const { network } = useContext(NetworkContext);
 
     const navigation = useNavigation();
 
@@ -43,7 +45,7 @@ export const Registration = (props) => {
     }
 
     const createAccount = async () => {
-        console.log("creating account");
+        //console.log("\n\ncreating account\n");
 
         await signUp({
             email: email,
