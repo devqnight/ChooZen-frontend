@@ -30,6 +30,10 @@ const checkToken = async (props) => {
     const token = props.token;
     
     //TO-DO: check auth token validity
+    //const valid = await fetch()
+    //.then()
+    //.then()
+    //.catch();
 
     if(token !== null) return {token: token};
     return null;

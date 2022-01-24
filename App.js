@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useContext } from 'react';
+import { StatusBar } from 'react-native';
 import { AuthContext, AuthProvider } from './api/AuthContext';
 import { AuthStack } from './navigation/AuthStack';
 import { Tabs } from './navigation/Tabs';
@@ -33,6 +34,11 @@ function App() {
 export default () => {
   return (
     <AuthProvider>
+      <StatusBar 
+                animated={true}
+                backgroundColor="orchid"
+                //hidden={true}
+            />
       <App />
     </AuthProvider>
   );

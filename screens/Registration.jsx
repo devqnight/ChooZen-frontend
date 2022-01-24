@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, KeyboardAvoidingView, Text, ScrollView, Platform } from 'react-native';
 
 import InputSection from '../containers/InputSection';
 import WideButton from '../components/buttons/WideButton';
-import DateSection from '../containers/DateSection';
+
+import { IdentitySection } from '../containers/IdentitySection';
 
 import screenStyles from '../theme/screens_styles';
 import { signUp } from '../api/Authentication';
@@ -12,12 +13,10 @@ import { formatDate } from '../utils/tools';
 
 import { useContext } from "react"
 import { AuthContext } from "../api/AuthContext"
-import { NetworkContext } from '../api/NetworkContext';
  
 export const Registration = (props) => {
 
     const { auth, setAuth } = useContext(AuthContext);
-    const { network } = useContext(NetworkContext);
 
     const navigation = useNavigation();
 
@@ -26,6 +25,8 @@ export const Registration = (props) => {
     const [confirmPassword, setConfirmPwd] = useState("");
     const [email, setEmail] = useState("");
     const [birthdate, setBirthdate] = useState(new Date());
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
 
     const onChangeLogin = (string) => {
         setLogin(string);
@@ -44,10 +45,20 @@ export const Registration = (props) => {
         setBirthdate(date);
     }
 
+    const onChangeFirstname = (string) => {
+        setFirstname(string);
+    }
+
+    const onChangeLastname = (string) => {
+        setLastname(string);
+    }
+
     const createAccount = async () => {
         //console.log("\n\ncreating account\n");
 
         await signUp({
+            firstname: firstname,
+            lastname: lastname,
             email: email,
             login: login,
             password1: password,
@@ -75,12 +86,26 @@ export const Registration = (props) => {
     }
  
     return (
-        <View>
+        <KeyboardAvoidingView 
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={{ flex: 1 }}
+        >
             <View id="header" style={ screenStyles.registerHeader }>
-                <Text>Registration</Text>
+                <Text style={ { color: "#fff", fontSize: 22 } }>Registration</Text>
             </View>
-            <View id="registration" style={ screenStyles.loginInputs }>
+            <ScrollView id="registration" style={ [screenStyles.loginInputs, {height: "110%"}] }>
+                
                 <View id="textInputs" style={ screenStyles.loginInputsText }>
+
+                    <IdentitySection 
+                        firstname={ firstname }
+                        lastname={ lastname }
+                        birthdate={ birthdate }
+                        onChangeFirstname={ onChangeFirstname }
+                        onChangeLastname={ onChangeLastname }
+                        onChangeDate={ onChangeDate }
+                    />
+
                     <InputSection 
                         text={ email } 
                         inputTitle="Email" 
@@ -112,35 +137,26 @@ export const Registration = (props) => {
                         onChangeInput={ onChangeConfirmPassword } 
                         password={ true } 
                     />
-
-                    <DateSection
-                        inputTitle="Birthdate" 
-                        date={birthdate} 
-                        onChangeDate={onChangeDate} 
-                    />
                     
+                </View>
+            </ScrollView>
+            <View id="buttons" style={ screenStyles.registerInputsButtons }>
+                <View style={ screenStyles.registerInputsButton }>
+                    <WideButton 
+                        onPressButton={ () => { createAccount() } }
+                        text="Create"
+                        styleName="Save"
+                    />
                 </View>
                 
-
-            </View>
-            <View id="buttons" style={ screenStyles.registerInputsButtons }>
-                    <View style={ screenStyles.registerInputsButton }>
-                        <WideButton 
-                            onPressButton={ () => { createAccount() } }
-                            text="Create"
-                            styleName="Save"
-                        />
-                    </View>
-                    
-                    <View style={ screenStyles.registerInputsButton }>
-                        <WideButton 
-                            onPressButton={ () => { returnLogin(); } }
-                            text="Cancel"
-                            styleName=""
-                        />
-                    </View>
-                    
+                <View style={ screenStyles.registerInputsButton }>
+                    <WideButton 
+                        onPressButton={ () => { returnLogin(); } }
+                        text="Cancel"
+                        styleName=""
+                    />
                 </View>
-        </View>
+            </View>
+        </KeyboardAvoidingView>
     );
 };

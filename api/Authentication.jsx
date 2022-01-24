@@ -1,4 +1,3 @@
-import { focusProps } from "react-native-web/dist/cjs/modules/forwardedProps";
 import { getCSRF } from "./Tokens";
 
 const urlSignUp = "https://bique.familyds.com:8001/api-choozen-auth/registration/";

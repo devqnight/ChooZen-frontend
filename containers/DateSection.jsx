@@ -5,7 +5,7 @@ import { DateInput } from '../components/inputs/DateInput';
 
 import containerStyles from '../theme/container_styles';
 
-export default function InputSection({ inputTitle, date, onChangeDate }) {
+export default function DateSection({ inputTitle, date, onChangeDate }) {
 
     return (
         <View style={ containerStyles.inputSection }>

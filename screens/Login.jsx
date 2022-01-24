@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 
 import InputSection from '../containers/InputSection';
 import WideButton from '../components/buttons/WideButton';
@@ -69,7 +69,7 @@ export default function Login() {
     }
 
     return (
-        <View style={ screenStyles.loginScreen }>
+        <ScrollView style={ screenStyles.loginScreen }>
             <View id="header" style={ screenStyles.loginHeader }>
                 <Text id="loginAppTitle" style={ screenStyles.loginAppTitle }> ChooZen </Text>
 
@@ -98,6 +98,6 @@ export default function Login() {
                     </View>
                     
             </View>
-        </View>
+        </ScrollView>
     );
 }
