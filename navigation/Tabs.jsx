@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Icons from '../components/icons/Icons';
@@ -12,10 +11,9 @@ export const Tabs = () => {
 
     return (
         <Tab.Navigator
-            tabBarOptions={{showLabel: false}}
+            //tabBarOptions={{showLabel: false}}
             screenOptions={{
                 tabBarStyle: tabBarStyles.bar,
-                tabBarShowLabel: false,
             },
             ({ route }) => ({
                 tabBarIcon: ({focused, color}) => {
@@ -26,12 +24,13 @@ export const Tabs = () => {
                     } else if ( route.name === 'Profile' ){
                         iconName = focused ? "account-circle" : "account-circle-outline";
                     }
-                    return <Icons iconName={ iconName } color={ color } />
+                    return <Icons iconName={ iconName } color={ color } height={ 32 } />
                 },
                 tabBarActiveTintColor: "#FFF",
                 tabBarInactiveTintColor: "#f5c2ff",
                 tabBarInactiveBackgroundColor: "orchid",
-                tabBarActiveBackgroundColor: "orchid"
+                tabBarActiveBackgroundColor: "orchid",
+                tabBarShowLabel: false
             })}
         >
             <Tab.Screen name="Home" options={{ headerShown: false }} component={Home} />

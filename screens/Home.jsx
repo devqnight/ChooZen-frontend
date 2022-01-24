@@ -1,32 +1,67 @@
-import { NavigationRouteContext, useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { Text, View } from "react-native";
+
+import {useNavigation} from '@react-navigation/native';
 
 import screenStyles from '../theme/screens_styles';
 
-import { getUser, logOut } from '../utils/auth';
+import {MovieListHeading} from "../components/MovieListHeading";
+import {SearchBox} from "../components/SearchBox";
+import {MovieListe} from "../components/MovieListe";
 
 export default function Home() {
+    const [movies, setMovies] = useState([]);
+    const [searchTimeout, setSearchTimeout] = useState();
 
-    const navigation = useNavigation();
+    useNavigation();
 
-    const [login, setLogin] = useState('');
+    const initialSearchXhr = new XMLHttpRequest();
 
+    initialSearchXhr.onload = () => {
+        const searchResult = JSON.parse(initialSearchXhr.response);
+        const newMovies = [];
 
-    getUser().
-        then((result) => {
-            setLogin(result);
-        })
-        .catch((e) => {
-            console.error(e);
-        });
+        for(const movie of searchResult.results) {
+            newMovies.push({
+                title: movie.title,
+                imageUrl: movie.image
+            });
+        }
+
+        setMovies(newMovies);
+    }
+
+    const [searchXhr, setSearchXhr] = useState(initialSearchXhr);
+
+    const onSearchValueChange = searchValue => {
+        clearTimeout(searchTimeout);
+        searchXhr.abort();
+
+        if(searchValue == "") {
+            setMovies([]);
+            return;
+        }
+
+        const timeout = setTimeout(sendSearchRequest, 500, searchValue);
+        setSearchTimeout(timeout);
+    }
+
+    const sendSearchRequest = searchValue => {
+        searchXhr.open("POST",
+                "https://bique.familyds.com:8001/api-choozen/search/", true);
+
+        const formData = new FormData();
+        formData.append("movie-title", searchValue);
+        searchXhr.send(formData);
+    }
 
     return (
-        <View style={ screenStyles.home }>
-            <Text style={ screenStyles.homeTitle }> Hello { login } ! </Text>
-            <View style={ screenStyles.homeLogout }>
-                <Text>Movies : </Text>
+        <View style={screenStyles.container}>
+            <View style={screenStyles.homeTitle}>
+                <MovieListHeading heading='Movies' />
+                <SearchBox setSearchValue={onSearchValueChange} />
             </View>
+            <MovieListe movies={movies}/>
         </View>
     );
 }

@@ -18,8 +18,8 @@ export default function WideButton({ onPressButton, text, styleName, enabled }) 
             styleButton = basicStyles.buttonClose;
             styleText = basicStyles.textClose;
             break;
-    
         default:
+            //styleButton = 
             break;
     }
 
