@@ -13,11 +13,14 @@ export default function(props) {
     const [wasVisible, setWasVisible] = useState(false);
     const [movieDetailModalVisible, setMovieDetailModalVisible] = useState(false);
 
+    const [idFilm,setID] = useState();
+    const [title,setTitle] = useState();
+    const [image,setImage] = useState();
+    const [descri, setDescri] = useState();
+
     useNavigation();
 
     const initialSearchXhr = new XMLHttpRequest();
-
-    const { movie, displayDetailForFilm } = props
 
     initialSearchXhr.onload = () => {
         const searchResult = JSON.parse(initialSearchXhr.response);
@@ -83,10 +86,9 @@ export default function(props) {
                 style={basicStyles.modalTextInput}/>
             <ScrollView style={styles.list}
                 contentContainerStyle={styles.listContentContainer}>
-
                 {movies.map((movie, index) => (
                     <View key={index} style={styles.movie}>
-                        <Pressable onPress={() => [setMovieDetailModalVisible(true),(movie.id)]}>
+                        <Pressable onPress={() => [setMovieDetailModalVisible(true),setID(movie.id),setTitle(movie.title),setImage(movie.imageUrl),setDescri(movie.description)]}>
                         <Image style={styles.movieImage}
                             source={{uri: movie.imageUrl}}
                             accessibilityLabel="movie"/>
@@ -99,11 +101,12 @@ export default function(props) {
                         </Text>
                         </Pressable>
                         <MovieDetailModal visible={movieDetailModalVisible}
-                                          id={movie.id}
-                                          title={movie.title}
-                                          image={movie.imageUrl}
-                                          description={movie.description}
-                                    onRequestClose={() => setMovieDetailModalVisible(false)}/>
+                                          id={idFilm}
+                                          title={title}
+                                          image={image}
+                                          description={descri}
+
+                                          onRequestClose={() => setMovieDetailModalVisible(false)}/>
                     </View>
 
                 ))}
