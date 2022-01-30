@@ -2,39 +2,26 @@ import {View, Text, TextInput, StyleSheet, Image, ScrollView} from "react-native
 
 import FormModal from "./FormModal";
 import basicStyles from "../theme/basic_components_styles";
-import React, {useState} from "react"
-import {TouchableOpacity} from "react-native-web";
-
+import {useState} from "react"
 
 export default function (props) {
-    //console.log("MovieDetailModal : ")
-    //console.log(props)
-
     const StarEmpty = require("../assets/star-empty.png")
     const StarFilled = require("../assets/star-filled.png")
 
     const [userRating, setUserRating] = useState(null)
 
     const submitRating = (rating) => {
-        // ...
-    }
 
+    }
 
     return (
         <FormModal onRequestClose={props.onRequestClose}
                    visible={props.visible}
                    validateText="Add Movie">
             <ScrollView>
-
                 <Image style={styles.movieImage}
                        source={{uri: props.image}}
                        accessibilityLabel="movie"/>
-                <select>
-                    <option value="grapefruit">Groupe 1</option>
-                    <option value="lime">Groupe 2</option>
-                    <option selected value="coconut">Groupe 3</option>
-                    <option value="mango">Groupe 4</option>
-                </select>
                 <Text style={styles.movieTitle}>
                     {props.title}
                 </Text>
@@ -71,7 +58,7 @@ export default function (props) {
                     .fill()
                     .map((v, i) => {
                         return (
-                            <TouchableOpacity
+                            <View
                                 key={i}
                                 style={{
                                     padding: 10,
@@ -89,7 +76,7 @@ export default function (props) {
                                     }}
                                     source={userRating > i ? StarFilled : StarEmpty}
                                 />
-                            </TouchableOpacity>
+                            </View>
                         )
                     })}
                 </View>
@@ -117,14 +104,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: "#dddddd",
         borderWidth: 1
-
     },
     movieTitle: {
         textAlign: "center",
         fontWeight: "normal",
-        fontFamily: "Helvetica Neue, sans-serif",
         fontSize: 40,
-        fontStyle: "bold",
+        fontWeight: "bold",
         padding: 10,
     },
     labelDetail: {
@@ -135,16 +120,3 @@ const styles = StyleSheet.create({
         textDecorationLine: "underline"
     }
 });
-
-
-/*export default function(props) {
-    const [movies, setMovies] = useState([]);
-    const [wasVisible, setWasVisible] = useState(false);
-
-    const getMovieRequest = async (searchValue) => {
-        const url = `http://www.omdbapi.com/?i=tt0076759&apikey=ba857656`;
-
-        const response = await fetch(url);
-        const responseJson = await response.json();
-
-}*/

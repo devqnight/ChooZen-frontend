@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {View, Text, Image, ScrollView, TextInput, StyleSheet, Pressable} from "react-native";
 
 import FormModal from "./FormModal";
@@ -44,7 +44,6 @@ export default function(props) {
         clearTimeout(searchTimeout);
         searchXhr.abort();
     }
-
 
     const onSearchValueChange = searchValue => {
         abortSearch();
@@ -108,7 +107,6 @@ export default function(props) {
 
                                           onRequestClose={() => setMovieDetailModalVisible(false)}/>
                     </View>
-
                 ))}
             </ScrollView>
         </FormModal>
