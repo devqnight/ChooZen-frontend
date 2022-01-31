@@ -12,26 +12,29 @@ const AuthProvider = ({ children }) => {
     });
 
     const getAuthState = async () => {
-        const authDataString = await AsyncStorage.getItem("auth");
-        const authData = JSON.parse(authDataString || {});
-        await checkToken({token: authData.token, user: authData.user})
-        .then(response => {
-            if(response.authenticated){
-                setAuthState({
-                    token: authData.token,
-                    user: response.username,
-                    isLoading: false
-                });
-            } else {
-                throw new Error("token not validated");
-            }
-        }).catch(err => {
+        try{
+            const authDataString = await AsyncStorage.getItem("auth");
+            const authData = JSON.parse(authDataString || {});
+            await checkToken({token: authData.token, user: authData.user})
+            .then(response => {
+                if(response.authenticated){
+                    setAuthState({
+                        token: authData.token,
+                        user: response.username,
+                        isLoading: false
+                    });
+                } else {
+                    throw new Error("token not validated");
+                }
+            });
+        } catch(err){
             setAuthState({
                 token: null,
                 user: null,
                 isLoading: false
             });
-        });
+        }
+        
     };
 
     const setAuth = async (auth) => {

@@ -51,7 +51,6 @@ const checkToken = async (props) => {
       return handleError(response).json();
     })
     .catch(e=>{
-      console.error(e);
       return null;
     });
 }
