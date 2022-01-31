@@ -11,7 +11,7 @@ import {View, Modal, Text, Pressable, StyleSheet} from "react-native";
 export default function(props) {
     return (
         <Modal animationType="slide"
-            transparent="false"
+            transparent={false}
             visible={props.visible}
             onRequestClose={props.onRequestClose}>
 
