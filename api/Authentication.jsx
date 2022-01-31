@@ -4,10 +4,7 @@ const urlSignUp = "https://bique.familyds.com:8001/api-choozen-auth/registration
 const urlSignIn = "https://bique.familyds.com:8001/api-choozen-auth/login/";
 const urlSignOut = "https://bique.familyds.com:8001/api-choozen-auth/logout/";
 
-const handleError = (response) => {
-    if(!response.ok) throw Error("Error on request : " + response.status + "\n" + response.statusText);
-    return response;
-}
+import { handleError } from "../utils/tools";
 
 const signIn = async (props) => {
 
@@ -69,8 +66,6 @@ const signUp = async (props) => {
     form.append('password2', account.password2);
     form.append('birthdate', account.birthdate);
 
-    //console.log(" account csrf : " + csrf );
-
     return await fetch(
         urlSignUp,
         {
@@ -82,14 +77,6 @@ const signUp = async (props) => {
         }
     )
     .then(response => {
-        //if(response.status >= 400 && response.status < 600){
-        //    const text = response.text();
-        //    //console.log(text);
-        //    throw new Error("Bad response from server : " + response.status + " \n " + response.statusText);
-        //}
-        //if(!response.ok){
-        //    throw new Error("Network response was not ok");
-        //}
         return handleError(response).json();
     })
     .then(response => {
@@ -105,9 +92,6 @@ const signOut = async (props) => {
     const csrf = await getCSRF();
 
     const form = new FormData();
-
-    //console.log("---> token : " + token);
-    //console.log("---> csrf  : " + csrf);
 
     form.append("token", token);
 
@@ -125,14 +109,11 @@ const signOut = async (props) => {
         return handleError(response).json();
     })
     .then(response => {
-        //console.log("log out response : " + response.detail);
         return response;
     })
     .catch(err => {
         console.error(err);
     });
-
-    //return true;
 }
 
 

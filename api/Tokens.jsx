@@ -3,6 +3,8 @@
 const urlCSRF = "https://bique.familyds.com:8001/api-choozen/get_csrf/";
 const urlAuthToken = "https://bique.familyds.com:8001/api-choozen-auth/is_authenticated/";
 
+import { handleError } from "../utils/tools";
+
 //const [csrftoken, setToken] = useState("");
 
 const getCSRF = async () => {
@@ -28,15 +30,30 @@ const getCSRF = async () => {
 
 const checkToken = async (props) => {
     const token = props.token;
-    
-    //TO-DO: check auth token validity
-    //const valid = await fetch()
-    //.then()
-    //.then()
-    //.catch();
+    const user = props.user;
 
-    if(token !== null) return {token: token};
-    return null;
+    const form = new FormData();
+
+    form.append('username',user);
+    form.append('token', token);
+
+    const csrf = await getCSRF();
+    return await fetch(
+      urlAuthToken, {
+        method: 'POST',
+        headers:{
+          "X-CSRFToken": csrf
+        },
+        body: form
+      }
+    )
+    .then(response => {
+      return handleError(response).json();
+    })
+    .catch(e=>{
+      console.error(e);
+      return null;
+    });
 }
 
 export { getCSRF, checkToken };
