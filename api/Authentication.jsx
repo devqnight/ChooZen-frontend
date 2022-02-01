@@ -62,6 +62,8 @@ const signUp = async (props) => {
 
     form.append('username', account.login);
     form.append('email', account.email);
+    form.append('first_name', account.firstname);
+    form.append('last_name', account.lastname);
     form.append('password1', account.password1);
     form.append('password2', account.password2);
     form.append('birthdate', account.birthdate);
