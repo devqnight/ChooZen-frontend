@@ -32,7 +32,7 @@ const signIn = async (props) => {
             body: form
         }
     )
-    .then(response => {
+    .then( response => {
         //if(response.status >= 400 && response.status < 600){
         //    //console.log(response.statusText);
         //    const text = response.text();
@@ -42,14 +42,16 @@ const signIn = async (props) => {
         //if(!response.ok){
         //    throw new Error("Network response was not ok");
         //}
-
+        if(response.status === 400){
+            throw response.json().then((error) => {return error;}).catch(error => {return error});
+        }
         return handleError(response).json();
     })
     .then(response => {
         return response.key;
     })
-    .catch(e => {
-        console.error(e);
+    .catch(error => {
+        throw error;
     });
 };
 
@@ -79,13 +81,16 @@ const signUp = async (props) => {
         }
     )
     .then(response => {
+        if(response.status === 400){
+            throw response.json().then((error) => {return error;}).catch(error => {return error;});
+        }
         return handleError(response).json();
     })
     .then(response => {
         return response.key;
     })
-    .catch(e => {
-        console.error(e);
+    .catch(error => {
+        throw error;
     });
 }
 

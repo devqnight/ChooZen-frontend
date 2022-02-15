@@ -28,6 +28,24 @@ export const Registration = (props) => {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
 
+    const [errorEmail, setErrorEmail] = useState(false);
+    const [errorTextEmail, setErrorTextEmail] = useState("");
+
+    const [errorUsername, setErrorUsername] = useState(false);
+    const [errorTextUsername, setErrorTextUsername] = useState("");
+
+    const [errorPassword1, setErrorPassword1] = useState(false);
+    const [errorTextPassword1, setErrorTextPassword1] = useState("");
+
+    const [errorPassword2, setErrorPassword2] = useState(false);
+    const [errorTextPassword2, setErrorTextPassword2] = useState("");
+
+    const [generalError, setGeneralError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const [errorAge, setErrorAge] = useState(false);
+    const [errorTextAge, setErrorTextAge] = useState("");
+
     const onChangeLogin = (string) => {
         setLogin(string);
     }
@@ -53,32 +71,118 @@ export const Registration = (props) => {
         setLastname(string);
     }
 
+    const resetErrors = () => {
+        setGeneralError(false);
+        setErrorPassword1(false);
+        setErrorPassword2(false);
+        setErrorUsername(false);
+        setErrorEmail(false);
+    }
+
+    function getAge(birthDateString) {
+        var today = new Date();
+        var birthDate = new Date(birthDateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
+    const checkAge = () => {
+        return getAge(birthdate.toLocaleDateString()) >= 13;
+    }
+
     const createAccount = async () => {
         //console.log("\n\ncreating account\n");
-
-        await signUp({
-            firstname: firstname,
-            lastname: lastname,
-            email: email,
-            login: login,
-            password1: password,
-            password2: confirmPassword,
-            birthdate: formatDate(birthdate)
-        })
-        .then(result => {
-            if(result !== undefined) {
-                const token = result;
-                setAuth({
-                    token: token,
-                    user: login,
-                    isLoading: false
+        resetErrors();
+        if(checkAge())
+            await signUp({
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                login: login,
+                password1: password,
+                password2: confirmPassword,
+                birthdate: formatDate(birthdate)
+            })
+            .then(result => {
+                if(result !== undefined) {
+                    const token = result;
+                    setAuth({
+                        token: token,
+                        user: login,
+                        isLoading: false
+                    });
+                }
+                returnLogin();
+            })
+            .catch(e => {
+                e.then(error => {
+                    handleErrors(error);
+                })
+                .catch(error => {
+                    handleErrors(error);
                 });
-            }
-            returnLogin();
-        })
-        .catch(e => {
-            console.error(e);
-        });
+            });
+        handleErrorAge();
+    }
+
+    const handleErrors = (errors) => {
+        if(errors["email"])
+            handleErrorEmail(errors["email"]);
+        if(errors["username"])
+            handleErrorUsername(errors["username"]);
+        if(errors["password1"])
+            handleErrorPassword1(errors["password1"]);
+        if(errors["password2"])
+            handleErrorPassword2(errors["password2"]);
+        if(errors["non_field_errors"])
+            handleGeneralError(errors["non_field_errors"]);
+    };
+
+    const getStringFromList = (error) => {
+        let string = "";
+        for(let msg of error){
+            string = string + msg;
+        }
+        return string;
+    }
+
+    const handleErrorEmail = (error) => {
+        const errorMsg = getStringFromList(error);
+        setErrorTextEmail(errorMsg);
+        setErrorEmail(true);
+    }
+
+    const handleErrorUsername = (error) => {
+        const errorMsg = getStringFromList(error);
+        setErrorTextUsername(errorMsg);
+        setErrorUsername(true);
+    }
+
+    const handleErrorPassword1 = (error) => {
+        const errorMsg = getStringFromList(error);
+        setErrorTextPassword1(errorMsg);
+        setErrorPassword1(true);
+    }
+
+    const handleErrorPassword2 = (error) => {
+        const errorMsg = getStringFromList(error);
+        setErrorTextPassword2(errorMsg);
+        setErrorPassword2(true);
+    }
+
+    const handleGeneralError = (error) => {
+        const errorMsg = getStringFromList(error);
+        setErrorMessage(errorMsg);
+        setGeneralError(true);
+    }
+
+    const handleErrorAge = () => {
+        setErrorTextAge("You must be 13 years old at least to make an account");
+        setErrorAge(true);
     }
 
     const returnLogin = () => {
@@ -93,9 +197,10 @@ export const Registration = (props) => {
             <View id="header" style={ screenStyles.registerHeader }>
                 <Text style={ { color: "#fff", fontSize: 22 } }>Registration</Text>
             </View>
-            <ScrollView id="registration" style={ [screenStyles.loginInputs, {height: "110%"}] }>
+            <ScrollView id="registration" style={ [screenStyles.loginInputs, ] }
+                contentContainerStyle={{height: "200%", flexGrow: 1}}>
                 
-                <View id="textInputs" style={ screenStyles.loginInputsText }>
+                <View id="textInputs" style={ [screenStyles.loginInputsText] }>
 
                     <IdentitySection 
                         firstname={ firstname }
@@ -106,12 +211,16 @@ export const Registration = (props) => {
                         onChangeDate={ onChangeDate }
                     />
 
+                    {errorAge && <Text style={ screenStyles.loginErrorText }>{errorTextAge}</Text>}
+
                     <InputSection 
                         text={ email } 
                         inputTitle="Email" 
                         placeHolder="email..." 
                         onChangeInput={ onChangeEmail } 
                         password={ false } 
+                        error={ errorEmail }
+                        errorText={ errorTextEmail }
                     />
 
                     <InputSection 
@@ -120,6 +229,8 @@ export const Registration = (props) => {
                         placeHolder="login..." 
                         onChangeInput={ onChangeLogin } 
                         password={ false } 
+                        error={ errorUsername }
+                        errorText={ errorTextUsername }
                     />
 
                     <InputSection 
@@ -128,6 +239,8 @@ export const Registration = (props) => {
                         placeHolder="password..." 
                         onChangeInput={ onChangePassword } 
                         password={ true } 
+                        error={ errorPassword1 }
+                        errorText={ errorTextPassword1 }
                     />
 
                     <InputSection 
@@ -136,8 +249,10 @@ export const Registration = (props) => {
                         placeHolder="confirm password..." 
                         onChangeInput={ onChangeConfirmPassword } 
                         password={ true } 
+                        error={ errorPassword2 }
+                        errorText={ errorTextPassword2 }
                     />
-                    
+                    { generalError && <Text style={ screenStyles.loginErrorText }> {errorMessage} </Text> }
                 </View>
             </ScrollView>
             <View id="buttons" style={ screenStyles.registerInputsButtons }>

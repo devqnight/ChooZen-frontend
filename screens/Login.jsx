@@ -24,6 +24,13 @@ export default function Login() {
     const [login, setLogin] = useState("");
     const [password, setPwd] = useState("");
 
+    const [errorLogin, setErrorLogin] = useState(false);
+    const [errorPass, setErrorPass] = useState(false);
+
+    const [errorTextLogin, setErrorTextLogin] = useState("");
+    const [errorTextPass, setErrorTextPass] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
     const onChangeLogin = (string) => {
         setLogin(string);
     }
@@ -42,26 +49,51 @@ export default function Login() {
         setLoginFail(false);
     }
 
+    const checkInputs = () => {
+        if(!login){
+            setErrorLogin(true);
+            setErrorTextLogin("Login is empty !");
+        }
+        if(!password){
+            setErrorPass(true);
+            setErrorTextPass("Password is empty !");
+        }
+        return !(errorLogin || errorPass);
+    }
+
+    const resetErrors = () => {
+        setErrorLogin(false);
+        setErrorTextLogin("");
+        setErrorPass(false);
+        setErrorTextPass("");
+    }
+
     const validateLogin = async () => {
-        //console.log("\n\nsigning in\n");
+        resetErrors();
         signIn({username: login, password: password})
-            .then(result => {
-                if(result !== undefined) {
-                    onLoginSuccess();
-                    const token = result;
-                    //console.log("---> token : " + token + "\n");
-                    setAuth({
-                        token: token,
-                        user: login,
-                        isLoading: false
-                    });
-                } else {
+        .then(result => {
+            if(result !== undefined) {
+                onLoginSuccess();
+                const token = result;
+                setAuth({
+                    token: token,
+                    user: login,
+                    isLoading: false
+                });
+            }
+        })
+        .catch(e => {
+            e.then(error => {
+                if(error["password"]){
+                    setErrorTextPass(error["password"][0]);
+                    setErrorPass(true);
+                } else{
+                    setErrorMessage(error.non_field_errors[0]);
                     onLoginFail();
                 }
             })
-            .catch((e) => {
-                console.error(e);
-            });
+        });
+        
     }
 
     const goToRegister = () => {
@@ -79,13 +111,13 @@ export default function Login() {
             <View id="inputs" style={ screenStyles.loginInputs }>
                 <View id="textInputs" style={ screenStyles.loginInputsText }>
 
-                    <InputSection text={login} inputTitle="Login" placeHolder="login..." onChangeInput={ onChangeLogin } password={ false } />
+                    <InputSection text={login} inputTitle="Login" placeHolder="login..." onChangeInput={ onChangeLogin } password={ false } error={ errorLogin } errorText={ errorTextLogin }/>
                     
-                    <InputSection text={password} inputTitle="Password" placeHolder="password..." onChangeInput={ onChangePwd } password={ true } />
+                    <InputSection text={password} inputTitle="Password" placeHolder="password..." onChangeInput={ onChangePwd } password={ true } error={ errorPass } errorText={ errorTextPass }/>
 
                 </View>
 
-                { loginFailed && <Text style={ screenStyles.loginErrorText }> Error on login ... </Text> }
+                { loginFailed && <Text style={ screenStyles.loginErrorText }> {errorMessage} </Text> }
 
                 
             </View>

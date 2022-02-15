@@ -6,7 +6,7 @@ import { PasswordInput } from '../components/inputs/PasswordInput';
 
 import containerStyles from '../theme/container_styles';
 
-export default function InputSection({ width, text, inputTitle, placeHolder, onChangeInput, password }) {
+export default function InputSection({ width, text, inputTitle, placeHolder, onChangeInput, password, error, errorText }) {
 
     var viewStyle = {};
 
@@ -26,7 +26,7 @@ export default function InputSection({ width, text, inputTitle, placeHolder, onC
             {password &&
                 <PasswordInput height={45} placeHolder={ placeHolder } onChangeInput={ onChangeInput } value={""} />
             }
-
+            {error && <Text style={{color: "red"}}>{errorText}</Text>}
         </View>
     );
 }
