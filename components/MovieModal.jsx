@@ -100,12 +100,12 @@ export default function(props) {
                         <Text style={styles.movieTitle}>
                             {movie.description}
                         </Text>
-                        <MovieDetailModal visible={movieDetailModalVisible}
-                            movie={focusedMovie}
-                            onRequestClose={() => setMovieDetailModalVisible(false)}/>
                     </Pressable>
                 ))}
             </ScrollView>
+            <MovieDetailModal visible={movieDetailModalVisible}
+                movie={focusedMovie}
+                onRequestClose={() => setMovieDetailModalVisible(false)}/>
         </FormModal>
     );
 }
