@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {Text, Image, ScrollView, TextInput, StyleSheet, Pressable} from "react-native";
+import {View, Text, Image, ScrollView, TextInput, StyleSheet, Pressable} from "react-native";
 
 import FormModal from "./FormModal";
 import basicStyles from "../theme/basic_components_styles";
@@ -94,12 +94,14 @@ export default function(props) {
                             source={{uri: movie.imageUrl}}
                             accessibilityLabel="movie"/>
 
-                        <Text style={styles.movieTitle}>
-                            {movie.title}
-                        </Text>
-                        <Text style={styles.movieTitle}>
-                            {movie.description}
-                        </Text>
+                        <View style={styles.movieSide}>
+                            <Text style={[styles.movieTitle]}>
+                                {movie.title}
+                            </Text>
+                            <Text style={styles.movieDescription}>
+                                {movie.description}
+                            </Text>
+                        </View>
                     </Pressable>
                 ))}
             </ScrollView>
@@ -119,20 +121,28 @@ const styles = StyleSheet.create({
     },
     movie: {
         width: "100%",
-        maxWidth: 200,
+        maxWidth: 800,
         padding: 10,
         marginBottom: 10,
         borderRadius: 10,
         borderColor: "#dddddd",
-        borderWidth: 1
+        borderWidth: 1,
+        flexDirection: "row",
+        alignItems: "center"
     },
     movieImage: {
-        width: "100%",
-        height: 300,
-        marginBottom: 10
+        width: 60,
+        height: 90,
+        marginEnd: 10
+    },
+    movieSide: {
+        flex: 1
     },
     movieTitle: {
-        textAlign: "center",
-        fontSize: 16
+        fontSize: 18,
+        marginBottom: 5
+    },
+    movieDescription: {
+        fontSize: 14
     }
 });
