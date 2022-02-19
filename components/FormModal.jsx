@@ -1,11 +1,15 @@
 import {View, Modal, Text, StyleSheet} from "react-native";
 
-/* ce composant est un modal avec juste 2 boutons "cancel" et "valider" en bas
+/* Ce composant est un modal avec juste 2 boutons "cancel" et "valider" en bas.
+ * Si la propriété "onValidate" n'est pas renseignée, seul le bouton "cancel"
+ * s'affiche.
  *
  * propriétés :
  *   onRequestClose : identique au composant natif Modal
  *   visible : identique au composant natif Modal
  *   validateText : texte à afficher dans le bouton de validation
+ *   onValidate : callback appelé quand l'utilisateur clique sur le bouton
+ *                de validation
  */
 
 export default function(props) {
@@ -21,14 +25,19 @@ export default function(props) {
                 </View>
                 <View style={styles.bottomButtons}>
                     <Text
-                        style={[styles.bottomButton, styles.bottomLeftButton]}
+                        style={styles.bottomButton}
                         onPress={props.onRequestClose}>
 
                         Cancel
                     </Text>
-                    <Text style={styles.bottomButton}>
-                        {props.validateText}
-                    </Text>
+
+                    { props.onValidate !== undefined &&
+                        <Text style={[styles.bottomButton, styles.bottomRightButton]}
+                            onPress={props.onValidate}>
+
+                            {props.validateText}
+                        </Text>
+                    }
                 </View>
             </View>
         </Modal>
@@ -58,7 +67,7 @@ const styles = StyleSheet.create({
         color: "white",
         textAlign: "center"
     },
-    bottomLeftButton: {
-        marginRight: 10
+    bottomRightButton: {
+        marginStart: 10
     }
 })
