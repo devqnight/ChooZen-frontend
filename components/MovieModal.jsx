@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {View, Text, Image, ScrollView, TextInput, StyleSheet, Pressable} from "react-native";
+import {Text, Image, ScrollView, TextInput, StyleSheet, Pressable} from "react-native";
 
 import FormModal from "./FormModal";
 import basicStyles from "../theme/basic_components_styles";
@@ -12,11 +12,7 @@ export default function(props) {
     const [searchTimeout, setSearchTimeout] = useState();
     const [wasVisible, setWasVisible] = useState(false);
     const [movieDetailModalVisible, setMovieDetailModalVisible] = useState(false);
-
-    const [idFilm,setID] = useState();
-    const [title,setTitle] = useState();
-    const [image,setImage] = useState();
-    const [descri, setDescri] = useState();
+    const [focusedMovie, setFocusedMovie] = useState({});
 
     useNavigation();
 
@@ -74,6 +70,11 @@ export default function(props) {
         abortSearch();
     }
 
+    const onMovieSelected = movie => {
+        setMovieDetailModalVisible(true);
+        setFocusedMovie(movie);
+    }
+
     return (
         <FormModal visible={props.visible}
             onRequestClose={props.onRequestClose}
@@ -86,8 +87,9 @@ export default function(props) {
             <ScrollView style={styles.list}
                 contentContainerStyle={styles.listContentContainer}>
                 {movies.map((movie, index) => (
-                    <View key={index} style={styles.movie}>
-                        <Pressable onPress={() => [setMovieDetailModalVisible(true),setID(movie.id),setTitle(movie.title),setImage(movie.imageUrl),setDescri(movie.description)]}>
+                    <Pressable key={index} style={styles.movie}
+                        onPress={() => onMovieSelected(movie)}>
+
                         <Image style={styles.movieImage}
                             source={{uri: movie.imageUrl}}
                             accessibilityLabel="movie"/>
@@ -98,15 +100,10 @@ export default function(props) {
                         <Text style={styles.movieTitle}>
                             {movie.description}
                         </Text>
-                        </Pressable>
                         <MovieDetailModal visible={movieDetailModalVisible}
-                                          id={idFilm}
-                                          title={title}
-                                          image={image}
-                                          description={descri}
-
-                                          onRequestClose={() => setMovieDetailModalVisible(false)}/>
-                    </View>
+                            movie={focusedMovie}
+                            onRequestClose={() => setMovieDetailModalVisible(false)}/>
+                    </Pressable>
                 ))}
             </ScrollView>
         </FormModal>

@@ -17,12 +17,16 @@ export default function Home() {
             <Text style={styles.firstGroupInvitation}>
                 You're not yet in a group?
             </Text>
-            <Pressable style={styles.firstGroupInvitationButton} onPress={() => setGroupSelectionModalVisible(true)}>
-                <Text style={styles.firstGroupInvitationButtonText}>Join a group</Text>
-            </Pressable>
-            <Pressable style={styles.firstGroupInvitationButton} onPress={() => setGroupCreationModalVisible(true)}>
-                <Text style={styles.firstGroupInvitationButtonText}>Create a group</Text>
-            </Pressable>
+            <Text style={styles.firstGroupInvitationButton}
+                onPress={() => setGroupSelectionModalVisible(true)}>
+
+                Join a group
+            </Text>
+            <Text style={styles.firstGroupInvitationButton}
+                onPress={() => setGroupCreationModalVisible(true)}>
+
+                Create a group
+            </Text>
             <Pressable style={[styles.floatingButton]}
                 onPress={() => setMovieSearchModalVisible(true)}>
 
@@ -81,9 +85,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         backgroundColor: "orchid",
         borderRadius: 10,
-        alignSelf: "center"
-    },
-    firstGroupInvitationButtonText: {
+        alignSelf: "center",
         textAlign: "center",
         color: "white",
         fontSize: 16

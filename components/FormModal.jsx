@@ -1,4 +1,4 @@
-import {View, Modal, Text, Pressable, StyleSheet} from "react-native";
+import {View, Modal, Text, StyleSheet} from "react-native";
 
 /* ce composant est un modal avec juste 2 boutons "cancel" et "valider" en bas
  *
@@ -20,17 +20,15 @@ export default function(props) {
                     {props.children}
                 </View>
                 <View style={styles.bottomButtons}>
-                    <Pressable
+                    <Text
                         style={[styles.bottomButton, styles.bottomLeftButton]}
                         onPress={props.onRequestClose}>
 
-                        <Text style={styles.bottomButtonText}>Cancel</Text>
-                    </Pressable>
-                    <Pressable style={styles.bottomButton}>
-                        <Text style={styles.bottomButtonText}>
-                            {props.validateText}
-                        </Text>
-                    </Pressable>
+                        Cancel
+                    </Text>
+                    <Text style={styles.bottomButton}>
+                        {props.validateText}
+                    </Text>
                 </View>
             </View>
         </Modal>
@@ -56,13 +54,11 @@ const styles = StyleSheet.create({
         backgroundColor: "orchid",
         flex: 1,
         padding: 10,
-        maxWidth: 200
+        maxWidth: 200,
+        color: "white",
+        textAlign: "center"
     },
     bottomLeftButton: {
         marginRight: 10
-    },
-    bottomButtonText: {
-        color: "white",
-        textAlign: "center"
     }
 })

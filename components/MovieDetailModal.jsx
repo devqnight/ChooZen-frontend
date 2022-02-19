@@ -20,10 +20,10 @@ export default function (props) {
                    validateText="Add Movie">
             <ScrollView>
                 <Image style={styles.movieImage}
-                       source={{uri: props.image}}
+                       source={{uri: props.movie.imageUrl}}
                        accessibilityLabel="movie"/>
                 <Text style={styles.movieTitle}>
-                    {props.title}
+                    {props.movie.title}
                 </Text>
                 <Text>
                     <Text style={styles.labelDetail}>
@@ -45,7 +45,7 @@ export default function (props) {
                     <Text style={styles.labelDetail}>
                         Genres :
                     </Text>
-                    {props.description}
+                    {props.movie.description}
                 </Text>
                 <Text style={styles.catchText}>{props.children}</Text>
                 <TextInput style={basicStyles.modalTextInput} placeholder="Thoughts of the creator ...."/>
