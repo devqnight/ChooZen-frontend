@@ -1,10 +1,10 @@
 import {useState} from "react";
 import {View, Text, Image, ScrollView, TextInput, StyleSheet, Pressable} from "react-native";
 
-import FormModal from "./FormModal";
+import CancelConfirmModal from "./CancelConfirmModal";
 import basicStyles from "../theme/basic_components_styles";
 
-import MovieDetailModal from "../components/MovieDetailModal";
+import MovieSearchDetailModal from "./MovieSearchDetailModal";
 import {useNavigation} from "@react-navigation/native";
 
 export default function(props) {
@@ -81,7 +81,7 @@ export default function(props) {
     }
 
     return (
-        <FormModal visible={props.visible}
+        <CancelConfirmModal visible={props.visible}
             onRequestClose={props.onRequestClose}>
 
             <TextInput
@@ -109,11 +109,11 @@ export default function(props) {
                     </Pressable>
                 ))}
             </ScrollView>
-            <MovieDetailModal visible={movieDetailModalVisible}
+            <MovieSearchDetailModal visible={movieDetailModalVisible}
                 movie={focusedMovie}
                 onRequestClose={() => setMovieDetailModalVisible(false)}
                 onMovieChosen={onMovieChosen}/>
-        </FormModal>
+        </CancelConfirmModal>
     );
 }
 

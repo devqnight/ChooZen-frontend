@@ -1,6 +1,6 @@
 import {View, Text, TextInput, StyleSheet, Image, ScrollView} from "react-native";
 
-import FormModal from "./FormModal";
+import CancelConfirmModal from "./CancelConfirmModal";
 import basicStyles from "../theme/basic_components_styles";
 import {useState} from "react"
 
@@ -15,7 +15,7 @@ export default function (props) {
     }
 
     return (
-        <FormModal onRequestClose={props.onRequestClose}
+        <CancelConfirmModal onRequestClose={props.onRequestClose}
                    visible={props.visible}
                    validateText="Add Movie"
                    onValidate={props.onMovieChosen}>
@@ -82,7 +82,7 @@ export default function (props) {
                     })}
                 </View>
             </ScrollView>
-        </FormModal>
+        </CancelConfirmModal>
     )
 }
 

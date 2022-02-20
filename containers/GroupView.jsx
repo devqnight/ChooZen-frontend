@@ -2,7 +2,7 @@ import {useState} from "react";
 import {Text, Pressable, Image, StyleSheet} from "react-native";
 
 import GroupsExplorer from "../containers/GroupsExplorer";
-import MovieModal from "../components/MovieModal";
+import MovieSearchModal from "../containers/MovieSearchModal";
 
 export default function(props) {
     const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
@@ -41,7 +41,7 @@ export default function(props) {
                 visible={groupsExplorerVisible}
                 onRequestClose={() => setGroupsExplorerVisible(false)}
                 onGroupSelected={onGroupSelected}/>
-            <MovieModal visible={movieSearchModalVisible}
+            <MovieSearchModal visible={movieSearchModalVisible}
                 onRequestClose={() => setMovieSearchModalVisible(false)}
                 onMovieChosen={onMovieChosen}/>
         </>

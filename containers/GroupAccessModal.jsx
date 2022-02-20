@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {Text, TextInput, StyleSheet} from "react-native";
 
-import FormModal from "./FormModal";
+import CancelConfirmModal from "./CancelConfirmModal";
 import basicStyles from "../theme/basic_components_styles";
 
 export default function(props) {
@@ -12,7 +12,7 @@ export default function(props) {
     }
 
     return (
-        <FormModal onRequestClose={props.onRequestClose}
+        <CancelConfirmModal onRequestClose={props.onRequestClose}
             visible={props.visible}
             validateText="Confirm"
             onValidate={onValidate}>
@@ -22,7 +22,7 @@ export default function(props) {
                 style={basicStyles.modalTextInput}
                 placeholder="Group name"
                 onChangeText={setGroupName}/>
-        </FormModal>
+        </CancelConfirmModal>
     )
 }
 

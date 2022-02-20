@@ -1,8 +1,6 @@
-import React, {useState} from 'react';
-import {Text, View, StyleSheet, Pressable, Image} from "react-native";
+import {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import MovieModal from "../components/MovieModal";
 import GroupInvitation from "../containers/GroupInvitation";
 import GroupView from "../containers/GroupView";
 

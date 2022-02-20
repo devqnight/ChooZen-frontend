@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {View, Text, StyleSheet} from "react-native";
 
-import GroupModal from "../components/GroupModal";
+import GroupAccessModal from "./GroupAccessModal";
 
 export default function(props) {
     const [groupSelectionModalVisible, setGroupSelectionModalVisible] = useState(false);
@@ -22,18 +22,18 @@ export default function(props) {
 
                 Create a group
             </Text>
-            <GroupModal visible={groupSelectionModalVisible}
+            <GroupAccessModal visible={groupSelectionModalVisible}
                 onRequestClose={() => setGroupSelectionModalVisible(false)}
                 onValidate={props.onNewGroup}>
 
                 What's the group you want to join?
-            </GroupModal>
-            <GroupModal visible={groupCreationModalVisible}
+            </GroupAccessModal>
+            <GroupAccessModal visible={groupCreationModalVisible}
                 onRequestClose={() => setGroupCreationModalVisible(false)}
                 onValidate={props.onNewGroup}>
 
                 Give a name to your new group!
-            </GroupModal>
+            </GroupAccessModal>
         </View>
     )
 }

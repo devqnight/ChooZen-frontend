@@ -1,10 +1,10 @@
 import {Text, ScrollView, StyleSheet} from "react-native";
 
-import FormModal from "../components/FormModal";
+import CancelConfirmModal from "./CancelConfirmModal";
 
 export default function(props) {
     return (
-        <FormModal
+        <CancelConfirmModal
             visible={props.visible}
             onRequestClose={props.onRequestClose}>
 
@@ -21,7 +21,7 @@ export default function(props) {
                     </Text>
                 ))}
             </ScrollView>
-        </FormModal>
+        </CancelConfirmModal>
     )
 }
 
