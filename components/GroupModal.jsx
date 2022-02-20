@@ -1,16 +1,27 @@
+import {useState} from "react";
 import {Text, TextInput, StyleSheet} from "react-native";
 
 import FormModal from "./FormModal";
 import basicStyles from "../theme/basic_components_styles";
 
 export default function(props) {
+    const [groupName, setGroupName] = useState("");
+
+    const onValidate = () => {
+        props.onValidate(groupName);
+    }
+
     return (
         <FormModal onRequestClose={props.onRequestClose}
             visible={props.visible}
-            validateText="Confirm">
+            validateText="Confirm"
+            onValidate={onValidate}>
 
             <Text style={styles.catchText}>{props.children}</Text>
-            <TextInput style={basicStyles.modalTextInput} placeholder="Group name"/>
+            <TextInput
+                style={basicStyles.modalTextInput}
+                placeholder="Group name"
+                onChangeText={setGroupName}/>
         </FormModal>
     )
 }

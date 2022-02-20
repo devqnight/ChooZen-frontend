@@ -75,10 +75,14 @@ export default function(props) {
         setFocusedMovie(movie);
     }
 
+    const onMovieChosen = () => {
+        setMovieDetailModalVisible(false);
+        props.onMovieChosen(focusedMovie);
+    }
+
     return (
         <FormModal visible={props.visible}
-            onRequestClose={props.onRequestClose}
-            validateText="Choose">
+            onRequestClose={props.onRequestClose}>
 
             <TextInput
                 onChangeText={onSearchValueChange}
@@ -107,7 +111,8 @@ export default function(props) {
             </ScrollView>
             <MovieDetailModal visible={movieDetailModalVisible}
                 movie={focusedMovie}
-                onRequestClose={() => setMovieDetailModalVisible(false)}/>
+                onRequestClose={() => setMovieDetailModalVisible(false)}
+                onMovieChosen={onMovieChosen}/>
         </FormModal>
     );
 }

@@ -17,7 +17,8 @@ export default function (props) {
     return (
         <FormModal onRequestClose={props.onRequestClose}
                    visible={props.visible}
-                   validateText="Add Movie">
+                   validateText="Add Movie"
+                   onValidate={props.onMovieChosen}>
             <ScrollView>
                 <Image style={styles.movieImage}
                        source={{uri: props.movie.imageUrl}}
