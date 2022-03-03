@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import GroupInvitation from "../containers/GroupInvitation";
 import GroupView from "../containers/GroupView";
 
+
 export default function Home() {
     const [groups, setGroups] = useState([]);
     useNavigation();
