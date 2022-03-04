@@ -16,6 +16,7 @@ export const TouchableIcon = props => {
             <Icons  
                 iconName={ props.iconName } 
                 height={ height }
+                color= { props.color }
             />
         </TouchableOpacity>
     );

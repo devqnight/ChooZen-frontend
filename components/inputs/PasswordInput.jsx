@@ -27,7 +27,7 @@ export const PasswordInput = (props) => {
         <View style={{ display:"flex", marginVertical: 5 }} >
             <View style={ basicStyles.passwordInput } >
             <TextInput 
-                    style={[basicStyles.passwordInputTextInput, basicStyles.basicInput, {height: height}]}
+                    style={[basicStyles.passwordInputTextInput, basicStyles.basicInput]}
                     onChangeText={(text) => updateText(text)}
                     value={value}
                     placeholder={ props.placeHolder }
@@ -35,7 +35,7 @@ export const PasswordInput = (props) => {
                 <TouchableIcon 
                     iconName={icon}
                     onTouch={ () => { updateVisibility(); } }
-                    height={ 32 } />
+                    height={ 20 } />
             </View>
         </View>
     );

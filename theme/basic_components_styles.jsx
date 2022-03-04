@@ -6,22 +6,21 @@ const basicStyles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: 10,
+        //marginTop: 10,
         marginBottom: "5%"
     },
     basicInputView: {
         width: "100%",
         justifyContent: 'center',
-        marginTop: 10,
+        //marginTop: 10,
         marginBottom: "5%"
     },
     basicInput: {
         width: "100%",
         backgroundColor: "#f0f0f0",
         justifyContent: 'flex-start',
-        padding: 10,
-        borderRadius: 10,
-        height: 45
+        padding: 5,
+        borderRadius: 10
     },
     button: {
         display: "flex",
@@ -34,11 +33,11 @@ const basicStyles = StyleSheet.create({
         width: "100%",
     },
     buttonDate: {
-        flex: 1,
         justifyContent: "center",
         alignContent: "center",
         backgroundColor: "orchid",
-        height: 45,
+        height: 30,
+        width: 30,
         marginLeft: 15
     },
     button_text: {
@@ -64,9 +63,7 @@ const basicStyles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         alignSelf: "stretch",
-        borderWidth: 1,
         borderRadius: 4,
-        borderColor: "#e3e3e3",
         justifyContent: "space-between",
         marginBottom: "5%"
     },

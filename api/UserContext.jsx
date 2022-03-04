@@ -20,47 +20,25 @@ const UserProvider = ({ children }) => {
 
     const getUserState = async () => {
         try{
-            const csrf = await getCSRF();
-
-            const form = new FormData();
-            form.append('token',auth.token);
-            form.append('username',auth.user);
-
-            await fetch(
-                "https://bique.familyds.com:8001/api-choozen-auth/is_authenticated/",
-                {
-                    method: 'POST',
-                    headers:{
-                        "X-CSRFToken": csrf
-                    },
-                    body: form
-                }
-            )
-            .then(response => {
-                return handleError(response).json();
-            })
-            .then(response => {
-                console.log(respone);
-                return response;
-            }).then(result => {
-                if(result.authenticated){
-                    setUserState({
-                        id: result.id,
-                        first_name: result.first_name,
-                        last_name: result.last_name,
-                        email: result.email,
-                        birthdate: result.birthdate,
-                        date_joined: result.date_joined,
-                        is_superuser: result.is_superuser,
-                        is_staff: result.is_staff,
-                        is_active: result.is_active
-                    });
-                } else {
-                    throw new Error("not authenticated");
-                }
-            })
+            const resString = await AsyncStorage.getItem("user");
+            const res = JSON.parse(resString || {});
+            if(res.authenticated){
+                setUser({
+                    id: res.id,
+                    first_name: res.first_name,
+                    last_name: res.last_name,
+                    email: res.email,
+                    birthdate: res.birthdate,
+                    date_joined: res.date_joined,
+                    is_superuser: res.is_superuser,
+                    is_staff: res.is_staff,
+                    is_active: res.is_active
+                });
+            } else {
+                throw new Error("not authenticated");
+            }
         } catch(err){
-            setUserState({
+            setUser({
                 id: null,
                 first_name: null,
                 last_name: null,

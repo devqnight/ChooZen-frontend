@@ -6,6 +6,7 @@ const Icons = ({ iconName, color, height }) => {
 
     return (
         <MaterialCommunityIcons
+            style={{width: height}}
             size={ height }
             name={ iconName }
             color={ color }

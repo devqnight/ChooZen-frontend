@@ -10,8 +10,9 @@ const signIn = async (props) => {
 
     const username = props.username;
     const password = props.password;
+    console.log("before csrf");
     const csrf = await getCSRF();//props.csrf;
-
+    console.log("after csrf : " + csrf);
     const form = new FormData();
 
     form.append('username', username);

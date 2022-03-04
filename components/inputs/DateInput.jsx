@@ -3,6 +3,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 
 import basicStyles from '../../theme/basic_components_styles';
+import Icons from '../icons/Icons';
 
 const DateInput = (props) => {
 
@@ -43,14 +44,7 @@ const DateInput = (props) => {
                     style={ [basicStyles.button, basicStyles.buttonDate]}
                     onPress={ () => {openDatePicker();} }
                 >
-                    <Text 
-                        style={[
-                                basicStyles.button_text
-                                , {color: "white"}
-                            ]}
-                    >
-                        Set {props.title}
-                    </Text>
+                    <Icons color="#FFF" height={25} iconName="calendar-month" />
                 </TouchableOpacity>
             </View>
             {show && 

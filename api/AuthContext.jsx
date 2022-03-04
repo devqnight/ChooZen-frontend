@@ -8,20 +8,38 @@ const AuthProvider = ({ children }) => {
     const [auth, setAuthState] = useState({
         token: null,
         user: null,
-        isLoading: true
+        isLoading: true,
+        id: null,
+        first_name: null,
+        last_name: null,
+        email: null,
+        birthdate: null,
+        date_joined: null,
+        is_superuser: false,
+        is_staff: false,
+        is_active:false
     });
 
     const getAuthState = async () => {
         try{
             const authDataString = await AsyncStorage.getItem("auth");
             const authData = JSON.parse(authDataString || {});
-            await checkToken({token: authData.token, user: authData.user})
+            await checkToken({token: authData.token, username: authData.user})
             .then(response => {
                 if(response.authenticated){
                     setAuthState({
                         token: authData.token,
                         user: response.username,
-                        isLoading: false
+                        isLoading: false,
+                        id: response.id,
+                        first_name: response.first_name,
+                        last_name: response.last_name,
+                        email: response.email,
+                        birthdate: response.birthdate,
+                        date_joined: response.date_joined,
+                        is_superuser: response.is_superuser,
+                        is_staff: response.is_staff,
+                        is_active: response.is_active
                     });
                 } else {
                     throw new Error("token not validated");
@@ -31,7 +49,16 @@ const AuthProvider = ({ children }) => {
             setAuthState({
                 token: null,
                 user: null,
-                isLoading: false
+                isLoading: false,
+                id: null,
+                first_name: null,
+                last_name: null,
+                email: null,
+                birthdate: null,
+                date_joined: null,
+                is_superuser: false,
+                is_staff: false,
+                is_active:false
             });
         }
         
