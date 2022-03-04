@@ -1,36 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, View } from "react-native";
 import { AuthContext } from '../api/AuthContext';
 import { signOut } from '../api/Authentication';
-import { UserContext } from '../api/UserContext';
-import { isAuthenticated } from '../api/User';
 
-import WideButton from '../components/buttons/WideButton';
+import { Header } from '../containers/Header';
+import InputSection from '../containers/InputSection';
 
 import screenStyles from '../theme/screens_styles';
 
 export default function Profile() {
     const { auth, setAuth } = useContext(AuthContext);
-    const {user, setUser} = useContext(UserContext);
-
-    useEffect(async () => {
-        const res = await isAuthenticated({token: auth.token, username: auth.user});
-
-        setUser({
-            id: res.id,
-            first_name: res.first_name,
-            last_name: res.last_name,
-            email: res.email,
-            birthdate: res.birthdate,
-            date_joined: res.date_joined,
-            is_superuser: res.is_superuser,
-            is_staff: res.is_staff,
-            is_active: res.is_active
-        });
-        console.log(user);
-    }, []);
 
     const [login, setLogin] = useState(auth.user);
+
+    const date = new Date(auth.date_joined);
+    const birthday = new Date(auth.birthdate);
 
     const logout = () => {
         //console.log("\n\nsigning out \n");
@@ -50,9 +34,26 @@ export default function Profile() {
 
     return (
         <View style={ screenStyles.home }>
-            <Text style={ screenStyles.homeTitle }> You are { login } ! </Text>
-            <View style={ screenStyles.homeLogout }>
-                <WideButton onPressButton={ () => { logout(); }} text="Logout" styleName="Close" />
+            <Header title="profile" onTouch={() => {logout()}} backgroundColor="orchid"/>
+
+            <View style={{padding: "5%"}}>
+                <View style={{display: "flex", justifyContent: "space-between", flexDirection: "row", marginBottom: "5%"}}>
+                    <View style={{width: "47%"}}>
+                        <InputSection text={login} inputTitle="Login" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
+                    </View>
+                    <View style={{width: "47%"}}>
+                        <InputSection text={date.toLocaleDateString("FR")} inputTitle="Joined" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
+                    </View>
+                </View>
+                <View style={{display: "flex", justifyContent: "space-between", flexDirection: "row"}}>
+                    <View style={{width: "47%"}}>
+                        <InputSection text={auth.first_name} inputTitle="First name" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
+                    </View>
+                    <View style={{width: "47%"}}>
+                        <InputSection text={auth.last_name} inputTitle="Last name" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
+                    </View>
+                </View>
+                <InputSection text={birthday.toLocaleDateString("FR")} inputTitle="Birthday" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
             </View>
         </View>
     );

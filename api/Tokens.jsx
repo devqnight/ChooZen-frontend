@@ -20,38 +20,39 @@ const getCSRF = async () => {
         return response.text();
     })
     .then(response => {
-        //console.log("csrf : " + response);
         return response;
     })
     .catch(e => {
         console.error(e);
+        return null;
     });
 }
 
 const checkToken = async (props) => {
     const token = props.token;
-    const user = props.user;
+    const user = props.username;
 
     const form = new FormData();
 
     form.append('username',user);
     form.append('token', token);
 
-    const csrf = await getCSRF();
+    //const csrf = await getCSRF();
     return await fetch(
       urlAuthToken, {
         method: 'POST',
-        headers:{
-          "X-CSRFToken": csrf
-        },
+        //headers:{
+        //  "X-CSRFToken": csrf
+        //},
         body: form
       }
     )
     .then(response => {
-      return handleError(response).json();
+        return handleError(response).json();
     })
-    .catch(e=>{
-      return null;
+    .catch(e => {
+        console.error(e);
+        return null;
     });
 }
 

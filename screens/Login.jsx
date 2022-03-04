@@ -10,14 +10,16 @@ import screenStyles from "../theme/screens_styles";
 import { useNavigation } from '@react-navigation/native';
 
 import { useContext } from "react"
-import { AuthContext } from "../api/AuthContext"
-import { NetworkContext } from '../api/NetworkContext';
+import { AuthContext } from "../api/AuthContext";
+import { UserContext } from '../api/UserContext';
+import { isAuthenticated } from '../api/User';
+import { checkToken } from '../api/Tokens';
 
 
 export default function Login() {
 
     const { auth, setAuth } = useContext(AuthContext);
-    const { network } = useContext(NetworkContext);
+    const { user, setUser } = useContext(UserContext);
 
     const navigation = useNavigation();
 
@@ -70,15 +72,48 @@ export default function Login() {
 
     const validateLogin = async () => {
         resetErrors();
+        console.log("logging in");
+        const username = login;
         signIn({username: login, password: password})
-        .then(result => {
+        .then(async result => {
             if(result !== undefined) {
                 onLoginSuccess();
+                console.log(username);
                 const token = result;
-                setAuth({
-                    token: token,
-                    user: login,
-                    isLoading: false
+                await checkToken({token: token, username: username})
+                .then(res => {
+                    console.log(res);
+                    setAuth({
+                        token: token,
+                        user: username,
+                        isLoading: false,
+                        id: res.id,
+                        first_name: res.first_name,
+                        last_name: res.last_name,
+                        email: res.email,
+                        birthdate: res.birthdate,
+                        date_joined: res.date_joined,
+                        is_superuser: res.is_superuser,
+                        is_staff: res.is_staff,
+                        is_active: res.is_active
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                    setAuth({
+                        token: token,
+                        user: login,
+                        isLoading: false,
+                        id: null,
+                        first_name: null,
+                        last_name: null,
+                        email: null,
+                        birthdate: null,
+                        date_joined: null,
+                        is_superuser: false,
+                        is_staff: false,
+                        is_active: false
+                    })
                 });
             }
         })
@@ -93,7 +128,6 @@ export default function Login() {
                 }
             })
         });
-        
     }
 
     const goToRegister = () => {
@@ -105,10 +139,12 @@ export default function Login() {
             <View id="header" style={ screenStyles.loginHeader }>
                 <Text id="loginAppTitle" style={ screenStyles.loginAppTitle }> ChooZen </Text>
 
-                <Text id="loginTitle" style={ screenStyles.loginTitle }> Login </Text>
             </View>
 
             <View id="inputs" style={ screenStyles.loginInputs }>
+
+                <Text id="loginTitle" style={ screenStyles.loginTitle }> Login </Text>
+
                 <View id="textInputs" style={ screenStyles.loginInputsText }>
 
                     <InputSection text={login} inputTitle="Login" placeHolder="login..." onChangeInput={ onChangeLogin } password={ false } error={ errorLogin } errorText={ errorTextLogin }/>

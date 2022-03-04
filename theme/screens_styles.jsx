@@ -20,13 +20,14 @@ const screenStyles = StyleSheet.create({
         fontSize: 32
     },
     loginTitle: {
-        fontSize: 28
+        fontSize: 28,
+        marginLeft: 20
     },
     loginInputs: {
-        width: "100%",
-        //backgroundColor: "#e0e0e0",
-        paddingLeft: "5%",
-        paddingRight: "5%",
+        width: "90%",
+        backgroundColor: "#e0e0e0",
+        marginLeft: "5%",
+        marginRight: "5%",
         paddingBottom: "5%",
         paddingTop: "5%",
         //paddingBottom: "5%",
@@ -37,6 +38,7 @@ const screenStyles = StyleSheet.create({
         backgroundColor: "#e0e0e0",
         //marginTop: 10,
         width: "100%",
+        height: 140,
         //marginLeft: "5%",
         //marginRight:"5%",
         paddingLeft: "5%",
