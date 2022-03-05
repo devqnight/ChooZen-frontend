@@ -1,3 +1,11 @@
+![https://img.shields.io/badge/Night4dead-2021-%23f514c0](https://github.com/Night4dead)
+
+![https://img.shields.io/badge/IUT%20METZ-LP%202021--2022-%23f514c0](https://img.shields.io/badge/IUT%20METZ-LP%202021--2022-%23f514c0)
+
+----
+Trello : ![https://img2.freepng.fr/20180621/ewt/kisspng-trello-logo-slack-atlassian-trello-5b2bcdc85e4d36.2783338815295973843863.jpg](https://trello.com/choozen/home)
+----
+
 # ChooZen-frontend
 
 Frontend part of the ChooZen project.
