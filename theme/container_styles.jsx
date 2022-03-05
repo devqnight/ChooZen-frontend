@@ -11,7 +11,8 @@ const containerStyles = StyleSheet.create({
     },
     inputSectionTitle: {
         fontSize: 10,
-        color: "#a0a0a0"
+        color: "#a0a0a0",
+        backgroundColor: "rgba(0,0,0,0)"
     },
     idenditySectionNames: {
         display: "flex",

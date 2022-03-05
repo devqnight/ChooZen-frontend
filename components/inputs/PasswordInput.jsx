@@ -26,10 +26,11 @@ export const PasswordInput = (props) => {
     return (
         <View style={{ display:"flex", marginVertical: 5 }} >
             <View style={ basicStyles.passwordInput } >
-            <TextInput 
+                <TextInput 
                     style={[basicStyles.passwordInputTextInput, basicStyles.basicInput]}
                     onChangeText={(text) => updateText(text)}
                     value={value}
+                    editable={props.editable}
                     placeholder={ props.placeHolder }
                     secureTextEntry={!visibility} />
                 <TouchableIcon 

@@ -20,7 +20,6 @@ const isAuthenticated = async (props) => {
         return handleError(response).json();
     })
     .then(response => {
-        console.log(respone);
         return response;
     });
 };

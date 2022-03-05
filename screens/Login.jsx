@@ -72,17 +72,14 @@ export default function Login() {
 
     const validateLogin = async () => {
         resetErrors();
-        console.log("logging in");
         const username = login;
         signIn({username: login, password: password})
         .then(async result => {
             if(result !== undefined) {
                 onLoginSuccess();
-                console.log(username);
                 const token = result;
                 await checkToken({token: token, username: username})
                 .then(res => {
-                    console.log(res);
                     setAuth({
                         token: token,
                         user: username,

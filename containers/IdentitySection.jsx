@@ -42,6 +42,7 @@ export const IdentitySection = (props) => {
 
             <DateSection
                 inputTitle="Birthdate" 
+                editable={props.editable}
                 date={ props.birthdate } 
                 onChangeDate={ props.onChangeDate } 
             />

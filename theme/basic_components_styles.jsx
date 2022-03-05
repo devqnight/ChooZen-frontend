@@ -17,10 +17,10 @@ const basicStyles = StyleSheet.create({
     },
     basicInput: {
         width: "100%",
-        backgroundColor: "#f0f0f0",
         justifyContent: 'flex-start',
         padding: 5,
-        borderRadius: 10
+        borderRadius: 10,
+        zIndex: 100
     },
     button: {
         display: "flex",

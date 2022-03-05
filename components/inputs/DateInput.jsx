@@ -39,7 +39,7 @@ const DateInput = (props) => {
     return (
         <>
             <View style={basicStyles.dateInputView}>
-                <TextInput style={ [basicStyles.basicInput, {width: "auto"}] } value={getDate()} editable={false} onPressOut={ () => {toggleDatePicker();} } />
+                <TextInput style={ [basicStyles.basicInput, {width: "auto"}] } editable={props.editable} value={getDate()} editable={false} onPressOut={ () => {toggleDatePicker();} } />
                 <TouchableOpacity 
                     style={ [basicStyles.button, basicStyles.buttonDate]}
                     onPress={ () => {openDatePicker();} }

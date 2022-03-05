@@ -39,21 +39,21 @@ export default function Profile() {
             <View style={{padding: "5%"}}>
                 <View style={{display: "flex", justifyContent: "space-between", flexDirection: "row", marginBottom: "5%"}}>
                     <View style={{width: "47%"}}>
-                        <InputSection text={login} inputTitle="Login" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
+                        <InputSection text={login} inputTitle="Login" editable={false} placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
                     </View>
                     <View style={{width: "47%"}}>
-                        <InputSection text={date.toLocaleDateString("FR")} inputTitle="Joined" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
+                        <InputSection text={date.toLocaleDateString("FR")} editable={false} inputTitle="Joined" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
                     </View>
                 </View>
                 <View style={{display: "flex", justifyContent: "space-between", flexDirection: "row"}}>
                     <View style={{width: "47%"}}>
-                        <InputSection text={auth.first_name} inputTitle="First name" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
+                        <InputSection text={auth.first_name} inputTitle="First name" editable={false} placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
                     </View>
                     <View style={{width: "47%"}}>
-                        <InputSection text={auth.last_name} inputTitle="Last name" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
+                        <InputSection text={auth.last_name} inputTitle="Last name" editable={false} placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
                     </View>
                 </View>
-                <InputSection text={birthday.toLocaleDateString("FR")} inputTitle="Birthday" placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
+                <InputSection text={birthday.toLocaleDateString("FR").trim()} inputTitle="Birthday" editable={false} placeHolder="" onChangeInput={ () => {} } password={ false } error={ false } errorText={ "" }/>
             </View>
         </View>
     );
