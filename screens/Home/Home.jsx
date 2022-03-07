@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import GroupInvitation from "../containers/GroupInvitation";
-import GroupView from "../containers/GroupView";
+import GroupInvitation from "../../containers/Group/GroupInvitation";
+import GroupView from "../../containers/Group/GroupView";
 
 
 export default function Home() {

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text } from "react-native";
 
-import { DateInput } from '../components/inputs/DateInput';
+import { DateInput } from '../../components/inputs/DateInput';
 
-import containerStyles from '../theme/container_styles';
+import containerStyles from '../../theme/container_styles';
 
 export default function DateSection({ inputTitle, date, onChangeDate }) {
 

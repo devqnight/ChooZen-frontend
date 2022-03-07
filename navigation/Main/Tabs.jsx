@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from '../screens/Home';
-import Icons from '../components/icons/Icons';
-import tabBarStyles from '../theme/tab_bar_styles';
-import Profile from '../screens/Profile';
+import Home from '../../screens/Home/Home';
+import Icons from '../../components/icons/Icons';
+import tabBarStyles from '../../theme/tab_bar_styles';
+import Profile from '../../screens/Profile/Profile';
 
 const Tab = createBottomTabNavigator();
 

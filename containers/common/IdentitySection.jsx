@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import InputSection from './InputSection';
 import DateSection from './DateSection';
 
-import containerStyles from '../theme/container_styles';
+import containerStyles from '../../theme/container_styles';
 
 export const IdentitySection = (props) => {
 

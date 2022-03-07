@@ -1,12 +1,12 @@
 import {View, Text, TextInput, StyleSheet, Image, ScrollView} from "react-native";
 
-import CancelConfirmModal from "./CancelConfirmModal";
-import basicStyles from "../theme/basic_components_styles";
+import CancelConfirmModal from "../common/CancelConfirmModal";
+import basicStyles from "../../theme/basic_components_styles";
 import {useState} from "react"
 
 export default function (props) {
-    const StarEmpty = require("../assets/star-empty.png")
-    const StarFilled = require("../assets/star-filled.png")
+    const StarEmpty = require("../../assets/star-empty.png")
+    const StarFilled = require("../../assets/star-filled.png")
 
     const [userRating, setUserRating] = useState(null)
 

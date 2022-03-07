@@ -1,11 +1,11 @@
 import {useEffect, useState} from "react";
 import {Text, View, Pressable, Image, StyleSheet, ScrollView} from "react-native";
 
-import GroupsExplorer from "../containers/GroupsExplorer";
-import MovieSearchModal from "../containers/MovieSearchModal";
+import GroupsExplorer from "./GroupsExplorer";
+import MovieSearchModal from "../Movie/MovieSearchModal";
 
 import SelectDropdown from 'react-native-select-dropdown'
-import GroupDetailModal from "../containers/GroupDetailModal";
+import GroupDetailModal from "./GroupDetailModal";
 
 //En attendant movies dans la bdd pour démonstration
 const API = "https://imdb-api.com/en/API/SearchMovie/k_x0kc5v5x/Wars"
@@ -109,7 +109,7 @@ export default function(props) {
                 onPress={() => setMovieSearchModalVisible(true)}>
 
                 <Image style={styles.floatingButtonIcon}
-                    source={require('../assets/plus.png')}/>
+                    source={require('../../assets/plus.png')}/>
             </Pressable>
             <GroupsExplorer groupNames={groupNames}
                 visible={groupsExplorerVisible}

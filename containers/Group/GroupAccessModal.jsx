@@ -1,8 +1,8 @@
 import {useState} from "react";
 import {Text, TextInput, StyleSheet} from "react-native";
 
-import CancelConfirmModal from "./CancelConfirmModal";
-import basicStyles from "../theme/basic_components_styles";
+import CancelConfirmModal from "../common/CancelConfirmModal";
+import basicStyles from "../../theme/basic_components_styles";
 
 export default function(props) {
     const [groupName, setGroupName] = useState("");

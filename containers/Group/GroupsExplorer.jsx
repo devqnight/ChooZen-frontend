@@ -1,6 +1,6 @@
 import {Text, ScrollView, StyleSheet} from "react-native";
 
-import CancelConfirmModal from "./CancelConfirmModal";
+import CancelConfirmModal from "../common/CancelConfirmModal";
 
 export default function(props) {
     return (

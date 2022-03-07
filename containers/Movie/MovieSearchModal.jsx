@@ -1,8 +1,8 @@
 import {useState} from "react";
 import {View, Text, Image, ScrollView, TextInput, StyleSheet, Pressable} from "react-native";
 
-import CancelConfirmModal from "./CancelConfirmModal";
-import basicStyles from "../theme/basic_components_styles";
+import CancelConfirmModal from "../common/CancelConfirmModal";
+import basicStyles from "../../theme/basic_components_styles";
 
 import MovieSearchDetailModal from "./MovieSearchDetailModal";
 import {useNavigation} from "@react-navigation/native";

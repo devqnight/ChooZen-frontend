@@ -1,7 +1,7 @@
 import {Text,View, TextInput, StyleSheet, Image} from "react-native";
 
-import CancelConfirmModal from "./CancelConfirmModal";
-import basicStyles from "../theme/basic_components_styles";
+import CancelConfirmModal from "../common/CancelConfirmModal";
+import basicStyles from "../../theme/basic_components_styles";
 import React from "react";
 
 
@@ -14,7 +14,7 @@ export default function(props) {
             <View style={styles.mainView}>
                 <View style={styles.boxProfil}>
                     <Image style={styles.profile}
-                           source={require('../assets/profil.png')}/>
+                           source={require('../../assets/profil.png')}/>
                     <Text>Profile Picture</Text>
                 </View>
                 <View style={styles.boxOwner}>

@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
 
-import InputSection from '../containers/InputSection';
-import WideButton from '../components/buttons/WideButton';
+import InputSection from '../../containers/common/InputSection';
+import WideButton from '../../components/buttons/WideButton';
 
-import { signIn } from '../api/Authentication';
+import { signIn } from '../../api/Authentication';
 
-import screenStyles from "../theme/screens_styles";
+import screenStyles from "../../theme/screens_styles";
 import { useNavigation } from '@react-navigation/native';
 
 import { useContext } from "react"
-import { AuthContext } from "../api/AuthContext";
-import { UserContext } from '../api/UserContext';
-import { isAuthenticated } from '../api/User';
-import { checkToken } from '../api/Tokens';
+import { AuthContext } from "../../api/AuthContext";
+import { UserContext } from '../../api/UserContext';
+import { isAuthenticated } from '../../api/User';
+import { checkToken } from '../../api/Tokens';
 
 
 export default function Login() {

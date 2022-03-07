@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { Text, View } from "react-native";
-import { AuthContext } from '../api/AuthContext';
-import { signOut } from '../api/Authentication';
+import { AuthContext } from '../../api/AuthContext';
+import { signOut } from '../../api/Authentication';
 
-import { Header } from '../containers/Header';
-import InputSection from '../containers/InputSection';
+import { Header } from '../../containers/common/Header';
+import InputSection from '../../containers/common/InputSection';
 
-import screenStyles from '../theme/screens_styles';
+import screenStyles from '../../theme/screens_styles';
 
 export default function Profile() {
     const { auth, setAuth } = useContext(AuthContext);

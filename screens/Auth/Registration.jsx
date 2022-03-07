@@ -2,17 +2,17 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { View, KeyboardAvoidingView, Text, ScrollView, Platform } from 'react-native';
 
-import InputSection from '../containers/InputSection';
-import WideButton from '../components/buttons/WideButton';
+import InputSection from '../../containers/common/InputSection';
+import WideButton from '../../components/buttons/WideButton';
 
-import { IdentitySection } from '../containers/IdentitySection';
+import { IdentitySection } from '../../containers/common/IdentitySection';
 
-import screenStyles from '../theme/screens_styles';
-import { signUp } from '../api/Authentication';
-import { formatDate } from '../utils/tools';
+import screenStyles from '../../theme/screens_styles';
+import { signUp } from '../../api/Authentication';
+import { formatDate } from '../../utils/tools';
 
 import { useContext } from "react"
-import { AuthContext } from "../api/AuthContext"
+import { AuthContext } from "../../api/AuthContext"
  
 export const Registration = (props) => {
 

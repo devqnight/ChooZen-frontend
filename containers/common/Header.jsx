@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { TouchableIcon } from '../components/icons/TouchableIcon';
+import { TouchableIcon } from '../../components/icons/TouchableIcon';
 
-import containerStyles from '../theme/container_styles';
+import containerStyles from '../../theme/container_styles';
  
 const Header = (props) => {
 
