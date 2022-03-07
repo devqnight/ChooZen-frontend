@@ -11,15 +11,12 @@ import { useNavigation } from '@react-navigation/native';
 
 import { useContext } from "react"
 import { AuthContext } from "../../api/AuthContext";
-import { UserContext } from '../../api/UserContext';
-import { isAuthenticated } from '../../api/User';
 import { checkToken } from '../../api/Tokens';
 
 
 export default function Login() {
 
     const { auth, setAuth } = useContext(AuthContext);
-    const { user, setUser } = useContext(UserContext);
 
     const navigation = useNavigation();
 

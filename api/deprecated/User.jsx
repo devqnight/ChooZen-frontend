@@ -1,5 +1,5 @@
-import { getCSRF } from "./Tokens";
-import { handleError } from "../utils/tools";
+import { getCSRF } from "../Tokens";
+import { handleError } from "../../utils/tools";
 
 const isAuthenticated = async (props) => {
     const csrf = await getCSRF();
