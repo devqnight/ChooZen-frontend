@@ -6,7 +6,7 @@ import GroupView from "../../containers/Group/GroupView";
 import { Header } from '../../containers/common/Header';
 
 
-export default function Home() {
+export default function Group() {
     const [groups, setGroups] = useState([]);
     useNavigation();
 
@@ -23,7 +23,7 @@ export default function Home() {
 
     return (
         <>
-            <Header title="Home" backgroundColor="orchid"/>
+            <Header title="Group" backgroundColor="orchid"/>
             {groups.length == 0 &&
             <GroupInvitation onNewGroup={onNewGroup}/>
             }
