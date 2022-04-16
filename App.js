@@ -1,9 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
 import { Provider, useSelector } from 'react-redux';
-import rootReducer from './src/reducers';
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -11,6 +8,8 @@ import { SplashScreen } from './src/screens/SplashScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import TabsStack from './src/stacks/TabsStack';
 import AuthStack from './src/stacks/AuthStack';
+
+import { store } from './src/store';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,9 +31,6 @@ const App = () => {
         </NavigationContainer>
     );
 }
-
-
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export default () => {
 

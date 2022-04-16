@@ -26,32 +26,26 @@ const getCSRF = async () => {
     });
 }
 
-const checkToken = async (props) => {
+const isAuthenticated = async (props) => {
     const token = props.token;
     const user = props.username;
 
     const form = new FormData();
-
     form.append('username',user);
     form.append('token', token);
 
-    //const csrf = await getCSRF();
-    return await fetch(
+    console.log(form);
+
+    let response = await fetch(
       urlAuthToken, {
         method: 'POST',
-        //headers:{
-        //  "X-CSRFToken": csrf
-        //},
         body: form
       }
     )
-    .then(response => {
-        return handleError(response).json();
-    })
-    .catch(e => {
-        console.error(e);
-        return null;
-    });
+
+    let json = await handleError(response).json();
+    
+    return json;
 }
 
-export { getCSRF, checkToken };
+export { getCSRF, isAuthenticated };

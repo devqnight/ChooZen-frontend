@@ -1,6 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
 import { signin, signout } from '../apis/api-auth';
-import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS } from "../constants/auth.constants";
+import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "../constants/auth.constants";
 
 
 const login = (login, password) => {
@@ -8,9 +7,9 @@ const login = (login, password) => {
     const success = (user) => {return {type: LOGIN_SUCCESS, user}};
     const failure = (user) => {return {type: LOGIN_FAILURE, user}};
 
-    return  dispatch => {
+    return async dispatch => {
         dispatch(request({login}));
-        signin(login, password)
+        await signin(login, password)
             .then(response => {
                 dispatch(success({response, login}));
             })
@@ -38,4 +37,14 @@ const logout = (token) => {
     }
 };
 
-export {login, logout};
+const register = (props) => {
+    const request = (user) => {return {type: REGISTER_REQUEST, user}};
+    const success = (user) => {return {type: REGISTER_SUCCESS, user}};
+    const failure = (user) => {return {type: REGISTER_FAILURE, user}};
+
+    return dispatch => {
+        dispatch(request())
+    }
+}
+
+export {login, logout, register};

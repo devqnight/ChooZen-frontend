@@ -18,9 +18,14 @@ const auth = (state = initialState, action) => {
         case LOGOUT_REQUEST:
             return {...state, isLoading: true, token: null}
         case LOGOUT_FAILURE:
-            return initialState
         case LOGOUT_SUCCESS:
             return initialState
+        case REGISTER_REQUEST:
+            return {...state, isLoading: true, token: null}
+        case REGISTER_FAILURE:
+            return initialState
+        case REGISTER_SUCCESS:
+            return {isAuth: true, isLoading: false, login: action.user.login, token: action.user.response}
         default:
             return state;
     }

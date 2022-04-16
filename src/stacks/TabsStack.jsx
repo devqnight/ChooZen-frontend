@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import tabBarStyles from '../themes/tab_bar_styles';
 import { useSelector } from "react-redux";
+
 import Home from "../screens/App/Home";
 import Groups from "../screens/App/Groups";
 import Profile from "../screens/App/Profile";
