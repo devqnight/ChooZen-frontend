@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import Header from "../../containers/common/Header.container";
 import { DefaultNoGroup } from "../../containers/groups/DefaultNoGroup.container";
+import { GroupView } from "../../containers/groups/GroupView.container";
 
 const Groups = () => {
     const theme = useSelector((state) => state.theme);
@@ -21,7 +22,7 @@ const Groups = () => {
     return (
         <View>
             <Header title="Groups" />
-            
+            <GroupView data={groups} />
         </View>
     );
 };
