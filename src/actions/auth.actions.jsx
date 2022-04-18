@@ -1,6 +1,22 @@
-import { signin, signout } from '../apis/api-auth';
-import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "../constants/auth.constants";
+import { signin, signout, signup } from '../apis/api-auth';
+import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGBACK_FAILURE, LOGBACK_REQUEST, LOGBACK_SUCCESS, LOGOUT_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "../constants/auth.constants";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
+const logback = (login, token) => {
+    const request = (user) => {return {type: LOGBACK_REQUEST, user}};
+    const success = (user) => {return {type: LOGBACK_SUCCESS, user}};
+    const failure = (user) => {return {type: LOGBACK_FAILURE, user}};
+
+    return async dispatch => {
+        dispatch(request({}));
+        if(login && token)
+            dispatch(success({response: token, login: login}));
+        else
+            dispatch(failure({}));
+    }
+}
 
 const login = (login, password) => {
     const request = (user) => {return {type: LOGIN_REQUEST, user}};
@@ -10,7 +26,12 @@ const login = (login, password) => {
     return async dispatch => {
         dispatch(request({login}));
         await signin(login, password)
-            .then(response => {
+            .then( async response => {
+                try {
+                    await AsyncStorage.setItem("auth", JSON.stringify({login: login, token: response}));
+                } catch (error){
+                    Promise.reject(error);
+                }
                 dispatch(success({response, login}));
             })
             .catch(error => {
@@ -28,7 +49,12 @@ const logout = (token) => {
     return dispatch => {
         dispatch(request({token}));
         signout(token)
-            .then(response => {
+            .then(async response => {
+                try {
+                    await AsyncStorage.setItem("auth", JSON.stringify({}));
+                } catch (error){
+                    Promise.reject(error);
+                }
                 dispatch(success({response, token}));
             })
             .catch(error => {
@@ -43,8 +69,20 @@ const register = (props) => {
     const failure = (user) => {return {type: REGISTER_FAILURE, user}};
 
     return dispatch => {
-        dispatch(request())
+        dispatch(request({login: props.login}));
+        signup(props)
+            .then( async response => {
+                try {
+                    await AsyncStorage.setItem("auth", JSON.stringify({login: props.login, token: response}));
+                } catch (error){
+                    Promise.reject(error);
+                }
+                dispatch(success({response, login: props.login}));
+            })
+            .catch(error => {
+                dispatch(failure(error));
+            })
     }
 }
 
-export {login, logout, register};
+export {logback, login, logout, register};

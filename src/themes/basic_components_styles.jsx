@@ -7,7 +7,6 @@ const basicStyles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         //marginTop: 10,
-        marginBottom: "5%"
     },
     basicInputView: {
         width: "100%",
@@ -44,9 +43,6 @@ const basicStyles = StyleSheet.create({
         textAlign: "center",
         textAlignVertical: "center"
     },
-    buttonSave: {
-        backgroundColor: "orchid"
-    }, 
     buttonClose: {
         backgroundColor: "red"
     },

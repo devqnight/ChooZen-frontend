@@ -23,6 +23,10 @@ const signin = async (login, password) => {
         }
     );
 
+    if(response.status === 400){
+        let error = await response.json();
+        throw error;
+    }
     let json = await handleError(response).json();
 
     let key = json.key;
@@ -51,4 +55,46 @@ const signout = async (token) => {
     return json;
 }
 
-export {signin, signout};
+const signup = async (props) => {
+    const csrf = await getCSRF();
+
+    const login = props.login;
+    const email = props.email;
+    const firstname = props.firstname;
+    const lastname = props.lastname;
+    const password1 = props.password;
+    const password2 = props.confirmPassword;
+    const birthdate = props.birthdate;
+
+    const form = new FormData();
+    form.append('username', login);
+    form.append('email', email);
+    form.append('first_name', firstname);
+    form.append('last_name', lastname);
+    form.append('password1', password1);
+    form.append('password2', password2);
+    form.append('birthdate', birthdate);
+
+    let response = await fetch(
+        urlSignUp,
+        {
+            method: 'POST',
+            headers:{
+                "X-CSRFToken": csrf
+            },
+            body: form
+        }
+    );
+
+    if(response.status === 400){
+        let error = await response.json();
+        throw error;
+    }
+    let json = await handleError(response).json();
+
+    let key = json.key;
+
+    return key;
+}
+
+export {signin, signout, signup};

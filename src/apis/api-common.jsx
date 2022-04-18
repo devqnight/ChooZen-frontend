@@ -34,8 +34,6 @@ const isAuthenticated = async (props) => {
     form.append('username',user);
     form.append('token', token);
 
-    console.log(form);
-
     let response = await fetch(
       urlAuthToken, {
         method: 'POST',
