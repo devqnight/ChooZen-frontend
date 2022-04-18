@@ -18,6 +18,7 @@ const Stack = createNativeStackNavigator();
 
 const App = () => {
     const auth = useSelector((state) => state.auth );
+    const theme = useSelector((state) => state.theme);
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -41,15 +42,22 @@ const App = () => {
         return <SplashScreen />
     
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                {auth.token ? 
-                    (<Stack.Screen name="TabsStack" options={{headerShown: false}} component={TabsStack}/>)
-                    :
-                    (<Stack.Screen name="AuthStack" options={{headerShown: false}} component={AuthStack}/>)
-                }
-            </Stack.Navigator>
-        </NavigationContainer>
+        <>
+            <StatusBar 
+                animated={true}
+                backgroundColor={theme.accentColor}
+                //hidden={true}
+            />
+            <NavigationContainer>
+                <Stack.Navigator>
+                    {auth.token ? 
+                        (<Stack.Screen name="TabsStack" options={{headerShown: false}} component={TabsStack}/>)
+                        :
+                        (<Stack.Screen name="AuthStack" options={{headerShown: false}} component={AuthStack}/>)
+                    }
+                </Stack.Navigator>
+            </NavigationContainer>
+        </>
     );
 }
 
@@ -57,11 +65,6 @@ export default () => {
 
     return (
         <Provider store={store}>
-            <StatusBar 
-                animated={true}
-                backgroundColor={store.getState().theme.accentColor}
-                //hidden={true}
-            />
             <App />
         </Provider>
     );

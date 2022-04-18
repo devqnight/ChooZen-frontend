@@ -42,7 +42,7 @@ const isAuthenticated = async (props) => {
     )
 
     let json = await handleError(response).json();
-    
+
     return json;
 }
 

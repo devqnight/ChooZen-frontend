@@ -1,3 +1,5 @@
+import { THEME_SWITCH_REQUEST, THEME_SWITCH_SUCCESS, THEME_SWITCH_FAILURE } from "../constants/theme.constants";
+
 const initialState = {
     bar: {
         activeTint: "#FFF",
@@ -11,6 +13,11 @@ const initialState = {
 
 const theme = (state = initialState, action) => {
     switch (action.type) {
+        case THEME_SWITCH_FAILURE:
+        case THEME_SWITCH_REQUEST:
+            return initialState;
+        case THEME_SWITCH_SUCCESS:
+            return action.theme;
         default:
             return state;
     }
