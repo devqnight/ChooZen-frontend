@@ -27,11 +27,7 @@ const login = (login, password) => {
         dispatch(request({login}));
         await signin(login, password)
             .then( async response => {
-                try {
-                    await AsyncStorage.setItem("auth", JSON.stringify({login: login, token: response}));
-                } catch (error){
-                    Promise.reject(error);
-                }
+                await AsyncStorage.setItem("auth", JSON.stringify({login: login, token: response}));
                 dispatch(success({response, login}));
             })
             .catch(error => {

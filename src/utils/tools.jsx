@@ -7,6 +7,10 @@ const handleError = (response) => {
   return response;
 }
 
+const isEmptyObj = (obj) => {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
 const getAge = (birthDateString) => {
   var today = new Date();
   var birthDate = new Date(birthDateString);
@@ -22,4 +26,4 @@ const hasNumber = (string) => {
   return /\d/.test(string);
 }
 
-export { formatDate, handleError, getAge, hasNumber };
+export { formatDate, handleError, getAge, hasNumber, isEmptyObj };

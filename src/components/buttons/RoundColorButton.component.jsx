@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import { TouchableOpacity, StyleSheet } from "react-native";
 
 const RoundColorButton = (props) => {
+
+    const isSelected = useCallback((color, current) => {
+        if(color == current)
+            return {borderColor: "#FFF"};
+        return {borderColor: color};
+    });
+
     return (
         <TouchableOpacity 
-            style={[style.button, props.color, props.selected]}
+            style={[style.button, props.color, isSelected(props.color.color, props.current)]}
             onPress={props.onPress}
         />
     );

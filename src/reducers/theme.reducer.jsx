@@ -1,4 +1,4 @@
-import { THEME_SWITCH_REQUEST, THEME_SWITCH_SUCCESS, THEME_SWITCH_FAILURE } from "../constants/theme.constants";
+import { THEME_SWITCH_REQUEST, THEME_SWITCH_SUCCESS, THEME_SWITCH_FAILURE, RESTORE_THEME_REQUEST, RESTORE_THEME_SUCCESS, RESTORE_THEME_FAILURE } from "../constants/theme.constants";
 
 const initialState = {
     bar: {
@@ -14,9 +14,15 @@ const initialState = {
 const theme = (state = initialState, action) => {
     switch (action.type) {
         case THEME_SWITCH_FAILURE:
-        case THEME_SWITCH_REQUEST:
             return initialState;
+        case THEME_SWITCH_REQUEST:
+            return state;
         case THEME_SWITCH_SUCCESS:
+            return action.theme;
+        case RESTORE_THEME_FAILURE:
+        case RESTORE_THEME_REQUEST:
+            return initialState;
+        case RESTORE_THEME_SUCCESS:
             return action.theme;
         default:
             return state;
