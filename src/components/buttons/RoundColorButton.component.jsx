@@ -5,7 +5,8 @@ const RoundColorButton = (props) => {
 
     const isSelected = useCallback((color, current) => {
         if(color == current)
-            return {borderColor: "#FFF"};
+            return {borderColor: "#FFF",
+            borderWidth: 3,};
         return {borderColor: color};
     });
 
@@ -23,7 +24,6 @@ const style = StyleSheet.create({
     button: {
         height: 50,
         width: 50,
-        borderWidth: 2,
         borderRadius: 180,
         margin: 10
     }

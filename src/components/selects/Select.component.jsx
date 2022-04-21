@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
     buttonStyle: {
         height: 30,
         borderRadius: 7,
-        backgroundColor: 'rgba(52, 52, 52, 0.1)'
+        backgroundColor: 'rgba(52, 52, 52, 0.1)',
+        
     },
     buttonTextStyle: {
         color: "white"
