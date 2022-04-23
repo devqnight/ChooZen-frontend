@@ -1,11 +1,11 @@
 const initialState = {
     active: null,
-    movies: [],
     groups: [
-    {name: "Test", creator: null},
-    {name: "Test2", creator: null},
-    {name: "Test3", creator: null},
-]};
+        {name: "Test", creator: null},
+        {name: "Test2", creator: null},
+        {name: "Test3", creator: null},
+    ]
+};
 
 const changeGroup = async (token, group) => {
     const name = group;

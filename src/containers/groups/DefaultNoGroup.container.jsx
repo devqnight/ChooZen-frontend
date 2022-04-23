@@ -2,9 +2,6 @@ import React, {useState} from "react";
 import {View, Text, StyleSheet} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { doCreateGroup } from "../../actions/groups.actions";
-
-import { store } from "../../store";
-
 import { GroupAccessModal } from "./GroupAccessModal.container";
 
 const DefaultNoGroup = (props) => {

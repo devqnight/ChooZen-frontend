@@ -27,7 +27,7 @@ const basicStyles = StyleSheet.create({
         alignContent: "center",
         backgroundColor: "#e0e0e0",
         borderWidth: 0,
-        borderRadius: 10,
+        //borderRadius: 10,
         height: 45,
         width: "100%",
     },

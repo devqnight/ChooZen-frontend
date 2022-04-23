@@ -8,7 +8,7 @@ import { GroupView } from "../../containers/groups/GroupView.container";
 
 const Groups = () => {
     const theme = useSelector((state) => state.theme);
-    const groups = useSelector((state) => state.groups);
+    const groups = useSelector((state) => state.data.groups);
 
     const hasGroup = groups.active || (groups.groups && groups.groups.length > 0) ? true : false;
     if(!hasGroup)

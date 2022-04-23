@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { FadedView } from "../../components/view/FadedView.component";
+import { VotingRow } from "./VotingRow.container";
 
 const MovieCard = (props) => {
 
@@ -34,15 +35,10 @@ const MovieCard = (props) => {
 
     const [selected, setSelected] = useState(null);
 
-    const selectVote = (value) => {
-        setSelected(value);
+    const updateSelected = (value) => {
+        setSelected(null);
+        props.onUpdate(value, props.movie);
     }
-
-    const isSelected = useCallback((index) => {
-        if(selected === index)
-            return {backgroundColor: props.theme.bar.inactiveBackground, color: voting[index].color}
-        return {backgroundColor: voting[index].color, color: props.theme.bar.inactiveBackground};
-    });
 
     return (
         <View style={[style.cardContainer, {backgroundColor: props.theme.backgroundColor}]}>
@@ -58,17 +54,11 @@ const MovieCard = (props) => {
                             <Text style={[style.year, style.text]}>{props.movie.description}</Text>
                         </View>
                         <View style={style.additionalContainer}>
-                            <Text style={[style.text, style.score]}>4.5</Text>
+                            <Text style={[style.text, style.score]}>{props.rate}</Text>
                         </View>
                     </View>
 
-                    <View style={[style.votingBar]}>
-                        {voting.map((rate, index) => (
-                            <TouchableOpacity key={index} style={[style.vote, isSelected(index) ]} onPress={() => selectVote(index)}>
-                                <Text style={[style.voteText, style.text, {color: isSelected(index).color}]}>{rate.text}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
+                    <VotingRow votes={voting} setSelected={updateSelected} selected={selected} theme={props.theme} />
                 </FadedView>
             </View>
         </View>

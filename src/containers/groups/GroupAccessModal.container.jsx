@@ -15,7 +15,7 @@ const GroupAccessModal = (props) => {
         <CancelConfirmModal onRequestClose={props.onRequestClose}
             visible={props.visible}
             validateText="Confirm"
-            onValidate={onValidate}
+            onValidate={() => onValidate()}
             theme={props.theme}>
 
             <Text style={styles.catchText}>{props.children}</Text>

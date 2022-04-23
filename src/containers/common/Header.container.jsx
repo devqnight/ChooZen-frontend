@@ -21,7 +21,7 @@ const Header = (props) => {
             </View>
         );
 
-    const groups = useSelector((state) => state.groups);
+    const groups = useSelector((state) => state.data.groups);
     let active = null;
     if(groups.groups)
         active = groups.groups.findIndex(x => x.name == groups.active);

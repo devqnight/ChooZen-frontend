@@ -7,7 +7,7 @@ import Header from "../../containers/common/Header.container";
 import { DefaultNoGroup } from "../../containers/groups/DefaultNoGroup.container";
 import { DefaultMovieList } from "../../containers/movies/DefaultMovieList.container";
 
-const Home = () => {
+const Next = () => {
     const theme = useSelector((state) => state.theme);
     const groups = useSelector((state) => state.data.groups);
 
@@ -23,7 +23,7 @@ const Home = () => {
     if(!hasGroup)
         return (
             <View>
-                <Header title="Home" />
+                <Header title="Next" />
                 <DefaultNoGroup theme={theme} />
             </View>
         );
@@ -40,21 +40,21 @@ const Home = () => {
         }
     }
 
-    let homeView 
+    let nextView 
     if (moviesFull.length > 0)
-        homeView = <DefaultMovieList theme={theme} movies={moviesFull} onUpdate={(value, movie) => updateMovies(value, movie)} />;
+        nextView = <DefaultMovieList theme={theme} movies={moviesFull} onUpdate={(value, movie) => updateMovies(value, movie)} />;
     else 
-        homeView = <View style={style.cardContainer}><Text>No movies in list</Text></View>
+        nextView = <View style={style.cardContainer}><Text>No movies in list</Text></View>
 
     return (
         <View>
-            <Header title="Home" />
-            {homeView}
+            <Header title="Next" />
+            {nextView}
         </View>
     );
 };
 
-export default Home;
+export default Next;
 
 const style = StyleSheet.create({
     cardContainer: {
