@@ -13,7 +13,6 @@ const DefaultNoGroup = (props) => {
     
     const onNewGroup = async (text) => {
         await dispatch(doCreateGroup(auth.token, text));
-        //setGroupCreationModalVisible(false);
     }
 
     return (

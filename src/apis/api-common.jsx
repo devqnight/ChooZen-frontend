@@ -3,8 +3,6 @@ const urlAuthToken = "https://bique.familyds.com:8001/api-choozen-auth/is_authen
 
 import { handleError } from "../utils/tools";
 
-//const [csrftoken, setToken] = useState("");
-
 const getCSRF = async () => {
     return await fetch(
         urlCSRF, {

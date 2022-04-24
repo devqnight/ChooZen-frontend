@@ -1,15 +1,6 @@
 import { combineReducers } from "redux";
 import { CHANGE_GROUP_FAILURE, CHANGE_GROUP_SUCCESS, CHANGE_GROUP_REQUEST, FECTH_GROUPS_REQUEST, FECTH_GROUPS_SUCCESS, FECTH_GROUPS_FAILURE, JOIN_GROUP_REQUEST, JOIN_GROUP_SUCCESS, JOIN_GROUP_FAILURE, CREATE_GROUP_REQUEST, CREATE_GROUP_SUCCESS, CREATE_GROUP_FAILURE } from "../constants/groups.constants";
 import movies from "./movies.reducer";
-//group format:
-// const group = {
-//    name: String,
-//    creator: String,
-//    members: [
-//        {id: string, joined: date}
-//    ],
-//    movies: [//to send somehow in movies.reducer, or remove movies reducer and have all reducer functions here]
-//}
 
 const groups = (state = {}, action) => {
     switch (action.type) {

@@ -23,7 +23,6 @@ const containerStyles = StyleSheet.create({
         width: "45%"
     },
     headerStyle: {
-        //height: 40,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",

@@ -6,12 +6,10 @@ const basicStyles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        //marginTop: 10,
     },
     basicInputView: {
         width: "100%",
         justifyContent: 'center',
-        //marginTop: 10,
         marginBottom: "5%"
     },
     basicInput: {
@@ -27,7 +25,6 @@ const basicStyles = StyleSheet.create({
         alignContent: "center",
         backgroundColor: "#e0e0e0",
         borderWidth: 0,
-        //borderRadius: 10,
         height: 45,
         width: "100%",
     },

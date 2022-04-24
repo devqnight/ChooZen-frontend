@@ -101,7 +101,6 @@ const style = StyleSheet.create({
     poster: {
         width:"auto",
         height: "100%",
-        //margin: 20,
         borderRadius: 10
     },
     infoContainer: {

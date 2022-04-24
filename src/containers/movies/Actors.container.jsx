@@ -24,8 +24,6 @@ const Actors = ({actors, theme}) => {
     );
 }
 
-//
-
 export {Actors};
 
 const style = StyleSheet.create({

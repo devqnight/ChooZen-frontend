@@ -83,14 +83,3 @@ const style = StyleSheet.create({
         backgroundColor: "#CFCFCF"
     }
 });
-
-//<RoundColorButton color={{borderColor: "#D5B0D5", color: "#D5B0D5", backgroundColor: "#D5B0D5"}} onPress={() => doChangeAccent("#D5B0D5")}/>
-//<RoundColorButton color={{borderColor: "#7BE7B9", color: "#7BE7B9", backgroundColor: "#7BE7B9"}} onPress={() => doChangeAccent("#7BE7B9")}/>
-//<RoundColorButton color={{borderColor: "#83D4FF", color: "#83D4FF", backgroundColor: "#83D4FF"}} onPress={() => doChangeAccent("#83D4FF")}/>
-//<RoundColorButton color={{borderColor: "#FFCA52", color: "#FFCA52", backgroundColor: "#FFCA52"}} onPress={() => doChangeAccent("#FFCA52")}/>
-//<RoundColorButton color={{borderColor: "#FF7A77", color: "#FF7A77", backgroundColor: "#FF7A77"}} onPress={() => doChangeAccent("#FF7A77")}/>
-//<RoundColorButton color={{borderColor: "#B49AEA", color: "#B49AEA", backgroundColor: "#B49AEA"}} onPress={() => doChangeAccent("#B49AEA")}/>
-//<RoundColorButton color={{borderColor: "#44A54C", color: "#44A54C", backgroundColor: "#44A54C"}} onPress={() => doChangeAccent("#44A54C")}/>
-//<RoundColorButton color={{borderColor: "#579BF4", color: "#579BF4", backgroundColor: "#579BF4"}} onPress={() => doChangeAccent("#579BF4")}/>
-//<RoundColorButton color={{borderColor: "#FF9C60", color: "#FF9C60", backgroundColor: "#FF9C60"}} onPress={() => doChangeAccent("#FF9C60")}/>
-//<RoundColorButton color={{borderColor: "#ED544E", color: "#ED544E", backgroundColor: "#ED544E"}} onPress={() => doChangeAccent("#ED544E")}/>

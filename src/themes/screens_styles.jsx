@@ -30,20 +30,15 @@ const screenStyles = StyleSheet.create({
         marginRight: "5%",
         paddingBottom: "5%",
         paddingTop: "5%",
-        //paddingBottom: "5%",
         borderRadius: 10,
         alignContent: "center"
     },
     loginInputsText: {
         backgroundColor: "#e0e0e0",
-        //marginTop: 10,
         width: "100%",
         height: 140,
-        //marginLeft: "5%",
-        //marginRight:"5%",
         paddingLeft: "5%",
         paddingRight: "5%",
-        //backgroundColor: "#fff",
         paddingTop: 15,
         borderRadius: 10
     },
@@ -52,7 +47,6 @@ const screenStyles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "space-between",
         width: "90%",
-        //height: 50,
         marginLeft: "5%",
         marginRight: "5%",
         marginTop: 10
@@ -72,27 +66,19 @@ const screenStyles = StyleSheet.create({
         flexDirection: "column",
         textAlign: "center",
         width: "100%",
-        //marginTop: 15,
         padding: 15,
         borderBottomEndRadius: 10,
         borderBottomStartRadius: 10,
-        //marginRight: "5%",
-        //marginLeft: "5%",
         backgroundColor: "orchid"
     }, 
     registerInputsButtons: {
-        //position: "absolute",
         bottom: 0,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
         backgroundColor: "#fff",
         width: "100%",
-        //height: 50,
         padding: 15,
-        //marginLeft: "5%",
-        //marginRight: "5%",
-        //marginTop: 10
         borderTopStartRadius: 10,
         borderTopEndRadius: 10
     },

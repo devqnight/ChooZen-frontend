@@ -69,7 +69,6 @@ const Input = (props) => {
         if(props.required && !props.value){
             setErrMsg("Please fill this field");
             setValid(false);
-            //props.setError(true);
         }
         else if(!props.value){
             setShowInput(false);

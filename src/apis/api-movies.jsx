@@ -131,15 +131,6 @@ const fetchMovie = async (movieId, userId) => {
     res = defaultMovie;
 
     return res;
-    //const url = fetchApi + apiQuentin + "/" + movieId;
-//
-    //let resultRaw = await fetch(
-    //    url
-    //);
-//
-    //let result = await handleError(resultRaw).json();
-//
-    //return result;
 };
 
 const fetchMovies = (props) => {

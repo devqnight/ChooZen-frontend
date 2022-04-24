@@ -28,8 +28,6 @@ const MovieDetail = (props) => {
     }
 
     const saveMovie = async () => {
-        setLoading(true);
-        //await dispatch(addMovie(movieDetails.id, props.user.id, props.group.id));
         setLoading(false);
         props.closeAll();
     }

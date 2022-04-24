@@ -13,12 +13,6 @@ const Home = () => {
 
     const [moviesFull, setMoviesFull] = useState(movies);
 
-    //useEffect(async () => {
-    //    for(let movie of movies){
-    //        moviesFull.push(movie);
-    //    }
-    //});
-
     const hasGroup = groups.active && (groups.groups && groups.groups.length > 0) ? true : false;
     if(!hasGroup)
         return (
@@ -29,9 +23,7 @@ const Home = () => {
         );
 
     
-    /**
-     * movies
-     */
+    // movies
 
     const updateMovies = (value, movie) => {
         if(value){
