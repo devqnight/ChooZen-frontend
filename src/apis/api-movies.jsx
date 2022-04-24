@@ -1,4 +1,5 @@
 import { handleError } from "../utils/tools";
+import { getCSRF } from "./api-common";
 
 const defaultMovie = {
     "id":"tt0076759",
@@ -120,9 +121,9 @@ const fetchApi = "https://imdb-api.com/en/API/Title/";
 const apiQuentin = "k_whm9bxm3";
 const fetchParameters = "";
 
-const urlSearch= "https://bique.familyds.com:8001/api-choozen/search/";
+const urlSearch= "https://bique.familyds.com:8001/api-choozen/advanced_search/";
 
-const fetchMovie = async (movieId, userId) => {
+const fetchMovieAPI = async (movieId, userId) => {
     let res;
     setTimeout(() => {
         
@@ -133,19 +134,29 @@ const fetchMovie = async (movieId, userId) => {
     return res;
 };
 
-const fetchMovies = (props) => {
+const fetchMoviesAPI = async (groupId, userId) => {
+    let res;
+    setTimeout(() => {
+        
+    
+    }, 1500);
+    res = movies;
 
+    return res;
 };
 
-const updateScore = (props) => {
+const updateScoreAPI = (props) => {
 
 }
 
-const deleteMovie = (props) => {
+const deleteMovieAPI = (props) => {
 
 }
 
-const searchMovies = async (props) => {
+const searchMoviesAPI = async (props) => {
+
+    const csrf = await getCSRF();
+
     const form = new FormData();
     form.append('movie-title', props.searchValue)
 
@@ -153,13 +164,28 @@ const searchMovies = async (props) => {
         urlSearch,
         {
             method: 'POST',
+            headers:{
+                "X-CSRFToken": csrf
+            },
             body: form
         }
     );
 
     let json = await handleError(response).json();
+    
+    if(json.errorMessage)
+        throw Error(json.errorMessage);
 
     return json;
 }
 
-export {fetchMovie, fetchMovies, updateScore, deleteMovie, movies, searchMovies};
+const rateMovieAPI = async (movieId, rate, groupId, userId) => {
+    let voted = {...movies.find(x => x.id === movieId)};
+    voted["rate"] = [{user: userId, rate: rate}];
+
+    let moviesfiltered = [...movies.filter((item, index, arr) => {return item.id !== movieId})];
+
+    return {voted: voted, movies: moviesfiltered};
+}
+
+export {fetchMovieAPI, fetchMoviesAPI, updateScoreAPI, deleteMovieAPI, movies, searchMoviesAPI, rateMovieAPI};

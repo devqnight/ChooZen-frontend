@@ -1,10 +1,6 @@
 const initialState = {
     active: null,
-    groups: [
-        {name: "Test", creator: null},
-        {name: "Test2", creator: null},
-        {name: "Test3", creator: null},
-    ]
+    groups: []
 };
 
 const changeGroup = async (token, group) => {

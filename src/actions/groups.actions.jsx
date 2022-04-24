@@ -1,5 +1,6 @@
 import { CHANGE_GROUP_FAILURE, CHANGE_GROUP_SUCCESS, CHANGE_GROUP_REQUEST, FETCH_GROUPS_REQUEST, FETCH_GROUPS_SUCCESS, FETCH_GROUPS_FAILURE, JOIN_GROUP_REQUEST, JOIN_GROUP_SUCCESS, JOIN_GROUP_FAILURE, CREATE_GROUP_REQUEST, CREATE_GROUP_SUCCESS, CREATE_GROUP_FAILURE, } from "../constants/groups.constants";
 import { changeGroup, getGroups, createGroup } from "../apis/api-groups";
+import { setStorage } from "../utils/storage.tools";
 
 const updateGroup = (token, group) => {
     const request = () => {return {type: CHANGE_GROUP_REQUEST}};
@@ -49,7 +50,8 @@ const doCreateGroup = (token, name) => {
     return async dispatch => {
         dispatch(request());
         await createGroup(token, name)
-            .then(response => {
+            .then(async response => {
+                await setStorage("groups",response);
                 dispatch(success(response));
             })
             .catch(error => {

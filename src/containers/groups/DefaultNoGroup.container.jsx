@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { doCreateGroup } from "../../actions/groups.actions";
 import { GroupAccessModal } from "./GroupAccessModal.container";
+import { fetchMovies } from "../../actions/movies.actions";
 
 const DefaultNoGroup = (props) => {
     const [groupSelectionModalVisible, setGroupSelectionModalVisible] = useState(false);
@@ -10,9 +11,11 @@ const DefaultNoGroup = (props) => {
 
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
+    const groups = useSelector((state) => state.data.groups);
     
     const onNewGroup = async (text) => {
         await dispatch(doCreateGroup(auth.token, text));
+        await dispatch(fetchMovies(groups.active, auth.login));
     }
 
     return (

@@ -1,11 +1,9 @@
 import {useEffect, useState} from "react";
 import {Text, View, Pressable, Image, StyleSheet, ScrollView} from "react-native";
 import { useSelector } from "react-redux";
+import { ScrollMovieList } from "../movies/ScrollMovieList.container";
 
 import GroupDetail from "./GroupDetail.container";
-
-//En attendant movies dans la bdd pour démonstration
-const API = "https://imdb-api.com/en/API/SearchMovie/k_x0kc5v5x/Wars"
 
 const GroupView = (props) => {
     const theme = useSelector((state) => state.theme);
@@ -68,7 +66,7 @@ const GroupView = (props) => {
     TAB_MOVIES  = 1;
 
     const [selectedTab, setSelectedTab] = useState(TAB_DETAILS);
-    const [movies, setMovies] = useState([]);
+    const movies = useSelector((state) => state.data.movies);
 
     const tabs = [
       {
@@ -86,6 +84,9 @@ const GroupView = (props) => {
 
       if(selectedTab == tab.id) {
           tabStyles.push(styles.tabSelected);
+          tabStyles.push({backgroundColor: theme.bar.activeBackground});
+      } else {
+        tabStyles.push({backgroundColor: theme.bar.inactiveBackground, color: theme.bar.inactiveTint});
       }
 
       return (<Text key={tab.id}
@@ -96,16 +97,8 @@ const GroupView = (props) => {
               </Text>)
     });
 
-    useEffect(() => {
-      fetch (API)
-          .then((res) => res.json())
-          .then((data) => {
-              setMovies(data.results);
-      });
-    }, []);
-
     return (
-      <>
+      <View style={styles.container}>
           <View style={styles.tabs}>
               {tabsElems}
           </View>
@@ -115,29 +108,19 @@ const GroupView = (props) => {
           }
 
           {selectedTab == TAB_MOVIES &&
-              <>
-                  <ScrollView contentContainerStyle={styles.listContentContainer}>
-                      {movies.map((movie, index) => (
-                          <Pressable key={index} style={styles.movie}>
-
-                              <Image style={styles.movieImage}
-                                     source={{uri: movie.image}}
-                                     accessibilityLabel="movie"/>
-
-                              <View style={styles.movieSide}>
-                                  <Text style={[styles.movieTitle]}>
-                                      {movie.title}
-                                  </Text>
-                                  <Text style={styles.movieDescription}>
-                                      {movie.description}
-                                  </Text>
-                              </View>
-                          </Pressable>
-                      ))}
-                  </ScrollView>
-              </>
+              <View style={styles.listContainer}>
+                    { ((movies.movies && movies.movies.length > 0) || (movies.voted && movies.voted.length > 0)) &&
+                        <ScrollMovieList 
+                            movies={[...movies.movies, ...movies.voted]}
+                            theme={theme}
+                            height={590}
+                            marginBottom={60}
+                        />
+                    }
+                    {}
+              </View>
           }
-      </>
+      </View>
     )
 };
 

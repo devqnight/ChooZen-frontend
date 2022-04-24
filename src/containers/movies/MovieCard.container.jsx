@@ -2,7 +2,8 @@ import React, { useCallback, useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity, Pressable } from 'react-native';
 import { FadedView } from "../../components/view/FadedView.component";
 import { VotingRow } from "./VotingRow.container";
-import { MovieModal } from "./MovieModal.container";
+import { ModalWithHeader } from "../common/ModalWithHeader.container";
+import { MovieDetail } from "./MovieDetail.container";
 
 const MovieCard = (props) => {
 
@@ -36,6 +37,10 @@ const MovieCard = (props) => {
 
     const [selected, setSelected] = useState(null);
     const [visible, setVisible] = useState(false);
+
+    const onRequestClose = () => {
+        setVisible(false);
+    }
 
     const updateSelected = (value) => {
         setSelected(null);
@@ -73,7 +78,22 @@ const MovieCard = (props) => {
                     </View>
                 </Pressable>
             </View>
-            <MovieModal theme={props.theme} movie={props.movie} visible={visible} setVisible={() => setVisible(false)} search={props.search} closeAll={props.closeAll}/>
+            <ModalWithHeader 
+                movie={true} 
+                visible={visible} 
+                setVisible={() => setVisible(false)} 
+                content={
+                    <MovieDetail 
+                        user={props.user}
+                        theme={props.theme}
+                        close={onRequestClose}
+                        group={props.group}
+                        movie={props.movie}
+                        search={props.search}
+                        closeAll={() => {onRequestClose(); props.closeAll()}}
+                    />
+                }
+            />
         </>
     );
 }

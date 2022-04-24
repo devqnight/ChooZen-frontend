@@ -9,14 +9,20 @@ import Profile from "../screens/App/Profile";
 import Next from "../screens/App/Next";
 import { Icon } from "../components/icons/Icon.component";
 import { TouchableIcon } from "../components/icons/TouchableIcon.component";
-import { MovieModal } from "../containers/movies/MovieModal.container";
+import { ModalWithHeader } from "../containers/common/ModalWithHeader.container";
+import { MovieSearch } from "../containers/movies/MovieSearch.container";
 
 const Tabs = createBottomTabNavigator();
 
 const TabsStack = () => {
     const theme = useSelector((state) => state.theme);
     const group = useSelector((state) => state.data.groups.active);
+    const user = useSelector((state) => state.user);
     const [visible, setVisible] = useState(false);
+
+    const onRequestClose = () => {
+        setVisible(false);
+    }
 
     return (
         <>
@@ -34,11 +40,22 @@ const TabsStack = () => {
                 <Tabs.Screen name="Groups" options={{headerShown: false}} component={Groups}/>
                 <Tabs.Screen name="Profile" options={{headerShown: false}} component={Profile}/>
             </Tabs.Navigator>
-            {group && <MovieModal
-                setVisible={setVisible}
-                visible={visible}
-                theme={theme}
-            />}
+            {group && 
+                <ModalWithHeader
+                    setVisible={setVisible}
+                    visible={visible}
+                    theme={theme}
+                    content={
+                        <MovieSearch 
+                            user={user}
+                            theme={theme}
+                            close={onRequestClose}
+                            group={group}
+                            closeAll={() => {onRequestClose();}}
+                        />
+                    }
+                />
+            }
         </>
     );
 }
