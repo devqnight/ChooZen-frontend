@@ -1,6 +1,8 @@
 import { formatDate } from '../tools';
 import { getAge } from '../tools';
 import { hasNumber } from '../tools';
+import { hexToRgb } from '../tools';
+
 
 
 it("expect new Date('2000-01-01') to be 2000-1-1",() => {
@@ -23,4 +25,12 @@ it('hasNumber should return true', () => {
 it("hasNumber", () => {
   expect(hasNumber("abc")).toBe(false);
   expect(hasNumber("abc123")).toBe(true);
+});
+
+it("hexToRgb", () => {
+  expect(hexToRgb("#ff0000")).toEqual({
+    r: 255,
+    g: 0,
+    b: 0
+  });
 });
