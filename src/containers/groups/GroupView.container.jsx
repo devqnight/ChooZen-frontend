@@ -2,8 +2,6 @@ import {useEffect, useState} from "react";
 import {Text, View, Pressable, Image, StyleSheet, ScrollView} from "react-native";
 import { useSelector } from "react-redux";
 
-import MovieSearchModal from "../movies/MovieSearchModal.container";
-
 import GroupDetail from "./GroupDetail.container";
 
 //En attendant movies dans la bdd pour démonstration
@@ -32,21 +30,6 @@ const GroupView = (props) => {
         tabSelected: {
             backgroundColor: "#FFFFFF40",
             fontWeight: "bold"
-        },
-        floatingButton: {
-            width: 55,
-            height: 55,
-            position: "absolute",
-            bottom: 20,
-            right: 20,
-            borderRadius: 100,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "orchid"
-        },
-        floatingButtonIcon: {
-            width: 30,
-            height: 30
         },
         listContentContainer: {
             alignItems: "center",
@@ -86,7 +69,6 @@ const GroupView = (props) => {
 
     const [selectedTab, setSelectedTab] = useState(TAB_DETAILS);
     const [movies, setMovies] = useState([]);
-    const [movieSearchModalVisible, setMovieSearchModalVisible] = useState(false);
 
     const tabs = [
       {
@@ -122,10 +104,6 @@ const GroupView = (props) => {
       });
     }, []);
 
-    const onMovieChosen = movie => {
-      setMovieSearchModalVisible(false);
-    }
-
     return (
       <>
           <View style={styles.tabs}>
@@ -157,18 +135,8 @@ const GroupView = (props) => {
                           </Pressable>
                       ))}
                   </ScrollView>
-                  <Pressable style={[styles.floatingButton]}
-                      onPress={() => setMovieSearchModalVisible(true)}>
-
-                      <Image style={styles.floatingButtonIcon}
-                          source={require('../../../assets/plus.png')}/>
-                  </Pressable>
               </>
           }
-          <MovieSearchModal visible={movieSearchModalVisible}
-              onRequestClose={() => setMovieSearchModalVisible(false)}
-              theme={theme}
-              onMovieChosen={onMovieChosen}/>
       </>
     )
 };
