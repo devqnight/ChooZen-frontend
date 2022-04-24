@@ -20,6 +20,14 @@ const Header = (props) => {
                 <TouchableIcon iconName="logout-variant" onTouch={props.onTouch} height={27} color="#FFF"/>
             </View>
         );
+    
+    if(props.type == "Modal")
+        return (
+            <View style={[containerStyles.headerStyle, {backgroundColor: theme.backgroundColor, justifyContent: "flex-start"}]}>
+                <TouchableIcon iconName="keyboard-backspace" onTouch={props.onTouch} height={27} color="#FFF"/>
+                <Text style={[containerStyles.headerTitleStyle, {paddingLeft: 10,color: theme.bar.activeTint}]}>{props.title}</Text>
+            </View>
+        );
 
     const groups = useSelector((state) => state.data.groups);
     let active = null;

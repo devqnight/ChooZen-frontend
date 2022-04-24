@@ -11,8 +11,8 @@ const TouchableIcon = (props) => {
 
     return (
         <TouchableOpacity
-            onPress={ () => { props.onTouch(); } }
-            style={[basicStyles.passwordInputIcon, {height: height, width: height}]} >
+            onPress={props.onTouch}
+            style={[{height: height, width: height}, props.style]} >
             <Icon  
                 iconName={ props.iconName } 
                 height={ height }

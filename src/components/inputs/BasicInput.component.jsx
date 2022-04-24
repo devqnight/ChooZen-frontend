@@ -10,7 +10,6 @@ const BasicInput = (props) => {
                 value={props.value}
                 onBlur={ props.onBlur }
                 autoFocus
-                onEndEditing={ props.onBlur }
             />
         </View>
     );

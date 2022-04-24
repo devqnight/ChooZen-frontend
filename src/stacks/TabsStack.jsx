@@ -1,15 +1,49 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import {View, TouchableOpacity, StyleSheet} from 'react-native'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import tabBarStyles from '../themes/tab_bar_styles';
 import { useSelector } from "react-redux";
 
 import Home from "../screens/App/Home";
 import Groups from "../screens/App/Groups";
 import Profile from "../screens/App/Profile";
+import Next from "../screens/App/Next";
 import { Icon } from "../components/icons/Icon.component";
+import { TouchableIcon } from "../components/icons/TouchableIcon.component";
+import { MovieModal } from "../containers/movies/MovieModal.container";
 
 const Tabs = createBottomTabNavigator();
+
+const TabsStack = () => {
+    const theme = useSelector((state) => state.theme);
+    const group = useSelector((state) => state.data.groups.active);
+    const [visible, setVisible] = useState(false);
+
+    return (
+        <>
+            <Tabs.Navigator 
+                tabBar={(props) => 
+                    <TabBar {...props} 
+                        theme={theme}
+                        setVisible={(value) => setVisible(value)} 
+                        group={!!group}
+                    />
+                }
+            >
+                <Tabs.Screen name="Home" options={{headerShown: false}} component={Home}/>
+                <Tabs.Screen name="Next" options={{headerShown: false}} component={Next}/>
+                <Tabs.Screen name="Groups" options={{headerShown: false}} component={Groups}/>
+                <Tabs.Screen name="Profile" options={{headerShown: false}} component={Profile}/>
+            </Tabs.Navigator>
+            {group && <MovieModal
+                setVisible={setVisible}
+                visible={visible}
+                theme={theme}
+            />}
+        </>
+    );
+}
+
+export default TabsStack;
 
 const getIconName = (route, focused) => {
     switch (route.name) {
@@ -17,55 +51,89 @@ const getIconName = (route, focused) => {
             return focused ? "account-group" : "account-group-outline";
         case 'Profile':
             return focused ? "account-circle" : "account-circle-outline";
+        case 'Next':
+            return focused ? "movie" : "movie-outline";
+        case 'Add':
+            return "plus";
         default:
             return focused ? "home" : "home-outline";
     }
 }
 
-const TabsStack = () => {
-    const theme = useSelector((state) => state.theme);
-
-    // ----------
-    //  Screen options not applied if used as a list, forced to used as object, despite error warnings
-    // ----------
-    //const options = [
-    //    { tabBarStyle: tabBarStyles.bar },
-    //    ({ route }) => ({
-    //        tabBarIcon: ({focused, color}) => {
-    //            let iconName = getIconName(route, focused);
-    //            return <Icon iconName={ iconName } color={color} height={32} />
-    //        },
-    //        tabBarActiveTintColor: theme.bar.activeTint,
-    //        tabBarInactiveTintColor: theme.bar.inactiveTint,
-    //        tabBarActiveBackgroundColor: theme.bar.activeBackground,
-    //        tabBarInactiveBackgroundColor: theme.bar.inactiveBackground,
-    //        tabBarShowLabel: false
-    //    })
-    //];
-
-
+const BottomIcon = ({iconName, color}) => {
     return (
-        <>
-            <Tabs.Navigator screenOptions={
-                { tabBarStyle: tabBarStyles.bar },
-                ({ route }) => ({
-                    tabBarIcon: ({focused, color}) => {
-                        let iconName = getIconName(route, focused);
-                        return <Icon iconName={ iconName } color={color} height={32} />
-                    },
-                    tabBarActiveTintColor: theme.bar.activeTint,
-                    tabBarInactiveTintColor: theme.bar.inactiveTint,
-                    tabBarActiveBackgroundColor: theme.bar.activeBackground,
-                    tabBarInactiveBackgroundColor: theme.bar.inactiveBackground,
-                    tabBarShowLabel: false
-                })}
-            >
-                <Tabs.Screen name="Home" options={{headerShown: false}} component={Home}/>
-                <Tabs.Screen name="Groups" options={{headerShown: false}} component={Groups}/>
-                <Tabs.Screen name="Profile" options={{headerShown: false}} component={Profile}/>
-            </Tabs.Navigator>
-        </>
+        <Icon iconName={ iconName } color={color} height={32} />
     );
 }
 
-export default TabsStack;
+const TabBar = ({state, descriptors, navigation, theme, setVisible, group}) => {
+    return (
+        <View
+            style={[style.bar]}
+        >
+            {state.routes.map((route, index) => {
+                const isFocused = state.index === index;
+                const { options } = descriptors[route.key];
+
+                const onPress = () => {
+                    const event = navigation.emit({
+                        type: 'tabPress',
+                        target: route.key
+                    });
+
+                    if(!isFocused && !event.defaultPrevented)
+                        navigation.navigate(route.name);
+                }
+                
+                const color = isFocused ? theme.bar.activeTint : theme.bar.inactiveTint;
+                const backgroundColor = isFocused ? theme.bar.activeBackground : theme.bar.inactiveBackground;
+                return (
+                    <TouchableOpacity 
+                        key={index}
+                        onPress={onPress}
+                        style={[style.item, {backgroundColor: backgroundColor}]}
+                    >
+                        <BottomIcon 
+                            iconName={getIconName(route, isFocused)}
+                            color={color}
+                        />
+                    </TouchableOpacity>
+                );
+            })}
+            {group && <TouchableIcon 
+                height={32} 
+                iconName="magnify" //movie-search-outline //plus
+                color="white"
+                style={{...style.addButton, backgroundColor: theme.bar.activeBackground}}
+                onTouch={() => setVisible(true)}
+            />}
+        </View>
+    );
+}
+
+const style = StyleSheet.create({
+    bar: {
+
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        height: 45
+    },
+    item: {
+        alignItems: "center",
+        justifyContent: "center",
+        width: "25%",
+        height: "100%"
+    },
+    addButton: {
+        position: "absolute",
+        left: "43%",
+        bottom: 20,
+        height: 55,
+        width: 55,
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: 90,
+        elevation: 4
+    }
+});
