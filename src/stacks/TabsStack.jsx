@@ -119,7 +119,7 @@ const TabBar = ({state, descriptors, navigation, theme, setVisible, group}) => {
             })}
             {group && <TouchableIcon 
                 height={32} 
-                iconName="magnify" //movie-search-outline //plus
+                iconName="movie-search-outline" //magnify //plus
                 color="white"
                 style={{...style.addButton, backgroundColor: theme.bar.activeBackground}}
                 onTouch={() => setVisible(true)}
