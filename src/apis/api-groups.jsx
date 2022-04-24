@@ -36,4 +36,4 @@ const joinGroup = async (token, name) => {
 
 }   
 
-export { changeGroup, getGroups, createGroup, joinGroup };
+export { changeGroup, getGroups, createGroup, joinGroup, initialState };
