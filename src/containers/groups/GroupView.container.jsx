@@ -89,7 +89,7 @@ const GroupView = (props) => {
       }
 
       return (<Text key={tab.id}
-                    style={[tabStyles]}
+                    style={tabStyles}
                     onPress={() => setSelectedTab(tab.id)}>
 
                     {tab.label}

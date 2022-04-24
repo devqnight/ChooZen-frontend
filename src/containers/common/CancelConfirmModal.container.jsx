@@ -18,7 +18,7 @@ const CancelConfirmModal = (props) => {
         },
         bottomButton: {
             borderRadius: 20,
-            backgroundColor: "orchid",
+            backgroundColor: props.theme.backgroundColor,
             flex: 1,
             padding: 10,
             maxWidth: 200,
@@ -42,7 +42,7 @@ const CancelConfirmModal = (props) => {
                 </View>
                 <View style={styles.bottomButtons}>
                     <Text
-                        style={[styles.bottomButton, {backgroundColor: props.theme.backgroundColor}]}
+                        style={styles.bottomButton}
                         onPress={props.onRequestClose}>
 
                         Cancel
