@@ -10,12 +10,15 @@ import GroupDetail from "./GroupDetail.container";
 const API = "https://imdb-api.com/en/API/SearchMovie/k_x0kc5v5x/Wars"
 
 const GroupView = (props) => {
+    const theme = useSelector((state) => state.theme);
+
     const styles = StyleSheet.create({
         tabs: {
             flexDirection: "row",
             margin: 16,
             borderRadius: 10,
             overflow: "hidden",
+            backgroundColor: theme.backgroundColor
         },
         tab: {
             flex: 1,
@@ -24,11 +27,10 @@ const GroupView = (props) => {
             paddingEnd: 16,
             paddingTop: 8,
             paddingBottom: 8,
-            color: "white",
-            backgroundColor: "orchid",
+            color: "white"
         },
         tabSelected: {
-            backgroundColor: "#F589F1",
+            backgroundColor: "#FFFFFF40",
             fontWeight: "bold"
         },
         floatingButton: {
@@ -82,8 +84,6 @@ const GroupView = (props) => {
     const TAB_DETAILS = 0,
     TAB_MOVIES  = 1;
 
-    const theme = useSelector((state) => state.theme);
-
     const [selectedTab, setSelectedTab] = useState(TAB_DETAILS);
     const [movies, setMovies] = useState([]);
     const [movieSearchModalVisible, setMovieSearchModalVisible] = useState(false);
@@ -100,14 +100,14 @@ const GroupView = (props) => {
     ];
 
     const tabsElems = tabs.map(tab => {
-      const tabStyles = [styles.tab, ];
+      const tabStyles = [styles.tab];
 
       if(selectedTab == tab.id) {
           tabStyles.push(styles.tabSelected);
       }
 
       return (<Text key={tab.id}
-                    style={[tabStyles, {backgroundColor: theme.backgroundColor}]}
+                    style={[tabStyles]}
                     onPress={() => setSelectedTab(tab.id)}>
 
                     {tab.label}
