@@ -13,7 +13,7 @@ const VotingRow = (props) => {
     });
 
     return (
-        <View style={[style.votingBar]}>
+        <View style={[style.votingBar, props.theme.custom]}>
             {voting.map((rate, index) => (
                 <CustomButton 
                     key={index}

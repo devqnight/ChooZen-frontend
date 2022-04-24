@@ -80,6 +80,9 @@ const Input = (props) => {
                 setValid(true);
             }
         }
+        if(props.fetch){
+            props.fetch();
+        }
     }
     
 
