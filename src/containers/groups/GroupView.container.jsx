@@ -14,7 +14,7 @@ const GroupView = (props) => {
             margin: 16,
             borderRadius: 10,
             overflow: "hidden",
-            backgroundColor: theme.backgroundColor
+            backgroundColor: theme.bar.inactiveBackground,
         },
         tab: {
             flex: 1,
@@ -23,10 +23,11 @@ const GroupView = (props) => {
             paddingEnd: 16,
             paddingTop: 8,
             paddingBottom: 8,
-            color: "white"
+            color: theme.bar.inactiveTint
         },
         tabSelected: {
-            backgroundColor: "#FFFFFF40",
+            backgroundColor: theme.bar.activeBackground,
+            color: theme.bar.activeTint,
             fontWeight: "bold"
         },
         listContentContainer: {
@@ -84,9 +85,6 @@ const GroupView = (props) => {
 
       if(selectedTab == tab.id) {
           tabStyles.push(styles.tabSelected);
-          tabStyles.push({backgroundColor: theme.bar.activeBackground});
-      } else {
-        tabStyles.push({backgroundColor: theme.bar.inactiveBackground, color: theme.bar.inactiveTint});
       }
 
       return (<Text key={tab.id}
