@@ -106,6 +106,7 @@ const Input = (props) => {
                     setValid={ setValid }
                     onChangeDate={ props.onChangeDate } 
                     onBlur={() => onBlur()} 
+                    style={props.style}
                 />;
     else
         input = <BasicInput 

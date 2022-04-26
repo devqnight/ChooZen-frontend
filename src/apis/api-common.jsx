@@ -38,7 +38,7 @@ const isAuthenticated = async (props) => {
         body: form
       }
     )
-
+    
     let json = await handleError(response).json();
 
     return json;

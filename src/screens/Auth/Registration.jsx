@@ -21,6 +21,7 @@ const Registration = () => {
 
     const nav = useNavigation();
     const theme = useSelector((state) => state.theme);
+    const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
 
@@ -55,8 +56,6 @@ const Registration = () => {
             password2: confPwdStr,
             birthdate: formatDate(date)
         }));
-        const auth = store.getState().auth;
-        await dispatch(checkAuthentication(auth.token, auth.login));
         if(auth.err){
             setIsLoading(false);
             let msg = "Error on register";

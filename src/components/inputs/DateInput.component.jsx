@@ -69,10 +69,10 @@ const DateInput = (props) => {
                     onPressOut={ () => toggleDatePicker() } 
                 />
                 <TouchableOpacity 
-                    style={ [basicStyles.button, basicStyles.buttonDate]}
+                    style={ [basicStyles.button, basicStyles.buttonDate, {backgroundColor: "#f0f0f0"}]}
                     onPress={ () => openDatePicker() }
                 >
-                    <Icon color="#FFF" height={25} iconName="calendar-month" />
+                    <Icon color={props.style.backgroundColor} height={25} iconName="calendar-month" />
                 </TouchableOpacity>
             </View>
             {show && 

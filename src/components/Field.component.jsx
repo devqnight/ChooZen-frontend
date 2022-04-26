@@ -33,7 +33,8 @@ const style = StyleSheet.create({
     content: {
         fontSize: 16,
         paddingLeft: 10,
-        width: "73%",
-        flexWrap: "wrap"
+        maxWidth: "73%",
+        flexWrap: "wrap",
+        textAlign: "right"
     }
 });

@@ -31,7 +31,7 @@ const basicStyles = StyleSheet.create({
     buttonDate: {
         justifyContent: "center",
         alignContent: "center",
-        backgroundColor: "orchid",
+        //backgroundColor: "orchid",
         height: 30,
         width: 30,
         marginLeft: 15

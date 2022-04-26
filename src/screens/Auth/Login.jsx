@@ -49,10 +49,7 @@ const Login = () => {
                 msg = auth.err.non_field_errors[0]
             setErrorMsg(msg);
             setError(true);
-        }
-        await dispatch(checkAuthentication(auth.token, auth.login));
-        
-        
+        }        
     };
 
     const goRegister = () => {

@@ -2,6 +2,7 @@ import { signin, signout, signup } from '../apis/api-auth';
 import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGBACK_FAILURE, LOGBACK_REQUEST, LOGBACK_SUCCESS, LOGOUT_FAILURE, LOGOUT_REQUEST, LOGOUT_SUCCESS, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "../constants/auth.constants";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { checkAuthentication } from './user.actions';
 
 
 const logback = (login, token) => {
@@ -24,15 +25,18 @@ const login = (login, password) => {
     const failure = (user) => {return {type: LOGIN_FAILURE, user}};
 
     return async dispatch => {
+        let token;
         dispatch(request({login}));
         await signin(login, password)
             .then( async response => {
                 await AsyncStorage.setItem("auth", JSON.stringify({login: login, token: response}));
                 dispatch(success({response, login}));
+                token = response;
             })
             .catch(error => {
                 dispatch(failure(error));
             });
+        await dispatch(checkAuthentication(token,login));
     }
 };
 
@@ -64,12 +68,14 @@ const register = (props) => {
     const success = (user) => {return {type: REGISTER_SUCCESS, user}};
     const failure = (user) => {return {type: REGISTER_FAILURE, user}};
 
-    return dispatch => {
+    return async dispatch => {
+        let token;
         dispatch(request({login: props.login}));
-        signup(props)
+        await signup(props)
             .then( async response => {
                 try {
                     await AsyncStorage.setItem("auth", JSON.stringify({login: props.login, token: response}));
+                    token = response;
                 } catch (error){
                     Promise.reject(error);
                 }
@@ -78,6 +84,7 @@ const register = (props) => {
             .catch(error => {
                 dispatch(failure(error));
             })
+        await dispatch(checkAuthentication(token,props.login));
     }
 }
 
