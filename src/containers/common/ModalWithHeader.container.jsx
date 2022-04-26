@@ -2,7 +2,7 @@ import React from "react";
 import {View, StyleSheet, Modal, Text} from 'react-native';
 import Header from "./Header.container";
 
-const ModalWithHeader = ({movie, visible, setVisible, content}) => {
+const ModalWithHeader = ({movie, visible, setVisible, content, onTouch}) => {
 
     const onRequestClose = () => {
         setVisible(false);
@@ -20,9 +20,9 @@ const ModalWithHeader = ({movie, visible, setVisible, content}) => {
             animationType="slide"
             transparent={false}
             visible={visible}
-            onRequestClose={() => onRequestClose()}
+            onRequestClose={onRequestClose}
         >
-            <Header title={title} onTouch={() => onRequestClose()} type="Modal"/>
+            <Header title={title} onTouch={onTouch ? onTouch : onRequestClose} type="Modal"/>
             {content}
         </Modal>
     );

@@ -23,7 +23,7 @@ const CustomButton = ({ onPressButton, text, styleName, enabled, theme, textStyl
     }
     
     return (
-        <TouchableOpacity disabled={ enabled } style={ [ basicStyles.button, styleButton ] } onPress={onPressButton}>
+        <TouchableOpacity disabled={ enabled } style={ [ basicStyles.button, styleButton, {elevation: 3} ] } onPress={onPressButton}>
             <Text style={ [ basicStyles.button_text, styleText ] }>{ text }</Text>
         </TouchableOpacity>
     );

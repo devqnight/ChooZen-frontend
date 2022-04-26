@@ -145,6 +145,10 @@ const fetchMoviesAPI = async (groupId, userId) => {
     return res;
 };
 
+const addMovieAPI = async (movieId, comment, groupId, userId) => {
+    return null;
+}
+
 const updateScoreAPI = (props) => {
 
 }
@@ -188,4 +192,4 @@ const rateMovieAPI = async (movieId, rate, groupId, userId) => {
     return {voted: voted, movies: moviesfiltered};
 }
 
-export {fetchMovieAPI, fetchMoviesAPI, updateScoreAPI, deleteMovieAPI, movies, searchMoviesAPI, rateMovieAPI};
+export {fetchMovieAPI, fetchMoviesAPI, addMovieAPI, updateScoreAPI, deleteMovieAPI, movies, searchMoviesAPI, rateMovieAPI};

@@ -23,12 +23,12 @@ const DefaultNoGroup = (props) => {
             <Text style={styles.firstGroupInvitation}>
                 You're not yet in a group?
             </Text>
-            <Text style={[styles.firstGroupInvitationButton, {backgroundColor: props.theme.backgroundColor}]}
+            <Text style={[styles.firstGroupInvitationButton, {backgroundColor: props.theme.backgroundColor, elevation: 3}]}
                 onPress={() => setGroupSelectionModalVisible(true)}>
 
                 Join a group
             </Text>
-            <Text style={[styles.firstGroupInvitationButton, {backgroundColor: props.theme.backgroundColor}]}
+            <Text style={[styles.firstGroupInvitationButton, {backgroundColor: props.theme.backgroundColor, elevation: 3}]}
                 onPress={() => setGroupCreationModalVisible(true)}>
 
                 Create a group

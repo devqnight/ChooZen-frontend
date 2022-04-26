@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {View, StyleSheet, Modal, ScrollView, Text, Image} from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMovie } from "../../actions/movies.actions";
+import { addMovie, fetchMovie } from "../../actions/movies.actions";
 import { CustomButton } from "../../components/buttons/CustomButton.component";
 import { Field } from "../../components/Field.component";
 import { Loading } from "../../screens/Loading";
@@ -24,11 +24,8 @@ const MovieDetail = (props) => {
         else setSelected(value);
     }
 
-    const fetchData = async () => {
-        await dispatch(fetchMovie(id, props.user.id));
-    }
-
     const saveMovie = async () => {
+        dispatch(addMovie(id, null, props.group.active, props.user.login));
         props.closeAll();
     }
 
@@ -56,7 +53,7 @@ const MovieDetail = (props) => {
                                 <Text style={style.sectionTitle}>Genres</Text>
                                 <View style={style.genres}>
                                     {movieDetails.genreList.map((value, index) => {
-                                        return <Text style={[style.genre, {backgroundColor: props.theme.backgroundColor, color: props.theme.bar.activeTint}]} key={index}>{value.value}</Text>
+                                        return <Text style={[style.genre, {backgroundColor: props.theme.backgroundColor, elevation: 3, color: props.theme.bar.activeTint}]} key={index}>{value.value}</Text>
                                     })}
                                 </View>
                             </View>}
@@ -68,6 +65,10 @@ const MovieDetail = (props) => {
                     {movieDetails.actorList && <View style={{backgroundColor: props.theme.backgroundColor}}>
                         <Text style={[style.title, {margin:2, padding: 5,color: props.theme.bar.activeTint}]}>Cast</Text>
                         <Actors theme={props.theme} actors={movieDetails.actorList} />
+                    </View>}
+                    {!movieDetails.actorList && movieDetails.starList && <View style={{backgroundColor: props.theme.backgroundColor}}>
+                        <Text style={[style.title, {margin:2, padding: 5,color: props.theme.bar.activeTint}]}>Stars</Text>
+                        <Actors theme={props.theme} actors={movieDetails.starList} />
                     </View>}
                     <View style={style.plotContainer}>
                         <Text style={style.plotTitle}>Plot</Text>

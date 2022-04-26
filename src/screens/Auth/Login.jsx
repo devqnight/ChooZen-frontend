@@ -76,7 +76,7 @@ const Login = () => {
                     margin: 20,
                     alignItems: "center",
                     paddingTop: 20,
-                    backgroundColor: "f0f0f0",
+                    backgroundColor: "#FFFFFF"
                 },
                 style.elevation
             ]} >
@@ -106,12 +106,12 @@ const Login = () => {
                         text="Log in"
                         onPressButton={() => doLogin()}
                         styleName="Save"
-                        theme={{backgroundColor: theme.backgroundColor, marginTop: 10}}
+                        theme={{backgroundColor: theme.backgroundColor, marginTop: 10, borderRadius: 5}}
                     />
                     <CustomButton 
                         text="Register"
                         onPressButton={() => goRegister()}
-                        theme={{marginTop: 10}}
+                        theme={{marginTop: 10, borderRadius: 5}}
                     />
                 </View>
                 

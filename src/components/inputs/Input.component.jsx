@@ -136,12 +136,13 @@ export {Input};
 
 const style = StyleSheet.create({
     input: {
-        backgroundColor: "#dedede",
+        backgroundColor: "#f0f0f0",
         borderRadius: 5,
         height: 50,
         padding: 5,
         margin: 5,
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        elevation: 3
     },
     inputInner: {
         borderBottomWidth: "60%",

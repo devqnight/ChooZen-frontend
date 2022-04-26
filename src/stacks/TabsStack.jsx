@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {View, TouchableOpacity, StyleSheet} from 'react-native'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Home from "../screens/App/Home";
 import Groups from "../screens/App/Groups";
@@ -11,6 +11,7 @@ import { Icon } from "../components/icons/Icon.component";
 import { TouchableIcon } from "../components/icons/TouchableIcon.component";
 import { ModalWithHeader } from "../containers/common/ModalWithHeader.container";
 import { MovieSearch } from "../containers/movies/MovieSearch.container";
+import { clearSearch } from "../actions/movies.actions";
 
 const Tabs = createBottomTabNavigator();
 
@@ -19,8 +20,10 @@ const TabsStack = () => {
     const group = useSelector((state) => state.data.groups.active);
     const user = useSelector((state) => state.user);
     const [visible, setVisible] = useState(false);
+    const dispatch = useDispatch();
 
-    const onRequestClose = () => {
+    const onRequestClose = async () => {
+        await dispatch(clearSearch())
         setVisible(false);
     }
 
@@ -45,13 +48,14 @@ const TabsStack = () => {
                     setVisible={setVisible}
                     visible={visible}
                     theme={theme}
+                    onTouch={() => onRequestClose()}
                     content={
                         <MovieSearch 
                             user={user}
                             theme={theme}
                             close={onRequestClose}
                             group={group}
-                            closeAll={() => {onRequestClose();}}
+                            closeAll={onRequestClose}
                         />
                     }
                 />

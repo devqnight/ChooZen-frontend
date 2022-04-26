@@ -84,7 +84,7 @@ const Registration = () => {
                     margin: 20,
                     alignItems: "center",
                     paddingTop: 20,
-                    backgroundColor: "f0f0f0",
+                    backgroundColor: "#fff",
                 },
                 style.elevation
             ]} >
@@ -155,13 +155,13 @@ const Registration = () => {
                         text="Register"
                         onPressButton={() => doRegister()}
                         styleName="Save"
-                        theme={{backgroundColor: theme.backgroundColor, marginTop: 10, width: "48%"}}
+                        theme={{backgroundColor: theme.backgroundColor, borderRadius: 5, marginTop: 10, width: "48%"}}
                     />
                     <CustomButton 
                         text="Cancel"
                         styleName="Close"
                         onPressButton={() => goBack()}
-                        theme={{marginTop: 10, width: "48%"}}
+                        theme={{marginTop: 10, width: "48%", borderRadius: 5}}
                     />
                 </View>
                 

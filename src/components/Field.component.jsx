@@ -17,7 +17,7 @@ const style = StyleSheet.create({
         width: "98%",
         margin: 2,
         padding: 10,
-        height: 45,
+        maxHeight: 90,
         borderBottomColor: "#3F3F3F",
         borderBottomWidth: 1,
         display: "flex",
@@ -31,6 +31,9 @@ const style = StyleSheet.create({
         color: "#3F3F3F"
     },
     content: {
-        fontSize: 16
+        fontSize: 16,
+        paddingLeft: 10,
+        width: "73%",
+        flexWrap: "wrap"
     }
 });
