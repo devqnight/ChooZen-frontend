@@ -62,8 +62,8 @@ const signup = async (props) => {
     const email = props.email;
     const firstname = props.firstname;
     const lastname = props.lastname;
-    const password1 = props.password;
-    const password2 = props.confirmPassword;
+    const password1 = props.password1;
+    const password2 = props.password2;
     const birthdate = props.birthdate;
 
     const form = new FormData();

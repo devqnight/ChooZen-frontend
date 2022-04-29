@@ -47,6 +47,7 @@ const Registration = () => {
 
     const doRegister = async () => {
         setIsLoading(true);
+        console.log(pwdStr);
         await dispatch(register({
             firstname: firstnameStr,
             lastname: lastnameStr,
