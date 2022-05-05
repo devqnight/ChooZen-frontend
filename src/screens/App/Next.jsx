@@ -37,7 +37,10 @@ const Next = () => {
 
     let nextView 
     if (movies.voted && movies.voted.length > 0)
-        nextView = <ScrollMovieList theme={theme} movies={movies.voted} height={590} marginBottom={340} onUpdate={(value, movie) => updateMovies(value, movie)} />;
+        nextView = 
+            <View style={{height: "93%"}}>
+                <ScrollMovieList theme={theme} movies={movies.voted} height={650} marginBottom={0} onUpdate={(value, movie) => updateMovies(value, movie)} />
+            </View>;
     else 
         nextView = <View style={style.cardContainer}><Text>No movies in list</Text></View>
 

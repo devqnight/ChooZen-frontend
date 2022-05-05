@@ -19,8 +19,9 @@ const checkAuthentication = (token, username) => {
             .catch(error => {
                 dispatch(failure(error));
             })
-        if(id)
+        if(id){
             await dispatch(fetchGroups(id));
+        }
     };
 }
 

@@ -20,7 +20,7 @@ const Groups = () => {
         )
 
     return (
-        <View>
+        <View style={{height: "66%"}}>
             <Header title="Groups" />
             <GroupView data={groups} />
         </View>

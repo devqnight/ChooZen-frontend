@@ -10,12 +10,14 @@ const DefaultNoGroup = (props) => {
     const [groupCreationModalVisible, setGroupCreationModalVisible] = useState(false);
 
     const dispatch = useDispatch();
-    const auth = useSelector((state) => state.auth);
+    const user = useSelector((state) => state.user);
     const groups = useSelector((state) => state.data.groups);
     
     const onNewGroup = async (text) => {
-        await dispatch(doCreateGroup(auth.token, text));
-        await dispatch(fetchMovies(groups.active, auth.login));
+        await dispatch(doCreateGroup(user.id, text));
+        await dispatch(fetchMovies(groups.active, user.id));
+        setGroupCreationModalVisible(false);
+        setGroupSelectionModalVisible(false);
     }
 
     return (

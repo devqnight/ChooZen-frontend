@@ -10,7 +10,7 @@ import { updateGroup } from "../../actions/groups.actions";
 import containerStyles from '../../themes/container_styles';
 
 const Header = (props) => {
-    const auth = useSelector((state) => state.auth);
+    const user = useSelector((state) => state.user);
     const theme = useSelector((state) => state.theme);
 
     if(props.title == "Profile")
@@ -32,12 +32,12 @@ const Header = (props) => {
     const groups = useSelector((state) => state.data.groups);
     let active = null;
     if(groups.groups)
-        active = groups.groups.findIndex(x => x.name == groups.active);
+        active = groups.groups.findIndex(x => x.title == groups.active.title);
 
     const dispatch = useDispatch();
 
     const update = (group, index) => {
-        dispatch(updateGroup(auth.token, group));
+        dispatch(updateGroup(user.id, group.id));
     };
 
     let secondary;

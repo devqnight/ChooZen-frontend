@@ -122,6 +122,8 @@ const apiQuentin = "k_whm9bxm3";
 const fetchParameters = "";
 
 const urlSearch= "https://bique.familyds.com:8001/api-choozen/advanced_search/";
+const apiProposeMovie = "https://bique.familyds.com:8001/api-choozen/propose_movie/"
+const apiFetchMovies = "https://bique.familyds.com:8001/api-choozen/fetch_movies/"
 
 const fetchMovieAPI = async (movieId, userId) => {
     let res;
@@ -135,18 +137,58 @@ const fetchMovieAPI = async (movieId, userId) => {
 };
 
 const fetchMoviesAPI = async (groupId, userId) => {
-    let res;
-    setTimeout(() => {
-        
-    
-    }, 1500);
-    res = movies;
+    const csrf = await getCSRF();
 
-    return res;
+    const form = new FormData();
+    form.append("user_id", userId);
+    form.append("group_id", groupId);
+
+    let response = await fetch(
+        apiFetchMovies,
+        {
+            method: 'POST',
+            headers:{
+                "X-CSRFToken": csrf
+            },
+            body: form
+        }
+    );
+
+    let json = await handleError(response).json();
+    
+    if(json.errorMessage)
+        throw Error(json.errorMessage);
+
+    return json;
 };
 
 const addMovieAPI = async (movieId, comment, groupId, userId) => {
-    return null;
+    const csrf = await getCSRF();
+
+    const form = new FormData();
+    form.append("user_id", userId);
+    form.append("group_id", groupId);
+    form.append("movie_id", movieId);
+    form.append("comments", comment);
+
+    let response = await fetch(
+        apiProposeMovie,
+        {
+            method: 'POST',
+            headers:{
+                "X-CSRFToken": csrf
+            },
+            body: form
+        }
+    );
+
+    let json = await handleError(response).json();
+    
+    if(json.errorMessage)
+        throw Error(json.errorMessage);
+
+    return json;
+
 }
 
 const updateScoreAPI = (props) => {

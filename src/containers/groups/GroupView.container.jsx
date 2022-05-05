@@ -7,6 +7,7 @@ import GroupDetail from "./GroupDetail.container";
 
 const GroupView = (props) => {
     const theme = useSelector((state) => state.theme);
+    const user = useSelector((state) => state.user);
 
     const styles = StyleSheet.create({
         tabs: {
@@ -110,8 +111,9 @@ const GroupView = (props) => {
                     { ((movies.movies && movies.movies.length > 0) || (movies.voted && movies.voted.length > 0)) &&
                         <ScrollMovieList 
                             movies={[...movies.movies, ...movies.voted]}
+                            user={user}
                             theme={theme}
-                            height={590}
+                            height={580}
                             marginBottom={60}
                         />
                     }

@@ -1,4 +1,4 @@
-import { FETCH_MOVIE_REQUEST, FETCH_MOVIE_SUCCESS, FETCH_MOVIE_FAILURE, FETCH_MOVIES_SUCCESS, FETCH_MOVIES_REQUEST, FETCH_MOVIES_FAILURE, SEARCH_MOVIES_SUCCESS, SEARCH_MOVIES_REQUEST, SEARCH_MOVIES_FAILURE, RATE_MOVIE_REQUEST, RATE_MOVIE_SUCCESS, RATE_MOVIE_FAILURE, ADD_MOVIE_SUCCESS, ADD_MOVIE_REQUEST, ADD_MOVIE_FAILURE, SEARCH_CLEAR_SUCCESS, SEARCH_CLEAR_REQUEST } from '../constants/movies.contants';
+import { FETCH_MOVIE_REQUEST, FETCH_MOVIE_SUCCESS, FETCH_MOVIE_FAILURE, FETCH_MOVIES_SUCCESS, FETCH_MOVIES_REQUEST, FETCH_MOVIES_FAILURE, SEARCH_MOVIES_SUCCESS, SEARCH_MOVIES_REQUEST, SEARCH_MOVIES_FAILURE, RATE_MOVIE_REQUEST, RATE_MOVIE_SUCCESS, RATE_MOVIE_FAILURE, ADD_MOVIE_SUCCESS, ADD_MOVIE_REQUEST, ADD_MOVIE_FAILURE, SEARCH_CLEAR_SUCCESS, SEARCH_CLEAR_REQUEST, UPDATE_MOVIES } from '../constants/movies.contants';
 import { searchMoviesAPI, fetchMovieAPI, fetchMoviesAPI, rateMovieAPI, addMovieAPI } from '../apis/api-movies';
 
 const fetchMovie = (movieId, userId) => {
@@ -16,6 +16,14 @@ const fetchMovie = (movieId, userId) => {
             .catch(err => {
                 dispatch(failure(err));
             });
+    }
+}
+
+const updateMovies = (movies) => {
+    const success = (movies) => {return {type: UPDATE_MOVIES, movies}};
+
+    return async dispatch => {
+        dispatch(success(movies));
     }
 }
 
@@ -74,6 +82,7 @@ const addMovie = (movieId, comment, groupId, userId) => {
             .catch(err => {
                 dispatch(failure(err));
             });
+        await dispatch(fetchMovies(groupId, userId));
     }
 }
 
@@ -114,4 +123,4 @@ const rateMovie = (movieId, rate, groupId, userId) => {
     }
 }
 
-export {fetchMovie,fetchMovies, addMovie, searchMovies, rateMovie, clearSearch};
+export {fetchMovie,fetchMovies, addMovie, searchMovies, rateMovie, clearSearch, updateMovies};

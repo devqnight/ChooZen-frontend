@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {View, StyleSheet, Modal, ScrollView, Text, Image} from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
-import { addMovie, fetchMovie } from "../../actions/movies.actions";
+import { addMovie, fetchMovie, fetchMovies } from "../../actions/movies.actions";
 import { CustomButton } from "../../components/buttons/CustomButton.component";
 import { Field } from "../../components/Field.component";
 import { Loading } from "../../screens/Loading";
@@ -25,17 +25,19 @@ const MovieDetail = (props) => {
     }
 
     const saveMovie = async () => {
-        dispatch(addMovie(id, null, props.group.active, props.user.login));
+        await dispatch(addMovie(id, null, props.group.id, props.user.id));
+        //await dispatch(fetchMovies(props.group.id, props.user.id));
         props.closeAll();
     }
 
     useEffect(async () => {
-        if(!props.search){
-            await dispatch(fetchMovie(id, props.user.id));
-            setDetails(store.getState().data.movies.current);
-        } else {
-            setDetails(props.movie);
-        }
+        setDetails(props.movie);
+        //if(!props.search){
+        //    await dispatch(fetchMovie(id, props.user.id));
+        //    setDetails(store.getState().data.movies.current);
+        //} else {
+        //    setDetails(props.movie);
+        //}
     },[]);
 
     let content=<></>;

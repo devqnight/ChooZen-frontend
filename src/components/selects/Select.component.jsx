@@ -3,20 +3,21 @@ import { View, Text, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 
 const Select = (props) => {
-    const optionNames = [];
-
-    if(props.options)
-        for(let option of props.options)
-            optionNames.push(option.name);
 
     return (
         <View>
             <SelectDropdown 
-                data={optionNames}
+                data={props.options}
                 defaultValueByIndex={props.active}
                 onSelect={props.updateSelection}
                 buttonStyle={styles.buttonStyle}
                 buttonTextStyle={styles.buttonTextStyle}
+                buttonTextAfterSelection={(item, index) => {
+                    return item.title;
+                }}
+                rowTextForSelection={(item, index) => {
+                    return item.title;
+                }}
                 dropdownIconPosition={"right"}
             />
         </View>

@@ -69,7 +69,7 @@ const MovieCard = (props) => {
                                     <Text style={[style.year, style.text]}>{props.movie.description}</Text>
                                 </View>
                                 <View style={style.additionalContainer}>
-                                    <Text style={[style.text, style.score]}>{props.rate}</Text>
+                                    <Text style={[style.text, style.score]}>{props.movie.imdb_rating || ""}</Text>
                                 </View>
                             </View>
 

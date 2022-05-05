@@ -34,6 +34,7 @@ const MovieSearch = (props) => {
             {movies.search && movies.search.length > 0 && 
                 <ScrollMovieList 
                     movies={movies.search}
+                    search={true}
                     theme={props.theme}
                     group={props.group}
                     user={props.user}
