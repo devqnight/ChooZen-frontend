@@ -23,9 +23,7 @@ const updateMovies = (movies) => {
     const success = (movies) => {return {type: UPDATE_MOVIES, movies}};
 
     return async dispatch => {
-        console.log("updating movies...");
         dispatch(success(movies));
-        console.log("updated movies");
     }
 }
 
@@ -76,17 +74,12 @@ const addMovie = (movieId, comment, groupId, userId) => {
 
 
     return async dispatch => {
-        console.log("adding movie...")
         dispatch(request());
         await addMovieAPI(movieId, comment, groupId, userId)
             .then(response => {
-                console.log("added movie")
-                console.log(response);
                 dispatch(success(response));
             })
             .catch(err => {
-                console.log("failed to add movie")
-                console.log(err);
                 dispatch(failure(err));
             });
     }
