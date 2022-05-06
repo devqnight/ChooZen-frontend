@@ -23,7 +23,9 @@ const updateMovies = (movies) => {
     const success = (movies) => {return {type: UPDATE_MOVIES, movies}};
 
     return async dispatch => {
+        console.log("updating movies...");
         dispatch(success(movies));
+        console.log("updated movies");
     }
 }
 
@@ -74,15 +76,19 @@ const addMovie = (movieId, comment, groupId, userId) => {
 
 
     return async dispatch => {
+        console.log("adding movie...")
         dispatch(request());
         await addMovieAPI(movieId, comment, groupId, userId)
             .then(response => {
+                console.log("added movie")
+                console.log(response);
                 dispatch(success(response));
             })
             .catch(err => {
+                console.log("failed to add movie")
+                console.log(err);
                 dispatch(failure(err));
             });
-        await dispatch(fetchMovies(groupId, userId));
     }
 }
 
@@ -107,7 +113,7 @@ const removeMovie = (movieId, groupId, userId) => {
 
 const rateMovie = (movieId, rate, groupId, userId) => {
     const request = () => {return {type: RATE_MOVIE_REQUEST}};
-    const success = (movies, voted) => {return {type: RATE_MOVIE_SUCCESS, movies, voted}};
+    const success = (movie_id) => {return {type: RATE_MOVIE_SUCCESS, movie_id}};
     const failure = (err) => {return {type: RATE_MOVIE_FAILURE, err}};
 
 
@@ -115,7 +121,7 @@ const rateMovie = (movieId, rate, groupId, userId) => {
         dispatch(request());
         await rateMovieAPI(movieId, rate, groupId, userId)
             .then(response => {
-                dispatch(success(response.movies, response.voted));
+                dispatch(success(movieId));
             })
             .catch(err => {
                 dispatch(failure(err));

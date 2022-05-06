@@ -56,6 +56,7 @@ const logout = (token) => {
                     Promise.reject(error);
                 }
                 dispatch(success({response, token}));
+                dispatch({type: 'USER_LOGOUT'});
             })
             .catch(error => {
                 dispatch(failure(error));

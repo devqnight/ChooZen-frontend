@@ -30,7 +30,7 @@ const style = StyleSheet.create({
     list: {
         display: "flex",
         flexGrow: 1,
-        height: "100%"
+        height: "104%",
     },
     container: {
         display:"flex",

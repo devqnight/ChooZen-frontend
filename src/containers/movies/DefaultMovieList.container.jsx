@@ -9,7 +9,7 @@ const DefaultMovieList = (props) => {
 
     return (
         <View style={style.cardContainer}>
-            <MovieCard user={user} theme={props.theme} onUpdate={props.onUpdate} movie={props.movies[0]} rate={4.5} />
+            <MovieCard user={user} theme={props.theme} onUpdate={props.onUpdate} movie={props.movies[0]} />
         </View>
     );
 }
@@ -20,6 +20,7 @@ const style = StyleSheet.create({
     cardContainer: {
         display:"flex",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        height: "91%"
     }
 });

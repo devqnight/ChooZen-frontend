@@ -9,15 +9,19 @@ const updateGroup = (token, group) => {
     const failure = (err) => {return {type: CHANGE_GROUP_FAILURE, err}};
 
     return async dispatch => {
+        console.log("updating group " + group + "...")
         let movies;
         dispatch(request());
         await changeGroup(token, group)
             .then(response => {
+                console.log("updated group " + group);
                 movies = response.movies;
+                console.log("movies:",movies);
                 delete response["movies"];
                 dispatch(success(response));
             })
             .catch(error => {
+                console.log("failed to update group");
                 dispatch(failure(error));
             })
         await dispatch(updateMovies(movies));
@@ -30,14 +34,17 @@ const fetchGroups = (token) => {
     const failure = (err) => {return {type: FETCH_GROUPS_FAILURE, err}};
 
     return async dispatch => {
+        console.log("fetching groups...");
         let group;
         dispatch(request());
         await getGroups(token)
             .then(response => {
+                console.log("fetched groups");
                 group = response[0].id;
                 dispatch(success(response));
             })
             .catch(error => {
+                console.log("failed to fetch groups")
                 dispatch(failure(error));
             });
         await dispatch(updateGroup(token, group));
@@ -83,7 +90,7 @@ const doCreateGroup = (token, name) => {
             .catch(error => {
                 dispatch(failure(error));
             })
-        await dispatch(fetchMovies(id, token));
+        await dispatch(fetchGroups(id, token));
     }
 }
 

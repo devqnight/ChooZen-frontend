@@ -65,8 +65,8 @@ export default Profile;
 
 const style = StyleSheet.create({
     sectionTitle: {
-        fontSize: 21,
-        padding: 10,
+        fontSize: 18,
+        padding: 8,
         fontWeight: "bold"
     },
     section: {

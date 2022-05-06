@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { doCreateGroup } from "../../actions/groups.actions";
+import { doCreateGroup, fetchGroups } from "../../actions/groups.actions";
 import { GroupAccessModal } from "./GroupAccessModal.container";
-import { fetchMovies } from "../../actions/movies.actions";
 
 const DefaultNoGroup = (props) => {
     const [groupSelectionModalVisible, setGroupSelectionModalVisible] = useState(false);
@@ -15,16 +14,18 @@ const DefaultNoGroup = (props) => {
     
     const onNewGroup = async (text) => {
         await dispatch(doCreateGroup(user.id, text));
-        await dispatch(fetchMovies(groups.active, user.id));
+        await dispatch(fetchGroups(user.id));
         setGroupCreationModalVisible(false);
         setGroupSelectionModalVisible(false);
     }
 
     return (
         <View>
-            <Text style={styles.firstGroupInvitation}>
-                You're not yet in a group?
-            </Text>
+            {!groups.groups && 
+                <Text style={styles.firstGroupInvitation}>
+                    You're not yet in a group?
+                </Text>
+            }
             <Text style={[styles.firstGroupInvitationButton, {backgroundColor: props.theme.backgroundColor, elevation: 3}]}
                 onPress={() => setGroupSelectionModalVisible(true)}>
 

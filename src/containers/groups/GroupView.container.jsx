@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {Text, View, Pressable, Image, StyleSheet, ScrollView} from "react-native";
+import { useState } from "react";
+import { Text, View,  StyleSheet,  } from "react-native";
 import { useSelector } from "react-redux";
 import { ScrollMovieList } from "../movies/ScrollMovieList.container";
 
@@ -12,8 +12,8 @@ const GroupView = (props) => {
     const styles = StyleSheet.create({
         tabs: {
             flexDirection: "row",
-            margin: 16,
-            borderRadius: 10,
+            margin: 0,
+            //borderRadius: 10,
             overflow: "hidden",
             backgroundColor: theme.bar.inactiveBackground,
         },
@@ -22,8 +22,8 @@ const GroupView = (props) => {
             textAlign: "center",
             paddingStart: 16,
             paddingEnd: 16,
-            paddingTop: 8,
-            paddingBottom: 8,
+            paddingTop: 10,
+            paddingBottom: 10,
             color: theme.bar.inactiveTint
         },
         tabSelected: {
@@ -32,6 +32,7 @@ const GroupView = (props) => {
             fontWeight: "bold"
         },
         listContentContainer: {
+            height: "100%",
             alignItems: "center",
             paddingStart: 10,
             paddingEnd: 10
@@ -65,63 +66,63 @@ const GroupView = (props) => {
     });
 
     const TAB_DETAILS = 0,
-    TAB_MOVIES  = 1;
+        TAB_MOVIES = 1;
 
     const [selectedTab, setSelectedTab] = useState(TAB_DETAILS);
     const movies = useSelector((state) => state.data.movies);
 
     const tabs = [
-      {
-          id: TAB_DETAILS,
-          label: "Group details"
-      },
-      {
-          id: TAB_MOVIES,
-          label: "Group movies"
-      }
+        {
+            id: TAB_DETAILS,
+            label: "Group details"
+        },
+        {
+            id: TAB_MOVIES,
+            label: "Watchlist"
+        }
     ];
 
     const tabsElems = tabs.map(tab => {
-      const tabStyles = [styles.tab];
+        const tabStyles = [styles.tab];
 
-      if(selectedTab == tab.id) {
-          tabStyles.push(styles.tabSelected);
-      }
+        if (selectedTab == tab.id) {
+            tabStyles.push(styles.tabSelected);
+        }
 
-      return (<Text key={tab.id}
-                    style={tabStyles}
-                    onPress={() => setSelectedTab(tab.id)}>
+        return (<Text key={tab.id}
+            style={tabStyles}
+            onPress={() => setSelectedTab(tab.id)}>
 
-                    {tab.label}
-              </Text>)
+            {tab.label}
+        </Text>)
     });
 
     return (
-      <View style={styles.container}>
-          <View style={styles.tabs}>
-              {tabsElems}
-          </View>
+        <View style={styles.container}>
+            <View style={styles.tabs}>
+                {tabsElems}
+            </View>
 
-          {selectedTab == TAB_DETAILS &&
-              <GroupDetail/>
-          }
+            {selectedTab == TAB_DETAILS &&
+                <GroupDetail />
+            }
 
-          {selectedTab == TAB_MOVIES &&
-              <View style={styles.listContainer}>
-                    { ((movies.movies && movies.movies.length > 0) || (movies.voted && movies.voted.length > 0)) &&
-                        <ScrollMovieList 
+            {selectedTab == TAB_MOVIES &&
+                <View style={styles.listContainer}>
+                    {((movies.movies && movies.movies.length > 0) || (movies.voted && movies.voted.length > 0)) &&
+                        <ScrollMovieList
                             movies={[...movies.movies, ...movies.voted]}
                             user={user}
                             theme={theme}
-                            height={580}
-                            marginBottom={60}
+                            height={560}
+                            marginBottom={40}
                         />
                     }
-                    {}
-              </View>
-          }
-      </View>
+                    { }
+                </View>
+            }
+        </View>
     )
 };
 
-export {GroupView};
+export { GroupView };

@@ -2,17 +2,19 @@ import React from "react";
 import {View, StyleSheet, Modal, Text} from 'react-native';
 import Header from "./Header.container";
 
-const ModalWithHeader = ({movie, visible, setVisible, content, onTouch}) => {
+const ModalWithHeader = ({movie, titleModal, visible, setVisible, content, onTouch}) => {
 
     const onRequestClose = () => {
         setVisible(false);
     }
     
     let title;
-    if(!movie){
-        title = "Search for a Movie"
+    if(titleModal)
+        title = titleModal;
+    else if(!movie){
+        title = "Search for a Movie or Series"
     } else {
-        title = "Movie Details";
+        title = "Details";
     }
 
     return (

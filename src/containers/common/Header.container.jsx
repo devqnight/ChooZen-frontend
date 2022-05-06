@@ -16,8 +16,8 @@ const Header = (props) => {
     if(props.title == "Profile")
         return (
             <View style={[containerStyles.headerStyle, {backgroundColor: theme.backgroundColor}]}>
-                <Text style={[containerStyles.headerTitleStyle, {color: theme.bar.activeTint}]}>{props.title}</Text>
-                <TouchableIcon iconName="logout-variant" onTouch={props.onTouch} height={27} color="#FFF"/>
+                <Text style={[containerStyles.headerLeftStyle, containerStyles.headerTitleStyle, {color: theme.bar.activeTint}]}>{props.title}</Text>
+                <TouchableIcon iconName="logout-variant" onTouch={props.onTouch} height={30} color="#FFF"/>
             </View>
         );
     
@@ -42,13 +42,24 @@ const Header = (props) => {
 
     let secondary;
     if(active !== null && active > -1)
-        secondary = <Select options={groups.groups} active={active > 0 ? active : 0} updateSelection={(item, index) => update(item, index)}/>
+        secondary = <Select style={containerStyles.headerSelectStyle} options={groups.groups} active={active > 0 ? active : 0} updateSelection={(item, index) => update(item, index)}/>
     else
         secondary = <></>
 
+    let button;
+    if(groups.groups && props.title == "Groups")
+        button = <TouchableIcon style={{alignSelf: "center", marginRight: 10}} height={27} onTouch={props.onTouch} iconName="plus" color="#FFF" />;
+    else
+        button = <></>;
+
     return (
         <View style={[containerStyles.headerStyle, {backgroundColor: theme.backgroundColor}]}>
-            <Text style={[containerStyles.headerTitleStyle, {color: theme.bar.activeTint}]}>{props.title}</Text>
+            {
+                <View style={containerStyles.headerLeftStyle}>
+                    <Text style={[containerStyles.headerTitleStyle, {color: theme.bar.activeTint}]}>{props.title}</Text>
+                    {button}
+                </View>
+            }
             {secondary}
         </View>
     );

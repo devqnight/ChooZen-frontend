@@ -23,7 +23,7 @@ const MovieSearch = (props) => {
         <>
             <View>
                 <Input  
-                    title="Search for a movie..."
+                    title="Search title..."
                     value={searchStr}
                     onChangeText={(text) => setSearchStr(text)}
                     style={{backgroundColor: props.theme.backgroundColor, color: "white"}}

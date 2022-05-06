@@ -25,12 +25,19 @@ const containerStyles = StyleSheet.create({
     headerStyle: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
         alignContent: "center",
+        justifyContent: "space-between",
         padding: 10
+    },
+    headerLeftStyle: {
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "center",
+        justifyContent: "flex-start"
     },
     headerTitleStyle: {
         alignSelf:"flex-start",
+        marginRight: 10, 
         color: "#FFF",
         textTransform: "capitalize",
         fontWeight: "600",

@@ -2,14 +2,14 @@ import React from "react";
 import { View, Text, StyleSheet } from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 
-const Select = (props) => {
+const Select = ({style, options, active, updateSelection}) => {
 
     return (
-        <View>
+        <View style={style}>
             <SelectDropdown 
-                data={props.options}
-                defaultValueByIndex={props.active}
-                onSelect={props.updateSelection}
+                data={options}
+                defaultValueByIndex={active}
+                onSelect={updateSelection}
                 buttonStyle={styles.buttonStyle}
                 buttonTextStyle={styles.buttonTextStyle}
                 buttonTextAfterSelection={(item, index) => {

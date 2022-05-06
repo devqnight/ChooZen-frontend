@@ -90,7 +90,7 @@ const MovieCard = (props) => {
                         group={props.group}
                         movie={props.movie}
                         search={props.search}
-                        closeAll={() => {onRequestClose(); props.closeAll()}}
+                        closeAll={() => {props.closeAll()}}
                     />
                 }
             />
@@ -102,7 +102,7 @@ export {MovieCard};
 
 const style = StyleSheet.create({
     cardContainer: {
-        height: "91.5%",
+        height: "95%",
         width: "95%",
         borderRadius: 10,
         elevation: 4
@@ -133,6 +133,9 @@ const style = StyleSheet.create({
         borderBottomRightRadius: 10,
         padding: 10
     },
+    primaryContainer: {
+        width: "80%"
+    },
     text: {
         color: "#FFF"
     },
@@ -144,7 +147,7 @@ const style = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold",
-        maxWidth: "80%",
+        maxWidth: "100%",
         maxHeight: 65,
         overflow: "hidden"
     },

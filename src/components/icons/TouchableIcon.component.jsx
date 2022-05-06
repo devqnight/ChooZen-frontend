@@ -5,18 +5,16 @@ import {Icon} from './Icon.component';
 
 import basicStyles from '../../themes/basic_components_styles';
 
-const TouchableIcon = (props) => {
-
-    const height = props.height;
+const TouchableIcon = ({height, onTouch, style, color, iconName}) => {
 
     return (
         <TouchableOpacity
-            onPress={props.onTouch}
-            style={[{height: height, width: height}, props.style]} >
+            onPress={onTouch}
+            style={[{height: height, width: height}, style]} >
             <Icon  
-                iconName={ props.iconName } 
+                iconName={ iconName } 
                 height={ height }
-                color= { props.color }
+                color= { color }
             />
         </TouchableOpacity>
     );

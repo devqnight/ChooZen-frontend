@@ -43,7 +43,15 @@ const movies = (state = initialState, action) => {
         case SEARCH_CLEAR_REQUEST:
             return {...state, search: [], current: null}
         case RATE_MOVIE_SUCCESS:
-            return {...state, movies: action.movies, voted: [...(state.voted), action.voted], loading: false}
+            return {
+                ...state, 
+                voted: [
+                    ...(state.voted), 
+                    state.movies.find(x => x.imdb_id === action.movie_id)
+                ],
+                movies: state.movies.filter((value, index, array) => value.imdb_id !== action.movie_id), 
+                loading: false
+            };
         case RATE_MOVIE_REQUEST:
             return {...state, loading: true}
         case RATE_MOVIE_FAILURE:

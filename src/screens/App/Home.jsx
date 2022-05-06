@@ -12,7 +12,7 @@ import {Loading} from '../Loading';
 
 const Home = () => {
     const theme = useSelector((state) => state.theme);
-    const auth = useSelector((state) => state.auth);
+    const user = useSelector((state) => state.user);
     const groups = useSelector((state) => state.data.groups);
     const movies = useSelector((state) => state.data.movies);
 
@@ -36,7 +36,7 @@ const Home = () => {
 
     const updateMovies = async (value, movie) => {
         if(value){
-            await dispatch(rateMovie(movie.id, value, groups.active, auth.login))
+            await dispatch(rateMovie(movie.imdb_id, value, groups.active.id, user.id))
         }
     }
 

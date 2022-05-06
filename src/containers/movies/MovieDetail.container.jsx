@@ -8,6 +8,7 @@ import { Loading } from "../../screens/Loading";
 import { Actors } from "./Actors.container";
 import { VotingRow } from "./VotingRow.container";
 import { store } from "../../store";
+import { updateGroup } from "../../actions/groups.actions";
 
 const MovieDetail = (props) => {
 
@@ -26,7 +27,7 @@ const MovieDetail = (props) => {
 
     const saveMovie = async () => {
         await dispatch(addMovie(id, null, props.group.id, props.user.id));
-        //await dispatch(fetchMovies(props.group.id, props.user.id));
+        await dispatch(updateGroup(props.user.id, props.group.id));
         props.closeAll();
     }
 

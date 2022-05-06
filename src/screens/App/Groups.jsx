@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
 import Header from "../../containers/common/Header.container";
 import { DefaultNoGroup } from "../../containers/groups/DefaultNoGroup.container";
 import { GroupView } from "../../containers/groups/GroupView.container";
+import { ModalWithHeader } from "../../containers/common/ModalWithHeader.container";
 
 const Groups = () => {
     const theme = useSelector((state) => state.theme);
@@ -19,10 +20,28 @@ const Groups = () => {
             </View>
         )
 
+    const [showModal, setShowModal] = useState(false);
+
+    const onRequestClose = () => {
+        setShowModal(false);
+    }
+
     return (
         <View style={{height: "66%"}}>
-            <Header title="Groups" />
+            <Header title="Groups" onTouch={() => setShowModal(true)} />
             <GroupView data={groups} />
+            <ModalWithHeader
+                setVisible={setShowModal}
+                visible={showModal}
+                titleModal="Join / Create a group"
+                theme={theme}
+                onTouch={() => onRequestClose()}
+                content={
+                    <DefaultNoGroup 
+                        theme={theme}
+                    />
+                }
+            />
         </View>
     );
 };
