@@ -16,7 +16,9 @@ Written in react-native.
 
 To run the expo project you'll need:
 - a recent version of `nodejs` (recommended LTS 16)
-- [expo-cli](https://docs.expo.dev/workflow/expo-cli)
+- [expo-cli](https://docs.expo.dev/get-started/installation/)
+- an android emulator (follow [this guide](https://docs.expo.dev/workflow/android-studio-emulator/))
+- or a physical device (read the doc for [expo-cli](https://docs.expo.dev/get-started/installation/), you need to download the expo app)
 
 ## Run the project
 
@@ -42,6 +44,6 @@ Once in the directory, you can run expo and test the app:
 >   expo start
 >```
 
-Once the project starts, just scan the QR Code that appear in your terminal, or type `w` in the running terminal to open a web version of the app.
+Once the project starts, just scan the QR Code that appear in your terminal, or type `a` in the running terminal to open the android emulator (if you type `w` you can run the web version, but for now the registration won't work since the birthdate input is only native).
 
 To stop the expo project, just type `CTRL+C`.
