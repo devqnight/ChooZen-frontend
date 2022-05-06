@@ -1,9 +1,10 @@
 import { getCSRF } from "./api-common"
 import { handleError } from "../utils/tools";
+import { URLSERV } from "../../api";
 
-const urlSignUp = "https://bique.familyds.com:8001/api-choozen-auth/registration/";
-const urlSignIn = "https://bique.familyds.com:8001/api-choozen-auth/login/";
-const urlSignOut = "https://bique.familyds.com:8001/api-choozen-auth/logout/";
+const urlSignUp = URLSERV + "api-choozen-auth/registration/";
+const urlSignIn = URLSERV + "api-choozen-auth/login/";
+const urlSignOut = URLSERV + "api-choozen-auth/logout/";
 
 const signin = async (login, password) => {
     const csrf = await getCSRF();

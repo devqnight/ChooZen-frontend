@@ -1,11 +1,11 @@
 import React from "react";
 import {View, Text, StyleSheet} from 'react-native';
 
-const Field = (props) => {
+const Field = ({title, content, theme}) => {
     return (
         <View style={style.container}>
-            <Text style={style.title}>{props.title}</Text>
-            <Text style={style.content}>{props.content}</Text>
+            <Text style={style.title}>{title}</Text>
+            <Text style={style.content}>{content}</Text>
         </View>
     );
 }

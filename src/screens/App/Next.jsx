@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMovie, movies } from "../../apis/api-movies";
+
+import { rateMovie } from "../../actions/movies.actions";
+import { updateGroup } from "../../actions/groups.actions";
 
 import Header from "../../containers/common/Header.container";
 import { DefaultNoGroup } from "../../containers/groups/DefaultNoGroup.container";
@@ -9,7 +11,7 @@ import { ScrollMovieList } from "../../containers/movies/ScrollMovieList.contain
 
 const Next = () => {
     const theme = useSelector((state) => state.theme);
-    const auth = useSelector((state) => state.auth);
+    const user = useSelector((state) => state.user);
     const groups = useSelector((state) => state.data.groups);
     const movies = useSelector((state) => state.data.movies);
 
@@ -30,8 +32,9 @@ const Next = () => {
     // movies
 
     const updateMovies = async (value, movie) => {
-        if(value){
-            await dispatch(rateMovie(movie.id, value, groups.active, auth.login))
+        if(value in [1,2,3,4,5]){
+            await dispatch(rateMovie(movie.imdb_id, value, groups.active.id, user.id));
+            await dispatch(updateGroup(user.id, groups.active.id));
         }
     }
 
@@ -39,7 +42,7 @@ const Next = () => {
     if (movies.voted && movies.voted.length > 0)
         nextView = 
             <View style={{height: "93%"}}>
-                <ScrollMovieList theme={theme} movies={movies.voted} height={600} marginBottom={28} onUpdate={(value, movie) => updateMovies(value, movie)} />
+                <ScrollMovieList theme={theme} movies={movies.voted} height={600} marginBottom={28} onUpdate={() => {} /*(value, movie) => updateMovies(value, movie)*/} />
             </View>;
     else 
         nextView = <View style={style.cardContainer}><Text>No movies in list</Text></View>

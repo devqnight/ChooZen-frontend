@@ -3,9 +3,8 @@ import { View, Text, KeyboardAvoidingView, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import { store } from "../../store";
 import { register } from "../../actions/auth.actions";
-import { checkAuthentication } from "../../actions/user.actions";
+import { restoreTheme } from "../../actions/theme.actions";
 
 import { Input } from "../../components/inputs/Input.component";
 import { ErrorMsg } from "../../components/ErrorMsg.component";
@@ -63,7 +62,9 @@ const Registration = () => {
                 msg = auth.err.non_field_errors[0]
             setErrorMsg(msg);
             setError(true);
-        }
+        } else {
+            dispatch(restoreTheme());
+        } 
     }
 
 

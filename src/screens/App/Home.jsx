@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { updateGroup } from "../../actions/groups.actions";
 import { fetchMovies, rateMovie } from "../../actions/movies.actions";
-import { fetchMovie, movies } from "../../apis/api-movies";
 
 import Header from "../../containers/common/Header.container";
 import { DefaultNoGroup } from "../../containers/groups/DefaultNoGroup.container";
 import { DefaultMovieList } from "../../containers/movies/DefaultMovieList.container";
-import { store } from "../../store";
 import {Loading} from '../Loading';
 
 const Home = () => {
@@ -35,8 +34,9 @@ const Home = () => {
     // movies
 
     const updateMovies = async (value, movie) => {
-        if(value){
-            await dispatch(rateMovie(movie.imdb_id, value, groups.active.id, user.id))
+        if(value in [0,1,2,3,4]){
+            await dispatch(rateMovie(movie.imdb_id, value, groups.active.id, user.id));
+            await dispatch(updateGroup(user.id, groups.active.id));
         }
     }
 

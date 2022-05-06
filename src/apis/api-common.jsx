@@ -1,5 +1,7 @@
-const urlCSRF = "https://bique.familyds.com:8001/api-choozen/get_csrf/";
-const urlAuthToken = "https://bique.familyds.com:8001/api-choozen-auth/is_authenticated/";
+import { URLSERV } from "../../api";
+
+const urlCSRF = URLSERV + "api-choozen/get_csrf/";
+const urlAuthToken = URLSERV + "api-choozen-auth/is_authenticated/";
 
 import { handleError } from "../utils/tools";
 
@@ -33,7 +35,7 @@ const isAuthenticated = async (props) => {
     form.append('token', token);
 
     let response = await fetch(
-      urlAuthToken, {
+        urlAuthToken, {
         method: 'POST',
         body: form
       }

@@ -1,9 +1,12 @@
 import { getCSRF } from "./api-common";
 import { handleError } from "../utils/tools";
+import { URLSERV } from "../../api";
 
-const apiFetchGroups = "https://bique.familyds.com:8001/api-choozen/get_groups/";
-const apiFetchGroup = "https://bique.familyds.com:8001/api-choozen/get_group/";
-const apiSaveGroup = "https://bique.familyds.com:8001/api-choozen/save_group/";
+const apiFetchGroups = URLSERV + "api-choozen/get_groups/";
+const apiFetchGroup = URLSERV + "api-choozen/get_group/";
+const apiSaveGroup = URLSERV + "api-choozen/save_group/";
+const apiJoinGroup = URLSERV + "api-choozen/join_group/";
+const apiDeleteGroup = URLSERV + "api-choozen/delete_group/";
 
 const initialState = {
     active: null,
@@ -87,8 +90,52 @@ const createGroup = async (id, name) => {
     return json;
 }
 
-const joinGroup = async (token, name) => {
+const joinGroup = async (user_id, id) => {
+    const csrf = await getCSRF();
 
+    const form = new FormData();
+    form.append("user_id", user_id);
+    form.append("group_id", id);
+
+    let response = await fetch(
+        apiJoinGroup,
+        {
+            method: 'POST',
+            headers:{
+                "X-CSRFToken": csrf
+            },
+            body: form
+        }
+    )
+    
+    if(response !== "User joined group")
+        throw Error("failed to join group");
+
+    return response;
 }   
 
-export { changeGroup, getGroups, createGroup, joinGroup, initialState };
+const deleteGroupAPI = async (user_id, group_id) => {
+    const csrf = await getCSRF();
+
+    const form = new FormData();
+    form.append("user_id", user_id);
+    form.append("group_id", group_id);
+
+    let response = await fetch(
+        apiDeleteGroup,
+        {
+            method: 'POST',
+            headers:{
+                "X-CSRFToken": csrf
+            },
+            body: form
+        }
+    )
+
+    if(response.status !== 200)
+        throw Error("failed to delete group");
+
+    return response;
+}
+
+export { changeGroup, getGroups, createGroup, joinGroup, initialState, deleteGroupAPI };

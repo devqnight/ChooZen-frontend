@@ -4,7 +4,33 @@ import { CustomButton } from '../../components/buttons/CustomButton.component';
 
 const VotingRow = (props) => {
 
-    const voting = props.votes;
+    const voting = [
+        {
+            text:"- -",
+            color: "#dd2323",
+            value: 0
+        },
+        {
+            text:"-",
+            color: "#c75a00",
+            value: 1
+        },
+        {
+            text:"=",
+            color: "#a37e00",
+            value: 2
+        },
+        {
+            text:"+",
+            color: "#719800",
+            value: 3
+        },
+        {
+            text:"+ +",
+            color: "#05ab2c",
+            value: 4
+        }
+    ];
 
     const isSelected = useCallback((index) => {
         if(props.selected === index)

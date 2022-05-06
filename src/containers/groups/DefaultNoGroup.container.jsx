@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {View, Text, StyleSheet} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { doCreateGroup, fetchGroups } from "../../actions/groups.actions";
+import { doCreateGroup, doJoinGroup, fetchGroups, updateGroup } from "../../actions/groups.actions";
 import { GroupAccessModal } from "./GroupAccessModal.container";
 
 const DefaultNoGroup = (props) => {
@@ -14,6 +14,13 @@ const DefaultNoGroup = (props) => {
     
     const onNewGroup = async (text) => {
         await dispatch(doCreateGroup(user.id, text));
+        await dispatch(fetchGroups(user.id));
+        setGroupCreationModalVisible(false);
+        setGroupSelectionModalVisible(false);
+    }
+
+    const onJoinGroup = async (text) => {
+        await dispatch(doJoinGroup(user.id, text));
         await dispatch(fetchGroups(user.id));
         setGroupCreationModalVisible(false);
         setGroupSelectionModalVisible(false);
@@ -38,7 +45,7 @@ const DefaultNoGroup = (props) => {
             </Text>
             <GroupAccessModal theme={props.theme} visible={groupSelectionModalVisible}
                 onRequestClose={() => setGroupSelectionModalVisible(false)}
-                onValidate={(text) => onNewGroup(text)}>
+                onValidate={(text) => onJoinGroup(text)}>
                     
                 What's the group you want to join?
             </GroupAccessModal>

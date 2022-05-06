@@ -33,6 +33,7 @@ const MovieDetail = (props) => {
 
     useEffect(async () => {
         setDetails(props.movie);
+        setSelected(props.movie.note);
         //if(!props.search){
         //    await dispatch(fetchMovie(id, props.user.id));
         //    setDetails(store.getState().data.movies.current);
@@ -82,7 +83,7 @@ const MovieDetail = (props) => {
                         <Actors theme={props.theme} actors={movieDetails.directorList} />
                     </View> }           
                 </ScrollView>
-                {!props.search && <VotingRow theme={{...props.theme, custom: {paddingBottom: 10, paddingLeft: 5, paddingRight: 5, backgroundColor: props.theme.backgroundColor}}} votes={voting} setSelected={updateSelected} selected={selected} />}
+                {!props.search && <VotingRow theme={{...props.theme, custom: {paddingBottom: 10, paddingLeft: 5, paddingRight: 5, backgroundColor: props.theme.backgroundColor}}} setSelected={updateSelected} selected={selected} />}
                 {props.search && <CustomButton theme={props.theme} styleName="Save" text="Add movie to group" onPressButton={() => saveMovie()}/>}
             </>
             
@@ -158,31 +159,3 @@ const style = StyleSheet.create({
         padding: 5
     }
 });
-
-const voting = [
-    {
-        text:"- -",
-        color: "#dd2323",
-        value: 0
-    },
-    {
-        text:"-",
-        color: "#c75a00",
-        value: 1
-    },
-    {
-        text:"=",
-        color: "#a37e00",
-        value: 2
-    },
-    {
-        text:"+",
-        color: "#719800",
-        value: 3
-    },
-    {
-        text:"+ +",
-        color: "#05ab2c",
-        value: 4
-    }
-];

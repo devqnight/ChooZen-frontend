@@ -7,35 +7,7 @@ import { MovieDetail } from "./MovieDetail.container";
 
 const MovieCard = (props) => {
 
-    const voting = [
-        {
-            text:"- -",
-            color: "#dd2323",
-            value: 0
-        },
-        {
-            text:"-",
-            color: "#c75a00",
-            value: 1
-        },
-        {
-            text:"=",
-            color: "#a37e00",
-            value: 2
-        },
-        {
-            text:"+",
-            color: "#719800",
-            value: 3
-        },
-        {
-            text:"+ +",
-            color: "#05ab2c",
-            value: 4
-        }
-    ];
-
-    const [selected, setSelected] = useState(null);
+    const [selected, setSelected] = useState(props.movie.note || null);
     const [visible, setVisible] = useState(false);
 
     const onRequestClose = () => {
@@ -69,11 +41,11 @@ const MovieCard = (props) => {
                                     <Text style={[style.year, style.text]}>{props.movie.description}</Text>
                                 </View>
                                 <View style={style.additionalContainer}>
-                                    <Text style={[style.text, style.score]}>{props.movie.imdb_rating || ""}</Text>
+                                    <Text style={[style.text, style.score]}>{props.movie.average_note || ""}</Text>
                                 </View>
                             </View>
 
-                            {!props.search && <VotingRow votes={voting} setSelected={updateSelected} selected={selected} theme={props.theme} />}
+                            {!props.search && <VotingRow setSelected={updateSelected} selected={selected} theme={props.theme} />}
                         </FadedView>
                     </View>
                 </Pressable>

@@ -30,6 +30,7 @@ const restoreTheme = () => {
         dispatch(request());
         await getFromStorage("theme")
             .then(response => {
+                console.log(response);
                 if(!response)
                     throw Error();
                 dispatch(success(response));

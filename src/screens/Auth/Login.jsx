@@ -12,6 +12,7 @@ import { Input } from "../../components/inputs/Input.component";
 import { ErrorMsg } from "../../components/ErrorMsg.component";
 import { CustomButton } from "../../components/buttons/CustomButton.component";
 import { Loading } from "../Loading";
+import { restoreTheme } from "../../actions/theme.actions";
 
 const Login = () => {
     //-----------
@@ -49,6 +50,8 @@ const Login = () => {
                 msg = auth.err.non_field_errors[0]
             setErrorMsg(msg);
             setError(true);
+        } else {
+            dispatch(restoreTheme());
         }        
     };
 

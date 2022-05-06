@@ -3,7 +3,7 @@ import { Text, View,  StyleSheet,  } from "react-native";
 import { useSelector } from "react-redux";
 import { ScrollMovieList } from "../movies/ScrollMovieList.container";
 
-import GroupDetail from "./GroupDetail.container";
+import {GroupDetail} from "./GroupDetail.container";
 
 const GroupView = (props) => {
     const theme = useSelector((state) => state.theme);
@@ -104,7 +104,7 @@ const GroupView = (props) => {
             </View>
 
             {selectedTab == TAB_DETAILS &&
-                <GroupDetail />
+                <GroupDetail userId={user.id} />
             }
 
             {selectedTab == TAB_MOVIES &&

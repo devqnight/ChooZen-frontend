@@ -45,10 +45,6 @@ const movies = (state = initialState, action) => {
         case RATE_MOVIE_SUCCESS:
             return {
                 ...state, 
-                voted: [
-                    ...(state.voted), 
-                    state.movies.find(x => x.imdb_id === action.movie_id)
-                ],
                 movies: state.movies.filter((value, index, array) => value.imdb_id !== action.movie_id), 
                 loading: false
             };
@@ -57,7 +53,7 @@ const movies = (state = initialState, action) => {
         case RATE_MOVIE_FAILURE:
             return {...state, loading: false};
         case UPDATE_MOVIES:
-            return {...state, movies: action.movies}
+            return {...state, movies: action.movies, voted: action.voted}
         default:
             return state;
     }

@@ -1,10 +1,12 @@
 import { handleError } from "../utils/tools";
 import { getCSRF } from "./api-common";
 
-const urlSearch= "https://bique.familyds.com:8001/api-choozen/advanced_search/";
-const apiProposeMovie = "https://bique.familyds.com:8001/api-choozen/propose_movie/";
-const apiFetchMovies = "https://bique.familyds.com:8001/api-choozen/fetch_movies/";
-const apiReviewMovie = "https://bique.familyds.com:8001/api-choozen/review_movie/";
+import { URLSERV } from "../../api";
+
+const urlSearch= URLSERV + "api-choozen/advanced_search/";
+const apiProposeMovie = URLSERV + "api-choozen/propose_movie/";
+const apiFetchMovies = URLSERV + "api-choozen/fetch_movies/";
+const apiReviewMovie = URLSERV + "api-choozen/review_movie/";
 
 const fetchMovieAPI = async (movieId, userId) => {
     let res;

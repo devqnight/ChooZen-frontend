@@ -1,6 +1,5 @@
-import { CHANGE_GROUP_FAILURE, CHANGE_GROUP_SUCCESS, CHANGE_GROUP_REQUEST, FETCH_GROUPS_REQUEST, FETCH_GROUPS_SUCCESS, FETCH_GROUPS_FAILURE, JOIN_GROUP_REQUEST, JOIN_GROUP_SUCCESS, JOIN_GROUP_FAILURE, CREATE_GROUP_REQUEST, CREATE_GROUP_SUCCESS, CREATE_GROUP_FAILURE, FETCH_GROUP_FAILURE, FETCH_GROUP_REQUEST, FETCH_GROUP_SUCCESS, } from "../constants/groups.constants";
-import { changeGroup, getGroups, createGroup } from "../apis/api-groups";
-import { setStorage } from "../utils/storage.tools";
+import { CHANGE_GROUP_FAILURE, CHANGE_GROUP_SUCCESS, CHANGE_GROUP_REQUEST, FETCH_GROUPS_REQUEST, FETCH_GROUPS_SUCCESS, FETCH_GROUPS_FAILURE, JOIN_GROUP_REQUEST, JOIN_GROUP_SUCCESS, JOIN_GROUP_FAILURE, CREATE_GROUP_REQUEST, CREATE_GROUP_SUCCESS, CREATE_GROUP_FAILURE, FETCH_GROUP_FAILURE, FETCH_GROUP_REQUEST, FETCH_GROUP_SUCCESS, DELETE_GROUP_REQUEST, DELETE_GROUP_SUCCESS, DELETE_GROUP_FAILURE, } from "../constants/groups.constants";
+import { changeGroup, getGroups, createGroup, joinGroup, deleteGroupAPI } from "../apis/api-groups";
 import { fetchMovies, updateMovies } from "./movies.actions";
 
 const updateGroup = (token, group) => {
@@ -10,17 +9,20 @@ const updateGroup = (token, group) => {
 
     return async dispatch => {
         let movies;
+        let voted;
         dispatch(request());
         await changeGroup(token, group)
             .then(response => {
                 movies = response.movies;
                 delete response["movies"];
+                voted = response.voted;
+                delete response["voted"];
                 dispatch(success(response));
             })
             .catch(error => {
                 dispatch(failure(error));
             })
-        await dispatch(updateMovies(movies));
+        await dispatch(updateMovies(movies, voted));
     };
 }
 
@@ -61,10 +63,21 @@ const fetchGroup = (id, group_id) => {
     };
 }
 
-const doJoinGroup = (token, name) => {
+const doJoinGroup = (user_id, id) => {
     const request = () => {return {type: JOIN_GROUP_REQUEST}};
-    const success = (groups) => {return {type: JOIN_GROUP_SUCCESS, groups}};
+    const success = () => {return {type: JOIN_GROUP_SUCCESS}};
     const failure = (err) => {return {type: JOIN_GROUP_FAILURE, err}};
+
+    return async dispatch => {
+        dispatch(request());
+        await joinGroup(user_id, id)
+            .then(response => {
+                dispatch(success());
+            })
+            .catch(err => {
+                dispatch(failure(err));
+            })
+    }
 };
 
 const doCreateGroup = (token, name) => {
@@ -87,4 +100,23 @@ const doCreateGroup = (token, name) => {
     }
 }
 
-export {updateGroup, fetchGroups, doJoinGroup, doCreateGroup};
+const deleteGroup = (user_id, group_id, groups) => {
+    const request = () => {return {type: DELETE_GROUP_REQUEST}};
+    const success = (group, groups) => {return {type: DELETE_GROUP_SUCCESS, group, groups}};
+    const failure = (err) => {return {type: DELETE_GROUP_FAILURE, err}};
+
+    return async dispatch => {
+        dispatch(request());
+        await deleteGroupAPI(user_id, group_id)
+            .then(async response => {
+                let newgroups = groups.filter((value, index, array) => value.id !== group_id );
+                dispatch(success(newgroups[0], newgroups));
+                await dispatch(fetchGroups(user_id));
+            })
+            .catch(err => {
+                dispatch(failure(err));
+            })
+    }
+}
+
+export {updateGroup, fetchGroups, doJoinGroup, doCreateGroup, deleteGroup};

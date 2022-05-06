@@ -1,6 +1,7 @@
 import { isAuthenticated } from "../apis/api-common";
 import { IS_AUTHENTICATED_REQUEST, IS_AUTHENTICATED_FAILURE, IS_AUTHENTICATED_SUCCESS } from "../constants/user.constants";
-import { fetchGroups } from "./groups.actions";
+import { fetchGroups, updateGroup } from "./groups.actions";
+import { store } from "../store";
 
 
 const checkAuthentication = (token, username) => {

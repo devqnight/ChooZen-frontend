@@ -19,11 +19,13 @@ const fetchMovie = (movieId, userId) => {
     }
 }
 
-const updateMovies = (movies) => {
-    const success = (movies) => {return {type: UPDATE_MOVIES, movies}};
+const updateMovies = (movies,voted) => {
+    const success = (movies, voted) => {return {type: UPDATE_MOVIES, movies, voted}};
 
     return async dispatch => {
-        dispatch(success(movies));
+        if(voted)
+            voted.sort((a, b) => b.average_note - a.average_note );
+        dispatch(success(movies, voted));
     }
 }
 

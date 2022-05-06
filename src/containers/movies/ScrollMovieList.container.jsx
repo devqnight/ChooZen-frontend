@@ -2,7 +2,7 @@ import React from "react";
 import {ScrollView, StyleSheet, View} from 'react-native';
 import { MovieCard } from "./MovieCard.container";
 
-const ScrollMovieList = ({movies, group, user, theme, close, height, marginBottom, search}) => {
+const ScrollMovieList = ({movies, group, user, theme, close, height, marginBottom, search, onUpdate}) => {
 
     return (
         <ScrollView style={[style.list, {marginBottom: marginBottom}]}>
@@ -13,6 +13,7 @@ const ScrollMovieList = ({movies, group, user, theme, close, height, marginBotto
                     <MovieCard 
                         search={search}
                         theme={theme}
+                        onUpdate={onUpdate}
                         user={user}
                         group={group}
                         movie={movie}

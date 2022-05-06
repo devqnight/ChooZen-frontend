@@ -36,8 +36,8 @@ const Header = (props) => {
 
     const dispatch = useDispatch();
 
-    const update = (group, index) => {
-        dispatch(updateGroup(user.id, group.id));
+    const update = async (group, index) => {
+        await dispatch(updateGroup(user.id, group.id));
     };
 
     let secondary;
