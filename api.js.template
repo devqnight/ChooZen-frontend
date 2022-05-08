@@ -1,1 +1,1 @@
-const urlServ = "";
+export const URLSERV = "";

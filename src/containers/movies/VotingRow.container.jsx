@@ -8,33 +8,35 @@ const VotingRow = (props) => {
         {
             text:"- -",
             color: "#dd2323",
-            value: 0
+            value: 1
         },
         {
             text:"-",
             color: "#c75a00",
-            value: 1
+            value: 2
         },
         {
             text:"=",
             color: "#a37e00",
-            value: 2
+            value: 3
         },
         {
             text:"+",
             color: "#719800",
-            value: 3
+            value: 4
         },
         {
             text:"+ +",
             color: "#05ab2c",
-            value: 4
+            value: 5
         }
     ];
 
-    const isSelected = useCallback((index) => {
-        if(props.selected === index)
+    const isSelected = useCallback((voted) => {
+        let index = voting.map(vote => vote.value).indexOf(voted);
+        if(props.selected === voted){
             return {backgroundColor: props.theme.bar.inactiveBackground, color: voting[index].color}
+        }
         return {backgroundColor: voting[index].color, color: props.theme.bar.inactiveBackground};
     });
 
@@ -43,10 +45,10 @@ const VotingRow = (props) => {
             {voting.map((rate, index) => (
                 <CustomButton 
                     key={index}
-                    onPressButton={() => props.setSelected(index)}
+                    onPressButton={() => props.setSelected(rate.value)}
                     text={rate.text}
-                    theme={[props.theme,style.vote, isSelected(index)]}
-                    textStyle={[style.voteText, style.text, {color: isSelected(index).color}]}
+                    theme={[props.theme,style.vote, isSelected(rate.value)]}
+                    textStyle={[style.voteText, style.text, {color: isSelected(rate.value).color}]}
                 />
             ))}
         </View>

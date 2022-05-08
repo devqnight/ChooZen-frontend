@@ -77,6 +77,7 @@ const doJoinGroup = (user_id, id) => {
             .catch(err => {
                 dispatch(failure(err));
             })
+        await dispatch(fetchGroups(user_id));
     }
 };
 
@@ -90,13 +91,13 @@ const doCreateGroup = (token, name) => {
         dispatch(request());
         await createGroup(token, name)
             .then(async response => {
-                id = response.id;
+                id = response.creat;
                 dispatch(success(response));
             })
             .catch(error => {
                 dispatch(failure(error));
             })
-        await dispatch(fetchGroups(id, token));
+        await dispatch(fetchGroups(token));
     }
 }
 
@@ -111,11 +112,11 @@ const deleteGroup = (user_id, group_id, groups) => {
             .then(async response => {
                 let newgroups = groups.filter((value, index, array) => value.id !== group_id );
                 dispatch(success(newgroups[0], newgroups));
-                await dispatch(fetchGroups(user_id));
             })
             .catch(err => {
                 dispatch(failure(err));
             })
+        //await dispatch(fetchGroups(user_id));
     }
 }
 

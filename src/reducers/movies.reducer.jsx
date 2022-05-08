@@ -23,7 +23,7 @@ const movies = (state = initialState, action) => {
         case FETCH_MOVIES_FAILURE:
             return {...state, loading: false};
         case ADD_MOVIE_SUCCESS:
-            return {...state, search: [], current: null}; // to do: change state to movies and voted when api is connected
+            return {...state, search: [], current: null, movies: action.movies, voted: action.voted};
         case ADD_MOVIE_REQUEST:
         case ADD_MOVIE_FAILURE:
             return {...state, search: [], current: null};
@@ -45,7 +45,8 @@ const movies = (state = initialState, action) => {
         case RATE_MOVIE_SUCCESS:
             return {
                 ...state, 
-                movies: state.movies.filter((value, index, array) => value.imdb_id !== action.movie_id), 
+                movies: action.movies,
+                voted: action.voted.sort((a,b) => b - a), 
                 loading: false
             };
         case RATE_MOVIE_REQUEST:

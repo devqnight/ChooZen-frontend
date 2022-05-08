@@ -34,9 +34,8 @@ const Home = () => {
     // movies
 
     const updateMovies = async (value, movie) => {
-        if(value in [0,1,2,3,4]){
+        if(value){
             await dispatch(rateMovie(movie.imdb_id, value, groups.active.id, user.id));
-            await dispatch(updateGroup(user.id, groups.active.id));
         }
     }
 

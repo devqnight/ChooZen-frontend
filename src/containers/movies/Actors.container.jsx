@@ -5,10 +5,10 @@ import { Icon } from "../../components/icons/Icon.component";
 const Actor = ({actor, theme}) => {
     return (
         <View style={style.actor}>
-            {actor.image && <Image source={{uri: actor.image}} style={style.icon}/>}
-            {!actor.image && <Icon iconName={"account-circle"} height={100} color={theme.bar.activeTint} style={style.icon}/>}
-            <Text style={[style.name, {color: theme.bar.activeTint}]}>{actor.name}</Text>
-            {actor.asCharacter && <Text style={[style.character, {color: theme.bar.activeTint}]}>{actor.asCharacter.split("as ")[1]}</Text>}
+            {actor.picture_url && <Image source={{uri: actor.picture_url}} style={style.icon}/>}
+            {!actor.picture_url && <Icon iconName={"account-circle"} height={100} color={theme.bar.activeTint} style={style.icon}/>}
+            <Text style={[style.name, {color: theme.bar.activeTint}]}>{actor.full_name || actor.name}</Text>
+            {actor.character && <Text style={[style.character, {color: theme.bar.activeTint}]}>{actor.character.split("as ")[1]}</Text>}
         </View>
     );
 }

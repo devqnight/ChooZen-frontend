@@ -30,6 +30,7 @@ const Header = (props) => {
         );
 
     const groups = useSelector((state) => state.data.groups);
+
     let active = null;
     if(groups.groups)
         active = groups.groups.findIndex(x => x.title == groups.active.title);
@@ -47,7 +48,7 @@ const Header = (props) => {
         secondary = <></>
 
     let button;
-    if(groups.groups && props.title == "Groups")
+    if((groups.groups && groups.groups.length) && props.title == "Groups")
         button = <TouchableIcon style={{alignSelf: "center", marginRight: 10}} height={27} onTouch={props.onTouch} iconName="plus" color="#FFF" />;
     else
         button = <></>;

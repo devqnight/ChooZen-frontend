@@ -49,6 +49,13 @@ Before running expo, you need to install the different packages, run this comman
 >   npm install
 >```
 
+### Config Server
+
+Before being able to run the project, you'll need to configure the server address.
+
+To do so, copy the file named `api.js.template` and remove the `.template` suffix. Then, fill the `URLSERV` variable with the address of your server. If you are using a local instance of the server, you need to 
+
+
 Once in the directory, you can run expo and test the app:
 >```bash
 >   expo start

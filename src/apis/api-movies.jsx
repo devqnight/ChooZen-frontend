@@ -72,7 +72,11 @@ const addMovieAPI = async (movieId, comment, groupId, userId) => {
         }
     );
 
-    return response;
+    let json = await handleError(response).json();
+    if(json.errorMessage)
+        throw Error(json.errorMessage);
+
+    return json;
 
 }
 
@@ -130,7 +134,12 @@ const rateMovieAPI = async (movieId, rate, groupId, userId) => {
         }
     );
 
-    return response;
+    let json = await handleError(response).json();
+    
+    if(json.errorMessage)
+        throw Error(json.errorMessage);
+
+    return json;
 }
 
 export {fetchMovieAPI, fetchMoviesAPI, addMovieAPI, updateScoreAPI, deleteMovieAPI, searchMoviesAPI, rateMovieAPI};

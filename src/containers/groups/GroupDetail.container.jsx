@@ -14,7 +14,7 @@ const GroupDetail = ({userId}) => {
     const dispatch = useDispatch();
     const navigator = useNavigation();
 
-    const isOwner = userId == group.creator_infos.id;
+    const isOwner = group.creator_infos ? userId == group.creator_infos.id : false;
 
     const onDelete = async () => {
         await dispatch(deleteGroup(userId, group.id, groups));
@@ -23,7 +23,7 @@ const GroupDetail = ({userId}) => {
 
     return (
         <View style={styles.mainView}>
-            <View>
+            {group.creator_infos && <View>
                 {isOwner && 
                     <>
                         <View style={[ styles.sectionBar, {color: theme.bar.activeTint, backgroundColor: theme.backgroundColor}]}>
@@ -47,7 +47,7 @@ const GroupDetail = ({userId}) => {
                         return <Field key={index} title="" content={value.username} />
                     })}
                 </View>
-            </View>
+            </View>}
         </View>
     )
 }

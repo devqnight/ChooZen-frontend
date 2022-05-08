@@ -13,22 +13,20 @@ const DefaultNoGroup = (props) => {
     const groups = useSelector((state) => state.data.groups);
     
     const onNewGroup = async (text) => {
-        await dispatch(doCreateGroup(user.id, text));
-        await dispatch(fetchGroups(user.id));
         setGroupCreationModalVisible(false);
-        setGroupSelectionModalVisible(false);
+        await dispatch(doCreateGroup(user.id, text));
     }
 
     const onJoinGroup = async (text) => {
-        await dispatch(doJoinGroup(user.id, text));
-        await dispatch(fetchGroups(user.id));
-        setGroupCreationModalVisible(false);
         setGroupSelectionModalVisible(false);
+        await dispatch(doJoinGroup(user.id, text));
     }
+
+    const hasNoGroup = !groups.groups ? true : !groups.groups.length ? true : false;
 
     return (
         <View>
-            {!groups.groups && 
+            {hasNoGroup && 
                 <Text style={styles.firstGroupInvitation}>
                     You're not yet in a group?
                 </Text>

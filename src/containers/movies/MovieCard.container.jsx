@@ -15,7 +15,7 @@ const MovieCard = (props) => {
     }
 
     const updateSelected = (value) => {
-        setSelected(null);
+        setSelected(value);
         props.onUpdate(value, props.movie);
     }
 
@@ -31,7 +31,7 @@ const MovieCard = (props) => {
                 >
                     <FadedView color="#101010" height={20}></FadedView>
                     <Image style={style.poster} 
-                        source={{uri: props.movie.image}}
+                        source={{uri: props.movie.image || props.movie.poster_url}}
                     />    
                     <View style={style.infoContainer}>
                         <FadedView color="#101010" height={50}>
@@ -62,6 +62,8 @@ const MovieCard = (props) => {
                         group={props.group}
                         movie={props.movie}
                         search={props.search}
+                        updateSelected={updateSelected}
+                        selected={selected}
                         closeAll={() => {props.closeAll()}}
                     />
                 }

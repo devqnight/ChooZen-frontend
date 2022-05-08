@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {View, StyleSheet, Modal, ScrollView, Text, Image} from 'react-native';
+import { View, StyleSheet, Modal, ScrollView, Text, Image } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
 import { addMovie, fetchMovie, fetchMovies } from "../../actions/movies.actions";
 import { CustomButton } from "../../components/buttons/CustomButton.component";
@@ -7,97 +7,107 @@ import { Field } from "../../components/Field.component";
 import { Loading } from "../../screens/Loading";
 import { Actors } from "./Actors.container";
 import { VotingRow } from "./VotingRow.container";
-import { store } from "../../store";
 import { updateGroup } from "../../actions/groups.actions";
+import { updateScoreAPI } from "../../apis/api-movies";
 
-const MovieDetail = (props) => {
+const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updateSelected, selected }) => {
 
-    const id = props.movie.id;
+    const id = movie.id;
 
     const movies = useSelector((state) => state.data.movies);
     const dispatch = useDispatch();
     const [movieDetails, setDetails] = useState(movies.current);
 
-    const [selected, setSelected] = useState(null);
-    const updateSelected = (value) => {
-        if(selected == value)
-            setSelected(null);
-        else setSelected(value);
+    const onUpdateSelected = (value) => {
+        updateSelected(value);
+        close();
     }
 
     const saveMovie = async () => {
-        await dispatch(addMovie(id, null, props.group.id, props.user.id));
-        await dispatch(updateGroup(props.user.id, props.group.id));
-        props.closeAll();
+        await dispatch(addMovie(id, null, group.id, user.id));
+        closeAll();
     }
 
     useEffect(async () => {
-        setDetails(props.movie);
-        setSelected(props.movie.note);
-        //if(!props.search){
-        //    await dispatch(fetchMovie(id, props.user.id));
+        setDetails(movie);
+        //if(!search){
+        //    await dispatch(fetchMovie(id, user.id));
         //    setDetails(store.getState().data.movies.current);
         //} else {
-        //    setDetails(props.movie);
+        //    setDetails(movie);
         //}
-    },[]);
+    }, []);
 
-    let content=<></>;
-    if(movieDetails)
+    let content = <></>;
+    if (movieDetails) { 
+        let genres = <></>;
+        if (movieDetails.genres || movieDetails.genreList) {
+            genres = <View style={style.container}>
+                <Text style={style.sectionTitle}>Genres</Text>
+                <View style={style.genres}>
+                    {movieDetails.genreList && movieDetails.genreList.length && movieDetails.genreList.map((value, index) => {
+                        return <Text style={[style.genre, { backgroundColor: theme.backgroundColor, elevation: 3, color: theme.bar.activeTint }]} key={index}>{value.value}</Text>
+                    })}
+                    {!movieDetails.genreList && movieDetails.genres && movieDetails.genres.length && movieDetails.genres[0] && movieDetails.genres.map((value, index) => {
+                        return <Text style={[style.genre, { backgroundColor: theme.backgroundColor, elevation: 3, color: theme.bar.activeTint }]} key={index}>{value}</Text>
+                    })}
+                </View>
+            </View>
+        }
+
+        let actors = <></>;
+        if (movieDetails.actors || movieDetails.actorList || movieDetails.starList)
+            actors = <View style={{ backgroundColor: theme.backgroundColor }}>
+                <Text style={[style.title, { margin: 2, padding: 5, color: theme.bar.activeTint }]}>Cast</Text>
+                {movieDetails.actorList && movieDetails.actorList.length && <Actors theme={theme} actors={movieDetails.actorList} />}
+                {movieDetails.actors && movieDetails.actors.length && <Actors theme={theme} actors={movieDetails.actors} />}
+                {movieDetails.starList && movieDetails.starList.length && <Actors theme={theme} actors={movieDetails.starList} />}
+            </View>
+
+        let directors = <></>;
+        if (movieDetails.directors && movieDetails.directors.length)
+            directors = <View style={{ backgroundColor: theme.backgroundColor }}>
+                <Text style={[style.title, { margin: 2, padding: 5, color: theme.bar.activeTint }]}>Directors</Text>
+                <Actors theme={theme} actors={movieDetails.directors} />
+            </View>
+
         content = (
             <>
                 <ScrollView>
                     <View style={style.top}>
                         <View style={style.left}>
-                            <Field title="Title" content={movieDetails.title} theme={props.theme} />
-                            {movieDetails.year && <Field title="Release Year" content={movieDetails.year} theme={props.theme} />}
-                            {movieDetails.description && <Field title="Description" content={movieDetails.description} theme={props.theme} />}
-                            {movieDetails.runtimeStr && <Field title="Runtime" content={movieDetails.runtimeStr} theme={props.theme} />}
-                            {movieDetails.genreList && <View style={style.container}>
-                                <Text style={style.sectionTitle}>Genres</Text>
-                                <View style={style.genres}>
-                                    {movieDetails.genreList.map((value, index) => {
-                                        return <Text style={[style.genre, {backgroundColor: props.theme.backgroundColor, elevation: 3, color: props.theme.bar.activeTint}]} key={index}>{value.value}</Text>
-                                    })}
-                                </View>
-                            </View>}
+                            <Field title="Title" content={movieDetails.title} theme={theme} />
+                            {movieDetails.year && <Field title="Release Year" content={movieDetails.year} theme={theme} />}
+                            {movieDetails.description && <Field title="Description" content={movieDetails.description} theme={theme} />}
+                            {movieDetails.runtimeStr && <Field title="Runtime" content={movieDetails.runtimeStr} theme={theme} />}
+                            {genres}
                         </View>
-                        <Image style={style.poster} 
-                            source={{uri: movieDetails.image}}
+                        <Image style={style.poster}
+                            source={{ uri: movieDetails.image || movieDetails.poster_url }}
                         />
                     </View>
-                    {movieDetails.actorList && <View style={{backgroundColor: props.theme.backgroundColor}}>
-                        <Text style={[style.title, {margin:2, padding: 5,color: props.theme.bar.activeTint}]}>Cast</Text>
-                        <Actors theme={props.theme} actors={movieDetails.actorList} />
-                    </View>}
-                    {!movieDetails.actorList && movieDetails.starList && <View style={{backgroundColor: props.theme.backgroundColor}}>
-                        <Text style={[style.title, {margin:2, padding: 5,color: props.theme.bar.activeTint}]}>Stars</Text>
-                        <Actors theme={props.theme} actors={movieDetails.starList} />
-                    </View>}
+                    {actors}
                     <View style={style.plotContainer}>
                         <Text style={style.plotTitle}>Plot</Text>
                         <Text style={style.plot}>{movieDetails.plot}</Text>
                     </View>
-                    {movieDetails.directorList && <View style={{backgroundColor: props.theme.backgroundColor}}>
-                        <Text style={[style.title, {margin:2, padding: 5,color: props.theme.bar.activeTint}]}>Directors</Text>
-                        <Actors theme={props.theme} actors={movieDetails.directorList} />
-                    </View> }           
+                    {directors}
                 </ScrollView>
-                {!props.search && <VotingRow theme={{...props.theme, custom: {paddingBottom: 10, paddingLeft: 5, paddingRight: 5, backgroundColor: props.theme.backgroundColor}}} setSelected={updateSelected} selected={selected} />}
-                {props.search && <CustomButton theme={props.theme} styleName="Save" text="Add movie to group" onPressButton={() => saveMovie()}/>}
+                {!search && <VotingRow theme={{ ...theme, custom: { paddingBottom: 10, paddingLeft: 5, paddingRight: 5, backgroundColor: theme.backgroundColor } }} setSelected={onUpdateSelected} selected={selected} />}
+                {search && <CustomButton theme={theme} styleName="Save" text="Add movie to group" onPressButton={() => saveMovie()} />}
             </>
-            
-        );
 
+        );
+    }
     return (
         <>
-            <Loading theme={props.theme} isLoading={movies.loading} message={"Loading movie..."} />
+            <Loading theme={theme} isLoading={movies.loading} message={"Loading movie..."} />
             {content}
         </>
     );
 }
 
-export {MovieDetail};
+export { MovieDetail };
 
 const style = StyleSheet.create({
     left: {

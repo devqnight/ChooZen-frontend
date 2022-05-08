@@ -27,13 +27,13 @@ const groups = (state = {}, action) => {
         case FETCH_GROUP_REQUEST:
             return { ...state, isLoading: true };
         case FETCH_GROUP_SUCCESS:
-            return { ...state, isLoading: false, active: action.group };
+            return { ...state, isLoading: false, active: action.group, groups: action.groups };
         case DELETE_GROUP_FAILURE:
             return {...state, isLoading: false};
         case DELETE_GROUP_REQUEST:
             return {...state, isLoading: true};
         case DELETE_GROUP_SUCCESS:
-            return {...state, isLoading: false};
+            return {...state, isLoading: false, groups: action.groups, active: action.group};
         default:
             return state;
     }

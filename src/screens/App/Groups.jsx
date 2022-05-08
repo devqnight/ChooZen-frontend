@@ -10,6 +10,7 @@ import { ModalWithHeader } from "../../containers/common/ModalWithHeader.contain
 const Groups = () => {
     const theme = useSelector((state) => state.theme);
     const groups = useSelector((state) => state.data.groups);
+    const [showModal, setShowModal] = useState(false);
 
     const hasGroup = groups.active || (groups.groups && groups.groups.length > 0) ? true : false;
     if(!hasGroup)
@@ -20,7 +21,6 @@ const Groups = () => {
             </View>
         )
 
-    const [showModal, setShowModal] = useState(false);
 
     const onRequestClose = () => {
         setShowModal(false);

@@ -32,9 +32,8 @@ const Next = () => {
     // movies
 
     const updateMovies = async (value, movie) => {
-        if(value in [1,2,3,4,5]){
+        if(value){
             await dispatch(rateMovie(movie.imdb_id, value, groups.active.id, user.id));
-            await dispatch(updateGroup(user.id, groups.active.id));
         }
     }
 
@@ -42,7 +41,7 @@ const Next = () => {
     if (movies.voted && movies.voted.length > 0)
         nextView = 
             <View style={{height: "93%"}}>
-                <ScrollMovieList theme={theme} movies={movies.voted} height={600} marginBottom={28} onUpdate={() => {} /*(value, movie) => updateMovies(value, movie)*/} />
+                <ScrollMovieList theme={theme} movies={movies.voted} height={600} marginBottom={28} onUpdate={(value, movie) => updateMovies(value, movie)} />
             </View>;
     else 
         nextView = <View style={style.cardContainer}><Text>No movies in list</Text></View>
