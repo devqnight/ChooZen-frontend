@@ -111,6 +111,7 @@ const deleteGroup = (user_id, group_id, groups) => {
         await deleteGroupAPI(user_id, group_id)
             .then(async response => {
                 let newgroups = groups.filter((value, index, array) => value.id !== group_id );
+                await dispatch(updateMovies([],[]));
                 dispatch(success(newgroups[0], newgroups));
             })
             .catch(err => {

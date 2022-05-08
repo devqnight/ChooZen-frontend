@@ -4,6 +4,7 @@ import { MovieCard } from "./MovieCard.container";
 
 const ScrollMovieList = ({movies, group, user, theme, close, height, marginBottom, search, onUpdate}) => {
 
+
     return (
         <ScrollView style={[style.list, {marginBottom: marginBottom}]}>
             {movies.map((movie, index) => {

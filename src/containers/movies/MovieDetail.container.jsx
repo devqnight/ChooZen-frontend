@@ -7,8 +7,6 @@ import { Field } from "../../components/Field.component";
 import { Loading } from "../../screens/Loading";
 import { Actors } from "./Actors.container";
 import { VotingRow } from "./VotingRow.container";
-import { updateGroup } from "../../actions/groups.actions";
-import { updateScoreAPI } from "../../apis/api-movies";
 
 const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updateSelected, selected }) => {
 

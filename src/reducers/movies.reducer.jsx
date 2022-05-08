@@ -23,7 +23,7 @@ const movies = (state = initialState, action) => {
         case FETCH_MOVIES_FAILURE:
             return {...state, loading: false};
         case ADD_MOVIE_SUCCESS:
-            return {...state, search: [], current: null, movies: action.movies, voted: action.voted};
+            return {...state, search: [], current: null, movies: action.movies, voted: action.voted.sort((a,b) => b.average_note - a.average_note)};
         case ADD_MOVIE_REQUEST:
         case ADD_MOVIE_FAILURE:
             return {...state, search: [], current: null};
@@ -46,7 +46,7 @@ const movies = (state = initialState, action) => {
             return {
                 ...state, 
                 movies: action.movies,
-                voted: action.voted.sort((a,b) => b - a), 
+                voted: action.voted.sort((a,b) => b.average_note - a.average_note), 
                 loading: false
             };
         case RATE_MOVIE_REQUEST:
@@ -54,7 +54,7 @@ const movies = (state = initialState, action) => {
         case RATE_MOVIE_FAILURE:
             return {...state, loading: false};
         case UPDATE_MOVIES:
-            return {...state, movies: action.movies, voted: action.voted}
+            return {...state, movies: action.movies, voted: action.voted.sort((a,b) => b.average_note - a.average_note)}
         default:
             return state;
     }

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity, Pressable } from 'react-native';
 import { FadedView } from "../../components/view/FadedView.component";
 import { VotingRow } from "./VotingRow.container";
@@ -6,8 +6,7 @@ import { ModalWithHeader } from "../common/ModalWithHeader.container";
 import { MovieDetail } from "./MovieDetail.container";
 
 const MovieCard = (props) => {
-
-    const [selected, setSelected] = useState(props.movie.note || null);
+    const [selected, setSelected] = useState(props.movie.note);
     const [visible, setVisible] = useState(false);
 
     const onRequestClose = () => {
