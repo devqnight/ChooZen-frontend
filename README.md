@@ -3,10 +3,25 @@
 ![https://img.shields.io/badge/IUT%20METZ-LP%202021--2022-%23f514c0](https://img.shields.io/badge/IUT%20METZ-LP%202021--2022-%23f514c0)
 
 ----
-Trello : [https://trello.com/choozen/home]
+[Trello](https://trello.com/choozen/home)
+
+[ChooZen-backend](https://github.com/Night4dead/ChooZen-backend)
+
 ----
 
 # ChooZen-frontend
+
+## Realized by :
+
+[Quentin KACZMAREK](https://github.com/Night4dead)
+
+[Kevin BOUDINA](https://github.com/kevinBoudina)
+
+[Martin JOSSIC](https://github.com/sibzou)
+
+[Julien SIBILLE](https://github.com/tehjul)
+
+## Description :
 
 Frontend part of the ChooZen project.
 
@@ -53,8 +68,10 @@ Before running expo, you need to install the different packages, run this comman
 
 Before being able to run the project, you'll need to configure the server address.
 
-To do so, copy the file named `api.js.template` and remove the `.template` suffix. Then, fill the `URLSERV` variable with the address of your server. If you are using a local instance of the server, you need to 
+To do so, copy the file named `api.js.template` and remove the `.template` suffix. Then, fill the `URLSERV` variable with the address of your server.
 
+
+### Start project
 
 Once in the directory, you can run expo and test the app:
 >```bash

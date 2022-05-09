@@ -25,7 +25,7 @@ const GroupDetail = ({userId}) => {
 
     for(let i = 0; i < group.members.length - 1; i++) {
         const username = group.members[i].username;
-        memberFields.push(<Field key={i} title="" content={username}/>);
+        membersFields.push(<Field key={i} title="" content={username}/>);
     }
 
     if(group.members.length > 0) {
