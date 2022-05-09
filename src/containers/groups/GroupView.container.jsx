@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Text, View,  StyleSheet,  } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ScrollMovieList } from "../movies/ScrollMovieList.container";
 
 import {GroupDetail} from "./GroupDetail.container";
+import { rateMovie } from "../../actions/movies.actions";
 
 const GroupView = (props) => {
     const theme = useSelector((state) => state.theme);
     const user = useSelector((state) => state.user);
+
+    const dispatch = useDispatch();
 
     const styles = StyleSheet.create({
         tabs: {
@@ -96,6 +99,12 @@ const GroupView = (props) => {
         </Text>)
     });
 
+    const updateMovies = async (value, movie) => {
+        if(value){
+            await dispatch(rateMovie(movie.imdb_id, value, props.data.active.id, user.id));
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.tabs}>
@@ -110,11 +119,12 @@ const GroupView = (props) => {
                 <View style={styles.listContainer}>
                     {((movies.movies && movies.movies.length > 0) || (movies.voted && movies.voted.length > 0)) &&
                         <ScrollMovieList
-                            movies={[...movies.movies, ...movies.voted]}
+                            movies={[...movies.voted, ...movies.movies]}
                             user={user}
                             theme={theme}
                             height={560}
                             marginBottom={40}
+                            onUpdate={(value, movie) => updateMovies(value, movie)}
                         />
                     }
                     { }

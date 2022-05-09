@@ -8,8 +8,8 @@ const updateGroup = (token, group) => {
     const failure = (err) => {return {type: CHANGE_GROUP_FAILURE, err}};
 
     return async dispatch => {
-        let movies;
-        let voted;
+        let movies = [];
+        let voted = [];
         dispatch(request());
         await changeGroup(token, group)
             .then(response => {
@@ -87,11 +87,9 @@ const doCreateGroup = (token, name) => {
     const failure = (err) => {return {type: CREATE_GROUP_FAILURE, err}};
 
     return async dispatch => {
-        let id;
         dispatch(request());
         await createGroup(token, name)
             .then(async response => {
-                id = response.creat;
                 dispatch(success(response));
             })
             .catch(error => {

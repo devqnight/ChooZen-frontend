@@ -6,7 +6,7 @@ import { ModalWithHeader } from "../common/ModalWithHeader.container";
 import { MovieDetail } from "./MovieDetail.container";
 
 const MovieCard = (props) => {
-    const [selected, setSelected] = useState(props.movie.note);
+    const [selected, setSelected] = useState(null);
     const [visible, setVisible] = useState(false);
 
     const onRequestClose = () => {
@@ -21,6 +21,10 @@ const MovieCard = (props) => {
     const openModal = () => {
         setVisible(true);
     }
+
+    useEffect(() => {
+        setSelected(props.movie.note);
+    });
 
     return (
         <>

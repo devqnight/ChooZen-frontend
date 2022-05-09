@@ -3,7 +3,6 @@ import { Text, View, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { rateMovie } from "../../actions/movies.actions";
-import { updateGroup } from "../../actions/groups.actions";
 
 import Header from "../../containers/common/Header.container";
 import { DefaultNoGroup } from "../../containers/groups/DefaultNoGroup.container";
@@ -16,8 +15,6 @@ const Next = () => {
     const movies = useSelector((state) => state.data.movies);
 
     const dispatch = useDispatch();
-
-    const [moviesFull, setMoviesFull] = useState(movies);
 
     const hasGroup = groups.active && (groups.groups && groups.groups.length > 0) ? true : false;
     if(!hasGroup)

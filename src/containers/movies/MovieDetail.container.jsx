@@ -31,9 +31,9 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
     }, []);
 
     let content = <></>;
-    if (movieDetails) { 
+    if (movieDetails) {
         let genres = <></>;
-        if (movieDetails.genres || movieDetails.genreList) {
+        if ((movieDetails.genres && movieDetails.genres[0]) || (movieDetails.genreList && movieDetails.genreList.length)) {
             genres = <View style={style.container}>
                 <Text style={style.sectionTitle}>Genres</Text>
                 <View style={style.genres}>
