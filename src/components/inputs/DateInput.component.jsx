@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-import basicStyles from '../../themes/basic_components_styles';
+import buttonStyle from '../buttons/button-style';
 import { Icon } from '../icons/Icon.component';
 import { getAge } from '../../utils/tools';
 
@@ -62,14 +62,14 @@ const DateInput = (props) => {
 
     return (
         <View>
-            <View style={basicStyles.dateInputView}>
+            <View style={styles.dateInput}>
                 <TextInput 
                     style={ [ {width: "auto"}] } 
                     value={getDate()}
                     onPressOut={ () => toggleDatePicker() } 
                 />
                 <TouchableOpacity 
-                    style={ [basicStyles.button, basicStyles.buttonDate, {backgroundColor: "#f0f0f0"}]}
+                    style={ [buttonStyle.button, styles.dateButton, {backgroundColor: "#f0f0f0"}]}
                     onPress={ () => openDatePicker() }
                 >
                     <Icon color={props.style.backgroundColor} height={25} iconName="calendar-month" />
@@ -87,5 +87,21 @@ const DateInput = (props) => {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    dateInput: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    dateButton: {
+        justifyContent: "center",
+        alignContent: "center",
+        height: 30,
+        width: 30,
+        marginLeft: 15
+    }
+})
 
 export { DateInput };

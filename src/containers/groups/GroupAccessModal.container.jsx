@@ -2,7 +2,6 @@ import {useState} from "react";
 import {Text, TextInput, StyleSheet} from "react-native";
 
 import { CancelConfirmModal } from "../common/CancelConfirmModal.container";
-import basicStyles from "../../themes/basic_components_styles";
 
 const GroupAccessModal = (props) => {
     const [groupName, setGroupName] = useState("");
@@ -20,7 +19,7 @@ const GroupAccessModal = (props) => {
 
             <Text style={styles.catchText}>{props.children}</Text>
             <TextInput
-                style={basicStyles.modalTextInput}
+                style={styles.textInput}
                 placeholder="Group name"
                 onChangeText={setGroupName}/>
         </CancelConfirmModal>
@@ -38,5 +37,14 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         marginLeft: 20,
         marginRight: 20
+    },
+    textInput: {
+        fontSize: 18,
+        padding: 10,
+        backgroundColor: "#eeeeee",
+        borderRadius: 10,
+        maxWidth: 400,
+        width: "100%",
+        alignSelf: "center"
     }
 });

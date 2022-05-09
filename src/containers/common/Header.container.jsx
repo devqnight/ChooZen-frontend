@@ -1,13 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import { TouchableIcon } from '../../components/icons/TouchableIcon.component';
 import { Select } from "../../components/selects/Select.component";
 
 import { updateGroup } from "../../actions/groups.actions"; 
-
-import containerStyles from '../../themes/container_styles';
 
 const Header = (props) => {
     const user = useSelector((state) => state.user);
@@ -15,17 +13,17 @@ const Header = (props) => {
 
     if(props.title == "Profile")
         return (
-            <View style={[containerStyles.headerStyle, {backgroundColor: theme.backgroundColor}]}>
-                <Text style={[containerStyles.headerLeftStyle, containerStyles.headerTitleStyle, {color: theme.bar.activeTint}]}>{props.title}</Text>
+            <View style={[styles.headerStyle, {backgroundColor: theme.backgroundColor}]}>
+                <Text style={[styles.headerLeftStyle, styles.headerTitleStyle, {color: theme.bar.activeTint}]}>{props.title}</Text>
                 <TouchableIcon iconName="logout-variant" onTouch={props.onTouch} height={30} color="#FFF"/>
             </View>
         );
     
     if(props.type == "Modal")
         return (
-            <View style={[containerStyles.headerStyle, {backgroundColor: theme.backgroundColor, justifyContent: "flex-start"}]}>
+            <View style={[styles.headerStyle, {backgroundColor: theme.backgroundColor, justifyContent: "flex-start"}]}>
                 <TouchableIcon iconName="keyboard-backspace" onTouch={props.onTouch} height={27} color="#FFF"/>
-                <Text style={[containerStyles.headerTitleStyle, {paddingLeft: 10,color: theme.bar.activeTint}]}>{props.title}</Text>
+                <Text style={[styles.headerTitleStyle, {paddingLeft: 10,color: theme.bar.activeTint}]}>{props.title}</Text>
             </View>
         );
 
@@ -43,7 +41,7 @@ const Header = (props) => {
 
     let secondary;
     if(active !== null && active > -1)
-        secondary = <Select style={containerStyles.headerSelectStyle} options={groups.groups} active={active > 0 ? active : 0} updateSelection={(item, index) => update(item, index)}/>
+        secondary = <Select style={styles.headerSelectStyle} options={groups.groups} active={active > 0 ? active : 0} updateSelection={(item, index) => update(item, index)}/>
     else
         secondary = <></>
 
@@ -54,10 +52,10 @@ const Header = (props) => {
         button = <></>;
 
     return (
-        <View style={[containerStyles.headerStyle, {backgroundColor: theme.backgroundColor}]}>
+        <View style={[styles.headerStyle, {backgroundColor: theme.backgroundColor}]}>
             {
-                <View style={containerStyles.headerLeftStyle}>
-                    <Text style={[containerStyles.headerTitleStyle, {color: theme.bar.activeTint}]}>{props.title}</Text>
+                <View style={styles.headerLeftStyle}>
+                    <Text style={[styles.headerTitleStyle, {color: theme.bar.activeTint}]}>{props.title}</Text>
                     {button}
                 </View>
             }
@@ -66,5 +64,29 @@ const Header = (props) => {
     );
 
 };
+
+const styles = StyleSheet.create({
+    headerStyle: {
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "center",
+        justifyContent: "space-between",
+        padding: 10
+    },
+    headerLeftStyle: {
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "center",
+        justifyContent: "flex-start"
+    },
+    headerTitleStyle: {
+        alignSelf:"flex-start",
+        marginRight: 10,
+        color: "#FFF",
+        textTransform: "capitalize",
+        fontWeight: "600",
+        fontSize: 20
+    }
+});
 
 export default Header;

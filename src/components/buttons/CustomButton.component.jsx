@@ -1,7 +1,7 @@
 import React from "react";
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-import basicStyles from "../../themes/basic_components_styles";
+import buttonStyle from "./button-style";
 
 const CustomButton = ({ onPressButton, text, styleName, enabled, theme, textStyle }) => {
     let styleButton ={};
@@ -10,11 +10,11 @@ const CustomButton = ({ onPressButton, text, styleName, enabled, theme, textStyl
     switch (styleName) {
         case "Save":
             styleButton = theme;
-            styleText = basicStyles.textSave;
+            styleText = styles.saveText;
             break;
         case "Close":
-            styleButton = {...basicStyles.buttonClose, ...theme};
-            styleText = basicStyles.textClose;
+            styleButton = {...styles.closeButton, ...theme};
+            styleText = buttonStyle.textClose;
             break;
         default:
             styleButton = theme;
@@ -23,10 +23,28 @@ const CustomButton = ({ onPressButton, text, styleName, enabled, theme, textStyl
     }
     
     return (
-        <TouchableOpacity disabled={ enabled } style={ [ basicStyles.button, styleButton, {elevation: 3} ] } onPress={onPressButton}>
-            <Text style={ [ basicStyles.button_text, styleText ] }>{ text }</Text>
+        <TouchableOpacity disabled={ enabled } style={ [ buttonStyle.button, styleButton, {elevation: 3} ] } onPress={onPressButton}>
+            <Text style={ [ styles.buttonText, styleText ] }>{ text }</Text>
         </TouchableOpacity>
     );
 }
+
+const styles = StyleSheet.create({
+    buttonText: {
+        textAlign: "center",
+        textAlignVertical: "center"
+    },
+    closeButton: {
+        backgroundColor: "red"
+    },
+    saveText: {
+        fontSize: 16,
+        color: "white"
+    },
+    closeButton: {
+        fontSize: 16,
+        color: "white"
+    }
+});
 
 export {CustomButton}
