@@ -48,12 +48,12 @@ const Profile = () => {
             <Header title="Profile" onTouch={() => doLogout()} />
                 <Text style={[style.sectionTitle, {color: theme.bar.activeTint, backgroundColor: theme.backgroundColor}]}>User:</Text>
             <View style={style.section}>
-                <Field title="Username" content={user.username} theme={theme}/>
-                <Field title="Email" content={user.email} theme={theme}/>
-                <Field title="First Name" content={user.first_name} theme={theme}/>
-                <Field title="Last Name" content={user.last_name} theme={theme}/>
-                <Field title="Birthday" content={user.birthdate} theme={theme}/>
-                <Field title="Premium account" content={user.is_superuser ? "Yes" : "No"} theme={theme}/>
+                <Field title="Username" content={user.username}/>
+                <Field title="Email" content={user.email}/>
+                <Field title="First Name" content={user.first_name}/>
+                <Field title="Last Name" content={user.last_name}/>
+                <Field title="Birthday" content={user.birthdate}/>
+                <Field title="Premium account" content={user.is_superuser ? "Yes" : "No"} last={true}/>
             </View>
                 <Text style={[style.sectionTitle, {color: theme.bar.activeTint, backgroundColor: theme.backgroundColor}]}>Accent Color:</Text>
             <ColorGrid colors={colors} current={theme.accentColor} callback={(color) => doChangeAccent(color)}/>

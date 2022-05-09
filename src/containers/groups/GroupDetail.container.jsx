@@ -39,7 +39,7 @@ const GroupDetail = ({userId}) => {
                     </>
                 }
                 <Field title="Group" content={group.title} />
-                <Field title="Owner" content={group.creator_infos.username} />
+                <Field title="Owner" content={group.creator_infos.username} last={true}/>
                 
                 <View>
                     <Text style={[styles.sectionTitle, {color: theme.bar.activeTint, backgroundColor: theme.backgroundColor}]}>Members : </Text>

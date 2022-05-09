@@ -68,10 +68,10 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
                 <ScrollView>
                     <View style={style.top}>
                         <View style={style.left}>
-                            <Field title="Title" content={movieDetails.title} theme={theme} />
-                            {movieDetails.year && <Field title="Release Year" content={movieDetails.year} theme={theme} />}
-                            {movieDetails.description && <Field title="Description" content={movieDetails.description} theme={theme} />}
-                            {movieDetails.runtimeStr && <Field title="Runtime" content={movieDetails.runtimeStr} theme={theme} />}
+                            <Field title="Title" content={movieDetails.title}/>
+                            {movieDetails.year && <Field title="Release Year" content={movieDetails.year}/>}
+                            {movieDetails.description && <Field title="Description" content={movieDetails.description}/>}
+                            {movieDetails.runtimeStr && <Field title="Runtime" content={movieDetails.runtimeStr}/>}
                             {genres}
                         </View>
                         <Image style={style.poster}
