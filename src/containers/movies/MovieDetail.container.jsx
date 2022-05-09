@@ -9,7 +9,6 @@ import { Actors } from "./Actors.container";
 import { VotingRow } from "./VotingRow.container";
 
 const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updateSelected, selected }) => {
-
     const id = movie.id;
 
     const movies = useSelector((state) => state.data.movies);
@@ -36,7 +35,6 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
 
     let content = <></>;
     if (movieDetails) {
-        console.log(movieDetails)
         let genres = <></>;
         if (hasGenres()) {
             genres = <View style={style.container}>
@@ -92,11 +90,13 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
 
         const detailsFieldsNodes = [];
 
-        for(let field of detailsFields) {
+        for(let i = 0; i < detailsFields.length; i++) {
+            const field = detailsFields[i];
+
             if(field.content) {
                 const last = field == latestDefinedField;
                 detailsFieldsNodes.push(
-                    <Field key={field.title} title={field.title} content={field.content}
+                    <Field key={i} title={field.title} content={field.content}
                         last={field == latestDefinedField}/>
                 )
             }
