@@ -1,0 +1,289 @@
+@startuml use-case-whole
+
+package Movie {
+    (add a movie) as Add
+    (mark a movie as watched) as Mark
+    (rate a movie) as Rate
+}
+
+package Groups {
+    (create group) as Create
+    (join group) as Join
+}
+
+package Profile {
+    (add friend) as Friend
+    (logout) as Logout
+}
+
+(login) as login
+
+package Pages {
+    (see homepage) as HP 
+    (see grouppage) as GP
+    (see profile page) as PP
+    (see rated movie list) as RML
+}
+
+:User: as u
+
+' pages dependencies
+
+GP --> HP : <<extends>>
+PP --> HP : <<extends>>
+RML --> HP : <<extends>>
+
+RML ..> Add : <<includes>>
+
+' user interactions
+
+u -> Pages
+u --> Movie
+
+Movie ..> login : <<includes>>
+Groups ..> login : <<includes>>
+Profile ..> login : <<incudes>>
+Pages ..> login : <<includes>>
+
+' movie dependencies
+
+Mark ..> Add : <<includes>>
+Mark ..> Create : <<includes>>
+
+Rate ..> Add : <<includes>>
+
+Add ..> Groups : <<includes>>
+
+' profile dependencies
+
+Profile --> PP : <<extends>>
+
+' Groups dependencies
+
+Groups -up-> GP : <<extends>>
+
+@enduml
+
+' ADD MOVIE
+
+@startuml use-case-add-movie
+
+package Movie {
+    (add a movie) as Add
+}
+
+package Groups {
+    (create group) as Create
+    (join group) as Join
+}
+
+(login) as login
+
+' Movie dependencies
+
+Add .|> login : <<includes>>
+
+Add .|> Groups : <<includes>>
+
+' User
+
+:User: as u 
+
+u --> Add
+
+@enduml
+
+'CREATE GROUP
+
+@startuml use-case-create-group
+
+package Groups {
+    (create group) as Create
+    ' (join group) as Join
+}
+
+package Pages {
+    (see Group page) as GP
+}
+
+(login) as login
+
+' User
+
+:User: as u
+
+u --> GP
+u -> Create
+
+' Pages
+
+Pages ..|> login : <<includes>>
+
+' Groups
+
+Groups ..> GP : <<extends>>
+
+@enduml
+
+' ADD FRIEND
+
+@startuml use-case-add-friend
+
+package Profile {
+    (add Friend) as Friend
+}
+
+package Pages {
+    (see profile page) as PP
+}
+
+(login) as login
+
+' User
+
+:User: as u
+
+u --> PP
+u -> Friend
+
+' Pages
+
+Pages ..|> login : <<includes>>
+
+' Groups
+
+Profile ..> PP : <<extends>>
+
+@enduml
+
+' RATE MOVIE
+
+@startuml use-case-rate-movie
+
+package Movie {
+    (add a movie) as Add
+    (rate a movie) as Rate
+}
+
+package Groups {
+    (create group) as Create
+    (join group) as Join
+}
+
+package Pages {
+    (see homepage) as HP
+}
+
+(login) as login
+
+' User
+
+:User: as u
+
+u --> HP
+u -> Rate
+
+' Pages
+
+Pages ..|> login : <<includes>>
+
+' Movies
+
+Movie ..> HP : <<extends>>
+
+Rate .|> Add : <<includes>>
+
+Add ..|> Join : <<includes>>
+Add .|> Create : <<includes>>
+
+' Groups 
+
+Groups .|> login : <<includes>>
+
+@enduml
+
+' ADD USER TO LISt
+
+@startuml use-case-add-user
+
+package Groups {
+    (create group) as Create
+    (join group) as Join
+}
+
+package Pages {
+    (see Group page) as GP
+}
+
+(login) as login
+
+' User
+
+:User: as u
+
+:New User: as nu
+
+u --> Create
+u --> GP
+
+nu --> Join
+nu <|- u : <<includes>>
+
+' Pages
+
+Pages .left.|> login : <<includes>>
+
+' Groups 
+
+Groups ..|> login : <<includes>>
+
+@enduml
+
+' SEE RATED MOVIES
+
+@startuml use-case-see-rated-movies
+
+package Groups {
+    (create group) as Create
+    (join group) as Join
+}
+
+package Pages {
+    (see Group page) as GP
+}
+
+package Movies {
+    (add movie to list) as Add
+    (rate movie) as Rate
+    (rated movie list) as RateList
+}
+
+(login) as login
+
+' User
+
+:User: as u
+
+u --> RateList
+
+' Pages
+
+Pages .left.|> login : <<includes>>
+
+' Groups 
+
+login <|.. Groups : <<includes>>
+
+' Movies
+
+RateList --> GP : <<extends>>
+
+Rate <|.. RateList : <<includes>>
+
+Movies ..|> login : <<includes>>
+
+Rate .|> Add : <<includes>>
+
+Groups <|.. Add  : <<includes>>
+
+@enduml

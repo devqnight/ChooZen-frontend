@@ -1,0 +1,262 @@
+@startuml sequence_authentication_login_already_logged
+
+hide footbox
+
+actor ":User" as user 
+participant ":App" as screen 
+'participant ":Server" as server 
+
+activate user
+    user -> screen : open_app()
+    activate screen
+        alt is_logged() == true
+            screen -->> screen : is_logged()
+            activate screen
+                create ":Home" as home
+                screen -->> home
+            deactivate screen
+                home -->> user : home()
+                activate home
+        end
+
+@enduml
+
+@startuml sequence_authentication_login_loop
+
+hide footbox
+
+actor ":User" as user
+participant ":Login" as login
+participant ":Server" as server
+
+activate user
+loop is_valid() == false 
+            user -> login : send_credentials()
+            activate login
+
+participant ":Server" as server 
+
+                activate server
+                login -->> server : validate_credentials()
+                    server -->> server : check_credentials()
+                    activate server
+                        server -> login : is_valid( false ) 
+                        login -> user : login_error()
+                    
+            end
+
+
+@enduml 
+
+@startuml sequence_authentication_login
+
+hide footbox
+
+actor ":User" as user 
+participant ":App" as screen 
+participant ":Server" as server
+activate server
+activate user
+    user -> screen : open_app()
+    activate screen
+        alt is_logged() != true
+            screen -->> screen : is_logged()
+            activate screen
+                create ":Login" as login
+                screen -->> login
+            deactivate screen
+                    activate login
+                    activate server
+            ref over user, screen, server, login : sequence_authentication_login_loop
+            
+                        server -> login : is_valid( true )
+                    deactivate server
+                    login -> screen : logged_in()
+                    activate screen
+
+                        login -> user : logged_in()
+            deactivate login
+                        screen -> login : destroy
+
+            destroy login
+                        create ":Home" as home 
+                        screen -->> home
+                    deactivate screen
+                    activate home
+                        home -> user : shows_home()
+        end
+    deactivate screen
+deactivate user
+
+
+@enduml
+
+@startuml sequence_authentication_register
+
+hide footbox
+
+actor ":User" as user
+participant ":App" as app
+
+activate user
+    user -> app : open_app()
+    activate app
+        create ":Register" as register
+        app -> register : <<create>> register
+
+        loop exists() == true
+        user -> register : fill_form()
+        activate register
+
+participant ":Server" as server
+        activate server
+            
+            register -> server : check_if_exists()
+            activate server
+                server -->> server : check()
+                server -> register : exists( true )
+            
+                register -> user : account_exists()
+        end
+
+                server -> register : exists( false )
+                server -->> server : save_account()
+            deactivate server
+            register -> user : account_created()
+            register -> app : account_created()
+        deactivate register
+        app -> register : destroy
+        destroy register
+    ref over user, app, server : sequence_authentication_login
+
+@enduml
+
+@startuml sequence_authentication
+
+hide footbox
+
+actor ":User" as user 
+participant ":App" as app 
+participant ":Server" as server 
+
+activate user
+user -> app : open_app()
+
+activate app
+activate server
+
+alt has_no_account
+
+    ref over user, app, server : sequence_authentication_register
+
+end
+
+alt has_account
+    
+    ref over user, app, server : sequence_authentication_login_already_logged
+
+else 
+
+    ref over user, app, server : sequence_authentication_login
+
+end
+
+create ":Home" as home
+app -> home : <<create>> :Home
+
+user -> home : access home page
+activate home
+@enduml
+
+
+@startuml sequence_add_group
+hide footbox
+
+actor ":User" as user
+'participant ":App" as app
+participant ":Home" as home
+participant ":Server" as server
+'database "Ext:imdb-api" as imdb
+
+activate user
+'activate app
+activate home
+activate server
+
+user -> home : create_group()
+activate home
+    home -->> server : check_user_group()
+    activate server
+        server -->> server : verify_can_create_group()
+        alt can't create
+            server -> home : can_create( false )
+            home -> user : cannot_create_msg()
+        else can create
+            server -> home : can_create( true )
+    deactivate server
+        end
+    home -->> user : send_group_form()
+    user -> home : send_form()
+    home -->> server : send_group_creation_request()
+    activate server
+        server -->> server : create_group()
+        server -> home : group_created()
+    deactivate server
+
+
+@enduml 
+
+@startuml sequence_add_movie
+
+hide footbox
+
+actor ":User" as user
+participant ":App" as app 
+participant ":Home" as home
+participant ":Server" as server 
+database "Ext:imdb-api" as imdb 
+
+activate user
+activate app
+activate home
+activate server 
+
+ref over user, home, server : sequence_authentication
+
+user -> app : request_movie()
+activate app
+    app -> home : check_movie_group()
+    home -> server : call_server()
+    activate server
+        server -->> home : return_options()
+        home -->> user : show_options()
+        alt user find movie
+            user -> home : choose_movie()
+            home -> server : give_movie()
+            server -->> server : verify_can_add_movie()
+            server -->> home : call_success_save()
+            home -->> user : can_add_msg()
+        end
+        alt already exist in group
+            server -->> home : can_add_movie_group( false )
+            home -->> user : cannot_add_msg()
+        else don't exist in db
+            server -->> home : call_unsuccessful_find()
+            home -->> user : search_imdb_option()
+            user -> home : use_imdb()
+            home -> server : call_server_imdb()
+            server -> imdb : add_movie_by_api
+            server -->> home : can_add_movie_group( true ) 
+            home -->> user : can_add_msg()       
+        else can add
+            server -->> home : can_add_movie_group( true )
+            home -->> user : can_add_msg()
+    deactivate server
+         end
+
+
+
+
+
+
+@enduml

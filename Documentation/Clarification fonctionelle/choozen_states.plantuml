@@ -1,0 +1,76 @@
+@startuml state
+hide empty description
+
+scale 600 width
+
+[*] -> idle
+idle -> active : open app
+active -> token_test
+
+token_test --> ask_for_login : invalid
+token_test --> has_group : valid
+
+has_group -> Home : yes
+has_group --> create_group_or_join_group : no
+
+create_group_or_join_group -> Home
+
+state ask_for_login {
+    [*] -> has_account
+
+    has_account -> register : no
+    has_account --> connect : yes
+
+
+    register -> connect
+
+    connect --> token_test
+}
+
+Home -> add_movie
+
+state add_movie {
+    [*] -> search_title
+    search_title -> is_in_db
+
+    is_in_db -> return_movies : yes
+    is_in_db --> fetch_imdb : no
+
+    fetch_imdb -> return_movies
+
+    return_movies --> movie_found
+
+    movie_found -> fetch_imdb : no
+
+    movie_found -> fill_data : yes
+
+    fill_data --> validate
+
+    validate --> save_db : yes
+    save_db -> Home 
+
+    validate -> Home : no
+
+}
+
+Home --> rate_movie
+
+state rate_movie {
+    [*] --> has_been_voted
+
+    has_been_voted --> change_rating : yes
+    has_been_voted --> add_rating : no
+
+    change_rating --> update_db
+
+    add_rating --> add_to_db
+
+    add_to_db --> display_change
+    update_db --> display_change
+
+    display_change -left-> Home
+}
+
+
+
+@endumls
