@@ -22,8 +22,8 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
     }
 
     const saveMovie = async () => {
-        await dispatch(addMovie(id, null, group.id, user.id));
         closeAll();
+        await dispatch(addMovie(id, null, group.id, user.id));
     }
 
     useEffect(async () => {
