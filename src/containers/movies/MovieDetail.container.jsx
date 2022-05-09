@@ -30,10 +30,14 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
         setDetails(movie);
     }, []);
 
+    const hasGenres = () => (movieDetails.genres && movieDetails.genres[0]) ||
+                            (movieDetails.genreList &&
+                                movieDetails.genreList.length);
+
     let content = <></>;
     if (movieDetails) {
         let genres = <></>;
-        if ((movieDetails.genres && movieDetails.genres[0]) || (movieDetails.genreList && movieDetails.genreList.length)) {
+        if (hasGenres()) {
             genres = <View style={style.container}>
                 <Text style={style.sectionTitle}>Genres</Text>
                 <View style={style.genres}>
@@ -63,15 +67,45 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
                 <Actors theme={theme} actors={movieDetails.directors} />
             </View>
 
+        const detailsFields = [
+            {content: movieDetails.year, title: "Release Year"},
+            {content: movieDetails.description, title: "Description"},
+            {content: movieDetails.runtimeStr, title: "Runtime"}
+        ];
+
+        let latestDefinedField;
+
+        /* if "genres" are not displayed, we are in charge of the last border
+           bottom hiding */
+        if(!hasGenres()) {
+            for(let i = detailsFields.length - 1; i >= 0; i--) {
+                const field = detailsFields[i];
+
+                if(field.content) {
+                    latestDefinedField = field;
+                    break;
+                }
+            }
+        }
+
+        const detailsFieldsNodes = [];
+
+        for(let field of detailsFields) {
+            if(field.content) {
+                const last = field == latestDefinedField;
+                detailsFieldsNodes.push(
+                    <Field title={field.title} content={field.content}
+                        last={field == latestDefinedField}/>
+                )
+            }
+        }
+
         content = (
             <>
                 <ScrollView>
                     <View style={style.top}>
                         <View style={style.left}>
-                            <Field title="Title" content={movieDetails.title}/>
-                            {movieDetails.year && <Field title="Release Year" content={movieDetails.year}/>}
-                            {movieDetails.description && <Field title="Description" content={movieDetails.description}/>}
-                            {movieDetails.runtimeStr && <Field title="Runtime" content={movieDetails.runtimeStr}/>}
+                            {detailsFieldsNodes}
                             {genres}
                         </View>
                         <Image style={style.poster}
@@ -139,8 +173,6 @@ const style = StyleSheet.create({
         flexDirection: "row",
         margin: 2,
         padding: 10,
-        borderBottomColor: "#3F3F3F",
-        borderBottomWidth: 1,
         flexWrap: "wrap"
     },
     sectionTitle: {
@@ -154,7 +186,7 @@ const style = StyleSheet.create({
         fontSize: 19,
         fontWeight: "bold",
         color: "#3F3F3F",
-        borderBottomColor: "#3F3F3F",
+        borderBottomColor: "#DCDCDC",
         borderBottomWidth: 1,
     },
     plot: {
