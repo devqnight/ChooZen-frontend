@@ -76,7 +76,8 @@ const loadTheme = async (dispatch) => {
 const loadAuth = async (dispatch, groups, user) => {
     try{
         const authData = await getFromStorage("auth");
-        if(authData.login && authData.token){
+
+        if(authData != null && authData.login && authData.token){
             await dispatch(checkAuthentication(authData.token, authData.login));
             await dispatch(logback(authData.login, authData.token));
         }
