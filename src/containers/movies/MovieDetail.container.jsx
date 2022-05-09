@@ -36,6 +36,7 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
 
     let content = <></>;
     if (movieDetails) {
+        console.log(movieDetails)
         let genres = <></>;
         if (hasGenres()) {
             genres = <View style={style.container}>
@@ -68,6 +69,7 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
             </View>
 
         const detailsFields = [
+            {content: movieDetails.title, title: "Title"},
             {content: movieDetails.year, title: "Release Year"},
             {content: movieDetails.description, title: "Description"},
             {content: movieDetails.runtimeStr, title: "Runtime"}
@@ -94,7 +96,7 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
             if(field.content) {
                 const last = field == latestDefinedField;
                 detailsFieldsNodes.push(
-                    <Field title={field.title} content={field.content}
+                    <Field key={field.title} title={field.title} content={field.content}
                         last={field == latestDefinedField}/>
                 )
             }

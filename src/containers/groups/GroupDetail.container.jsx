@@ -23,16 +23,18 @@ const GroupDetail = ({userId}) => {
 
     const membersFields = [];
 
-    for(let i = 0; i < group.members.length - 1; i++) {
-        const username = group.members[i].username;
-        membersFields.push(<Field key={i} title="" content={username}/>);
-    }
-
-    if(group.members.length > 0) {
-        const lastMemberIndex = group.members.length - 1;
-        const lastMemberUsername = group.members[lastMemberIndex].username;
-
-        membersFields.push(<Field key={lastMemberIndex} title="" content={lastMemberUsername} last={true}/>);
+    if(group.members){
+        for(let i = 0; i < group.members.length - 1; i++) {
+            const username = group.members[i].username;
+            membersFields.push(<Field key={i} title="" content={username}/>);
+        }
+    
+        if(group.members.length > 0) {
+            const lastMemberIndex = group.members.length - 1;
+            const lastMemberUsername = group.members[lastMemberIndex].username;
+    
+            membersFields.push(<Field key={lastMemberIndex} title="" content={lastMemberUsername} last={true}/>);
+        }
     }
 
     return (

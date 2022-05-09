@@ -3,12 +3,15 @@ import { ScrollView, StyleSheet, View, Text, Image } from "react-native";
 import { Icon } from "../../components/icons/Icon.component";
 
 const Actor = ({actor, theme}) => {
+
+    const char = actor.character ? actor.character.split("as ")[1] || null : null;
+
     return (
         <View style={style.actor}>
             {actor.picture_url && <Image source={{uri: actor.picture_url}} style={style.icon}/>}
             {!actor.picture_url && <Icon iconName={"account-circle"} height={100} color={theme.bar.activeTint} style={style.icon}/>}
             <Text style={[style.name, {color: theme.bar.activeTint}]}>{actor.full_name || actor.name}</Text>
-            {actor.character && <Text style={[style.character, {color: theme.bar.activeTint}]}>{actor.character.split("as ")[1]}</Text>}
+            {char && <Text style={[style.character, {color: theme.bar.activeTint}]}>{ char }</Text>}
         </View>
     );
 }
