@@ -7,7 +7,7 @@ const ErrorMsg = (props) => {
         return <></>;
     
     return (
-        <View>
+        <View style={{paddingLeft: 5, paddingRight: 5}}>
             <Text style={{color: "red"}}>{props.msg}</Text>
         </View>
     );

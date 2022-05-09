@@ -11,6 +11,8 @@ import { ErrorMsg } from "../../components/ErrorMsg.component";
 import { CustomButton } from "../../components/buttons/CustomButton.component";
 import { Loading } from "../Loading";
 
+import { store } from "../../store";
+
 import { formatDate } from "../../utils/tools";
 
 const Registration = () => {
@@ -55,16 +57,23 @@ const Registration = () => {
             password2: confPwdStr,
             birthdate: formatDate(date)
         }));
-        if(auth.err){
+        if (store.getState().auth.err) {
+            err = store.getState().auth.err;
             setIsLoading(false);
-            let msg = "Error on register";
-            if(auth.err.non_field_errors)
-                msg = auth.err.non_field_errors[0]
+            let msg = "Error on register : ";
+            if (err.non_field_errors)
+                msg += err.non_field_errors[0] + " "
+            if (err.password1)
+                msg += err.password1[0] + " "
+            if (err.username)
+                msg += err.username[0] + " "
+            if (err.email)
+                msg += err.email[0] + " "
             setErrorMsg(msg);
             setError(true);
         } else {
             dispatch(restoreTheme());
-        } 
+        }
     }
 
 
@@ -74,101 +83,101 @@ const Registration = () => {
 
     return (
         <>
-        <KeyboardAvoidingView 
-            behavior={Platform.OS == "ios" ? "padding" : "height"}
-        >
-            <View style={[
-                {
-                    flexGrow: 1,
-                    borderRadius: 10,
-                    margin: 20,
-                    alignItems: "center",
-                    paddingTop: 20,
-                    backgroundColor: "#fff",
-                },
-                style.elevation
-            ]} >
-                <View style={[style.componentContainer, style.titleContainer]}>
-                    <Text style={style.title}>Register</Text>
+            <KeyboardAvoidingView
+                behavior={Platform.OS == "ios" ? "padding" : "height"}
+            >
+                <View style={[
+                    {
+                        flexGrow: 1,
+                        borderRadius: 10,
+                        margin: 20,
+                        alignItems: "center",
+                        paddingTop: 20,
+                        backgroundColor: "#fff",
+                    },
+                    style.elevation
+                ]} >
+                    <View style={[style.componentContainer, style.titleContainer]}>
+                        <Text style={style.title}>Register</Text>
+                    </View>
+                    <View style={[style.componentContainer, style.inputs]}>
+                        <Input
+                            title="Username"
+                            required={true}
+                            value={loginStr}
+                            onChangeText={(text) => setLoginStr(text)}
+                            style={{ backgroundColor: theme.backgroundColor, color: "white" }}
+                        />
+                        <Input
+                            title="Email"
+                            required={true}
+                            value={emailStr}
+                            onChangeText={(text) => setEmailStr(text)}
+                            style={{ backgroundColor: theme.backgroundColor, color: "white" }}
+                        />
+                        <Input
+                            title="Password"
+                            required={true}
+                            pwd={true}
+                            value={pwdStr}
+                            register={true}
+                            onChangeText={(text) => setPwdStr(text)}
+                            style={{ backgroundColor: theme.backgroundColor, color: "white" }}
+                        />
+                        <Input
+                            title="Confirm Password"
+                            required={true}
+                            pwd={true}
+                            register={true}
+                            original={pwdStr}
+                            value={confPwdStr}
+                            onChangeText={(text) => setConfPwdStr(text)}
+                            style={{ backgroundColor: theme.backgroundColor, color: "white" }}
+                        />
+                    </View>
+                    <View style={[style.componentContainer, style.inputs]}>
+                        <Input
+                            title="First Name"
+                            value={firstnameStr}
+                            onChangeText={(text) => setFirstnameStr(text)}
+                            style={{ backgroundColor: theme.backgroundColor, color: "white" }}
+                        />
+                        <Input
+                            title="Last Name"
+                            value={lastnameStr}
+                            onChangeText={(text) => setLastnameStr(text)}
+                            style={{ backgroundColor: theme.backgroundColor, color: "white" }}
+                        />
+                        <Input
+                            title="Birthdate"
+                            required={true}
+                            date={true}
+                            age={true}
+                            value={date}
+                            onChangeDate={(date) => setDate(date)}
+                            style={{ backgroundColor: theme.backgroundColor, color: "white" }}
+                        />
+                    </View>
+                    <ErrorMsg error={error} msg={errorMsg} />
+                    <View style={[style.componentContainer, style.buttonContainer]}>
+                        <CustomButton
+                            text="Register"
+                            onPressButton={() => doRegister()}
+                            styleName="Save"
+                            theme={{ backgroundColor: theme.backgroundColor, borderRadius: 5, marginTop: 10, width: "48%" }}
+                        />
+                        <CustomButton
+                            text="Cancel"
+                            styleName="Close"
+                            onPressButton={() => goBack()}
+                            theme={{ marginTop: 10, width: "48%", borderRadius: 5 }}
+                        />
+                    </View>
+
                 </View>
-                <View style={[style.componentContainer, style.inputs]}>
-                    <Input 
-                        title="Username"
-                        required={true}
-                        value={loginStr}
-                        onChangeText={(text) => setLoginStr(text)}
-                        style={{backgroundColor: theme.backgroundColor, color: "white"}}
-                    />
-                    <Input 
-                        title="Email"
-                        required={true}
-                        value={emailStr}
-                        onChangeText={(text) => setEmailStr(text)}
-                        style={{backgroundColor: theme.backgroundColor, color: "white"}}
-                    />
-                    <Input 
-                        title="Password"
-                        required={true}
-                        pwd={true}
-                        value={pwdStr}
-                        register={true}
-                        onChangeText={(text) => setPwdStr(text)}
-                        style={{backgroundColor: theme.backgroundColor, color: "white"}}
-                    />
-                    <Input 
-                        title="Confirm Password"
-                        required={true}
-                        pwd={true}
-                        register={true}
-                        original={pwdStr}
-                        value={confPwdStr}
-                        onChangeText={(text) => setConfPwdStr(text)}
-                        style={{backgroundColor: theme.backgroundColor, color: "white"}}
-                    />
-                </View>
-                <View style={[style.componentContainer, style.inputs]}>
-                    <Input 
-                        title="First Name"
-                        value={firstnameStr}
-                        onChangeText={(text) => setFirstnameStr(text)}
-                        style={{backgroundColor: theme.backgroundColor, color: "white"}}
-                    />
-                    <Input 
-                        title="Last Name"
-                        value={lastnameStr}
-                        onChangeText={(text) => setLastnameStr(text)}
-                        style={{backgroundColor: theme.backgroundColor, color: "white"}}
-                    />
-                    <Input 
-                        title="Birthdate"
-                        required={true}
-                        date={true}
-                        age={true}
-                        value={date}
-                        onChangeDate={(date) => setDate(date)}
-                        style={{backgroundColor: theme.backgroundColor, color: "white"}}
-                    />
-                </View>
-                <ErrorMsg error={error} msg={errorMsg} />
-                <View style={[style.componentContainer, style.buttonContainer]}>
-                    <CustomButton 
-                        text="Register"
-                        onPressButton={() => doRegister()}
-                        styleName="Save"
-                        theme={{backgroundColor: theme.backgroundColor, borderRadius: 5, marginTop: 10, width: "48%"}}
-                    />
-                    <CustomButton 
-                        text="Cancel"
-                        styleName="Close"
-                        onPressButton={() => goBack()}
-                        theme={{marginTop: 10, width: "48%", borderRadius: 5}}
-                    />
-                </View>
-                
-            </View>
-            
-        </KeyboardAvoidingView>
-        <Loading theme={theme} message="Connecting..." isLoading={isLoading} />
+
+            </KeyboardAvoidingView>
+            <Loading theme={theme} message="Connecting..." isLoading={isLoading} />
         </>
     );
 };
@@ -178,15 +187,15 @@ export default Registration;
 const style = StyleSheet.create({
     shadowProp: {
         shadowColor: "#171717",
-        shadowOffset: {width: -2, height: 4},
+        shadowOffset: { width: -2, height: 4 },
         shadowOpacity: 0.2,
         shadowRadius: 3,
     },
     elevation: {
         shadowColor: "#000",
         shadowOffset: {
-        	width: 0,
-        	height: 1,
+            width: 0,
+            height: 1,
         },
         shadowOpacity: 0.22,
         shadowRadius: 2.22,
@@ -194,7 +203,7 @@ const style = StyleSheet.create({
         elevation: 3,
     },
     componentContainer: {
-        display:"flex",
+        display: "flex",
         justifyContent: "center",
         width: "90%",
     },

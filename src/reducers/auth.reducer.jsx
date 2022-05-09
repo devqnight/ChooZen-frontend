@@ -5,7 +5,8 @@ const initialState = {
     isAuth: false,
     isLoading: false,
     login: null,
-    token: null
+    token: null,
+    err: null
 };
 
 const auth = (state = initialState, action) => {
@@ -30,7 +31,7 @@ const auth = (state = initialState, action) => {
         case REGISTER_REQUEST:
             return {...state, isLoading: true, token: null}
         case REGISTER_FAILURE:
-            return {...state, isLoading: false, err: action.user}
+            return {...initialState, err: action.err}
         case REGISTER_SUCCESS:
             return {isAuth: true, isLoading: false, login: action.user.login, token: action.user.response}
         default:

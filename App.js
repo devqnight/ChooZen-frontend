@@ -33,12 +33,12 @@ const App = () => {
         await loadTheme(dispatch);
         setIsLoading(false);
     }, []);
-
-    if(auth.isLoading || isLoading)
-        return <SplashScreen />
     
     return (
         <>
+            {(auth.isLoading || isLoading) && 
+                <SplashScreen />
+            }
             <StatusBar 
                 animated={true}
                 backgroundColor={theme.accentColor}

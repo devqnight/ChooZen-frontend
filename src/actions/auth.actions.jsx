@@ -67,7 +67,7 @@ const logout = (token) => {
 const register = (props) => {
     const request = (user) => {return {type: REGISTER_REQUEST, user}};
     const success = (user) => {return {type: REGISTER_SUCCESS, user}};
-    const failure = (user) => {return {type: REGISTER_FAILURE, user}};
+    const failure = (err) => {return {type: REGISTER_FAILURE, err}};
 
     return async dispatch => {
         let token;
@@ -85,7 +85,8 @@ const register = (props) => {
             .catch(error => {
                 dispatch(failure(error));
             })
-        await dispatch(checkAuthentication(token,props.login));
+        if(token)
+            await dispatch(checkAuthentication(token,props.login));
     }
 }
 
