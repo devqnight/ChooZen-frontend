@@ -21,6 +21,20 @@ const GroupDetail = ({userId}) => {
         navigator.navigate("Home");
     }
 
+    const membersFields = [];
+
+    for(let i = 0; i < group.members.length - 1; i++) {
+        const username = group.members[i].username;
+        memberFields.push(<Field key={i} title="" content={username}/>);
+    }
+
+    if(group.members.length > 0) {
+        const lastMemberIndex = group.members.length - 1;
+        const lastMemberUsername = group.members[lastMemberIndex].username;
+
+        membersFields.push(<Field key={lastMemberIndex} title="" content={lastMemberUsername} last={true}/>);
+    }
+
     return (
         <View style={styles.mainView}>
             {group.creator_infos && <View>
@@ -43,9 +57,7 @@ const GroupDetail = ({userId}) => {
                 
                 <View>
                     <Text style={[styles.sectionTitle, {color: theme.bar.activeTint, backgroundColor: theme.backgroundColor}]}>Members : </Text>
-                    {group.members.map((value,index, array) => {
-                        return <Field key={index} title="" content={value.username} />
-                    })}
+                    {membersFields}
                 </View>
             </View>}
         </View>
