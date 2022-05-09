@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { rateMovie } from "../../actions/movies.actions";
@@ -7,6 +7,7 @@ import { rateMovie } from "../../actions/movies.actions";
 import Header from "../../containers/common/Header.container";
 import { DefaultNoGroup } from "../../containers/groups/DefaultNoGroup.container";
 import { ScrollMovieList } from "../../containers/movies/ScrollMovieList.container";
+import { NoMoviesMessage, NoMoviesMessageExternStyles } from "../../components/NoMoviesMessage";
 
 const Next = () => {
     const theme = useSelector((state) => state.theme);
@@ -34,17 +35,21 @@ const Next = () => {
         }
     }
 
-    let nextView 
+    let nextView
+    let rootViewStyle;
+
     if (movies.voted && movies.voted.length > 0)
         nextView = 
             <View style={{height: "93%"}}>
                 <ScrollMovieList theme={theme} movies={movies.voted} height={600} marginBottom={28} onUpdate={(value, movie) => updateMovies(value, movie)} />
             </View>;
-    else 
-        nextView = <View style={style.cardContainer}><Text>No movies in list</Text></View>
+    else {
+        nextView = <NoMoviesMessage/>
+        rootViewStyle = NoMoviesMessageExternStyles.rootView;
+    }
 
     return (
-        <View>
+        <View style={rootViewStyle}>
             <Header title="Next" />
             {nextView}
         </View>
@@ -52,11 +57,3 @@ const Next = () => {
 };
 
 export default Next;
-
-const style = StyleSheet.create({
-    cardContainer: {
-        display:"flex",
-        justifyContent: "center",
-        alignItems: "center"
-    }
-});

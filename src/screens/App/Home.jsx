@@ -8,6 +8,7 @@ import Header from "../../containers/common/Header.container";
 import { DefaultNoGroup } from "../../containers/groups/DefaultNoGroup.container";
 import { DefaultMovieList } from "../../containers/movies/DefaultMovieList.container";
 import {Loading} from '../Loading';
+import {NoMoviesMessage, NoMoviesMessageExternStyles} from "../../components/NoMoviesMessage";
 
 const Home = () => {
     const theme = useSelector((state) => state.theme);
@@ -39,17 +40,21 @@ const Home = () => {
         }
     }
 
-    let homeView 
+    let homeView
+    let rootViewStyle;
+
     if (movies.movies && movies.movies.length > 0)
         homeView = <>
             <DefaultMovieList theme={theme} movies={movies.movies} onUpdate={(value, movie) => updateMovies(value, movie)} />
             <Loading isLoading={movies.loading} theme={theme} message={"Loading movies..."} />
         </>;
-    else 
-        homeView = <View style={style.cardContainer}><Text>No movies in list</Text></View>
+    else {
+        homeView = <NoMoviesMessage/>
+        rootViewStyle = NoMoviesMessageExternStyles.rootView;
+    }
 
     return (
-        <View>
+        <View style={rootViewStyle}>
             <Header title="Home" />
             {homeView}
         </View>
