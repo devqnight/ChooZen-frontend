@@ -1,10 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import { useSelector } from "react-redux";
 
 export const SplashScreen = () => {
+    const theme = useSelector((state) => state.theme);
+
     return (
         <View style={styles.splashBody}>
-            <Text style={styles.splashTitle}>ChooZen</Text>
+            <View style={styles.content}>
+                <Text style={styles.splashTitle}>Choo<Text style={[styles.zen, {color: theme.accentColor}]}>ZEN</Text></Text>
+                <Image style={styles.spinner} source={require('../../assets/spinner.gif')}/>
+            </View>
         </View>
     );
 }
@@ -16,8 +22,22 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         height: "100%"
     },
+    content: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+
+    },
+    spinner: {
+        width: 60,
+        height: 60,
+        opacity: 0.4
+    },  
     splashTitle: {
-        fontSize: 24,
+        fontSize: 50,
         color: "#aaa"
+    },
+    zen: {
+        fontWeight: "bold"
     }
 });

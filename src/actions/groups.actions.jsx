@@ -42,7 +42,8 @@ const fetchGroups = (token) => {
             .catch(error => {
                 dispatch(failure(error));
             });
-        await dispatch(updateGroup(token, group));
+        if(group)
+            await dispatch(updateGroup(token, group));
     };
 }
 
