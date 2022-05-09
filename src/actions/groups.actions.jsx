@@ -117,7 +117,6 @@ const deleteGroup = (user_id, group_id, groups) => {
             .catch(err => {
                 dispatch(failure(err));
             })
-        //await dispatch(fetchGroups(user_id));
     }
 }
 

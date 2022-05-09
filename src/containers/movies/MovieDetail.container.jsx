@@ -28,12 +28,6 @@ const MovieDetail = ({ movie, user, close, group, closeAll, theme, search, updat
 
     useEffect(async () => {
         setDetails(movie);
-        //if(!search){
-        //    await dispatch(fetchMovie(id, user.id));
-        //    setDetails(store.getState().data.movies.current);
-        //} else {
-        //    setDetails(movie);
-        //}
     }, []);
 
     let content = <></>;

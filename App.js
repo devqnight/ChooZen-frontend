@@ -42,7 +42,6 @@ const App = () => {
             <StatusBar 
                 animated={true}
                 backgroundColor={theme.accentColor}
-                //hidden={true}
             />
             <NavigationContainer>
                 <Stack.Navigator>
@@ -79,8 +78,6 @@ const loadAuth = async (dispatch, groups, user) => {
         const authData = await getFromStorage("auth");
         if(authData.login && authData.token){
             await dispatch(checkAuthentication(authData.token, authData.login));
-            //console.log(groups);
-            //await dispatch(updateGroup(user.id, groups[0]));
             await dispatch(logback(authData.login, authData.token));
         }
     } catch (e) {

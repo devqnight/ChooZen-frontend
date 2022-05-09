@@ -13,7 +13,6 @@ const GroupView = (props) => {
         tabs: {
             flexDirection: "row",
             margin: 0,
-            //borderRadius: 10,
             overflow: "hidden",
             backgroundColor: theme.bar.inactiveBackground,
         },

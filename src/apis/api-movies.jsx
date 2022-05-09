@@ -19,13 +19,6 @@ const fetchMovieAPI = async (movieId, userId) => {
     return res;
 };
 
-/**
- * 
- * deprecated
- * @param {} groupId 
- * @param {*} userId 
- * @returns
- */
 const fetchMoviesAPI = async (groupId, userId) => {
     const csrf = await getCSRF();
 
