@@ -9,7 +9,6 @@
 
 [ChooZen-frontend-test](https://github.com/Night4dead/ChooZen-frontend/tree/main/Documentation/Test%20Documentation)
 
-
 ----
 
 # ChooZen-frontend
@@ -23,6 +22,8 @@
 [Martin JOSSIC](https://github.com/sibzou)
 
 [Julien SIBILLE](https://github.com/tehjul)
+
+Répartition du travail de groupe : 25% chacun
 
 ## Description :
 
