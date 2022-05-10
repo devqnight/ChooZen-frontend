@@ -44,4 +44,4 @@ const data = combineReducers({
     movies: movies
 });
 
-export default data;
+export {data,groups};

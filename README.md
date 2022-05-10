@@ -7,6 +7,8 @@
 
 [ChooZen-backend](https://github.com/Night4dead/ChooZen-backend)
 
+[ChooZen-frontend-test](https://github.com/Night4dead/ChooZen-frontend/tree/main/Documentation/Test%20Documentation)
+
 ----
 
 # ChooZen-frontend
