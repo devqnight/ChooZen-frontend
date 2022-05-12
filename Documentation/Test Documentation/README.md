@@ -14,4 +14,9 @@ Open a terminal to run the following commands.
 >   npm run test
 >```
 
+Une partie partie des tests est uniquement disponible sur la branche "Test" car certains tests créé un conflit avec expo, la commande "npm run test" fonctionne de la même façon. L'erreur n'a pas pu être résolue avant la fin officielle du projet.
+
+La branche "test" contient seulement des tests supplémentaires comparés à la branche "main".
+
+
 
